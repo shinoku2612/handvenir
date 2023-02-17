@@ -1,0 +1,98 @@
+.toastContainer {
+    position: fixed;
+    top: calc(var(--header-height));
+    right: 20px;
+    z-index: 1001;
+}
+.toast {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    margin-top: 0.625rem;
+    background-color: #fff;
+    border-radius: 4px;
+    min-width: 300px;
+    max-width: 300px;
+    border-left: 0.25em solid currentColor;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+    animation: slideToLeft 300ms linear;
+}
+.toastIcon {
+    font-size: 24px;
+    padding: 0 1rem;
+}
+.toastBody {
+    flex-grow: 1;
+}
+.toastStatus {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+.toastMessage {
+    font-size: 0.875rem;
+    color: #888;
+    margin-top: 6px;
+}
+.toastClose {
+    font-size: 1.25rem;
+    color: #888;
+    cursor: pointer;
+    padding: 0 1rem;
+}
+
+/* Toast fill mode */
+.toast.fill {
+    background-color: var(--toast-bg);
+}
+.toast.fill .toastStatus,
+.toast.fill .toastMessage {
+    color: currentColor;
+}
+/* Toast auto close with timeline animation */
+.toast.timeline {
+    position: relative;
+    overflow: hidden;
+}
+.toast.timeline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 0.25em;
+    width: 100%;
+    background-color: currentColor;
+    transform-origin: left center;
+    animation: timelineDown var(--timeline-countdown) linear forwards;
+}
+
+/* ===== KEYFRAMES ===== */
+@keyframes slideToLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(calc(100% + 20px));
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+@keyframes timelineDown {
+    0% {
+        transform: scaleX(1);
+    }
+    100% {
+        transform: scaleX(0);
+    }
+}

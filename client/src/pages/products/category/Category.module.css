@@ -1,0 +1,24 @@
+.category {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-right: 0.625rem;
+}
+.categoryHeader {
+    margin-bottom: 0.625rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.headerTitle {
+    font-family: 'Poppins';
+    font-weight: 600;
+}
+.actionButton {
+    font-size: 0.875rem;
+    font-weight: normal;
+    color: var(--text-secondary);
+    cursor: pointer;
+}

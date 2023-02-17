@@ -1,0 +1,42 @@
+.pageNotFound {
+    min-height: calc(100vh - var(--header-height));
+    background-color: #ffffff;
+    overflow: hidden;
+    margin-top: var(--header-height);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.notFoundImageContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.notFoundImage {
+    width: 40%;
+    object-fit: cover;
+    object-position: center;
+}
+.notFoundContentContainer {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.notFoundTitle,
+.notFoundInfo {
+    text-align: center;
+}
+.notFoundTitle {
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    font-size: 1.5rem;
+}
+.notFoundInfo {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+.notFoundInfo:last-of-type {
+    margin-bottom: 1rem;
+}

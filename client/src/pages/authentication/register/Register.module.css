@@ -1,0 +1,100 @@
+.authForm {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    transition: 200ms 700ms ease-in-out;
+}
+.authForm.signUpForm {
+    z-index: 1;
+    opacity: 0;
+}
+.title {
+    font-size: 2.2rem;
+    color: #444444;
+    margin-bottom: 0.625rem;
+}
+.inputField {
+    max-width: 23.75rem;
+    width: 100%;
+    height: 3.2rem;
+    background-color: #f0f0f0;
+    margin: 0.625rem 0;
+    border-radius: 3.75rem;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    overflow: hidden;
+}
+.inputField .iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.inputField .iconContainer .icon {
+    fill: #acacac;
+    font-size: 1.5rem;
+}
+.inputField .input {
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333333;
+}
+.inputField .input:autofill,
+.inputField .input:-webkit-autofill {
+    box-shadow: 0 0 1000px #f0f0f0 inset;
+}
+.inputField .input::placeholder {
+    color: #aaaaaa;
+    font-weight: 500;
+}
+.authForm .solidBtn {
+    padding: 0.75em 2.75em;
+    background-color: var(--secondary-clr);
+    border-color: var(--secondary-clr);
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0.625rem 0;
+}
+.authForm .solidBtn:hover {
+    background-color: var(--secondary-clr-hover);
+    border-color: var(--secondary-clr-hover);
+}
+.socialText {
+    padding: 0.7rem 0;
+    font-size: 1rem;
+}
+.socialMedia {
+    display: flex;
+    justify-content: center;
+}
+.socialIcon {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 0.45rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid currentColor;
+    font-size: 1.1rem;
+    border-radius: 50%;
+    transition: 300ms;
+}
+.socialIcon:hover {
+    color: var(--social-icon-hover);
+}
+.socialIcon:active {
+    transform: scale(0.9);
+}
+.signUpMode.authForm.signUpForm {
+    z-index: 2;
+    opacity: 1;
+}
+@media (max-width: 35.625rem) {
+    .authForm.signUpForm {
+        padding: 0 1.5rem;
+    }
+}

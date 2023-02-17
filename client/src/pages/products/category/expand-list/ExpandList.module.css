@@ -1,0 +1,35 @@
+.categoryListContainer {
+    width: 100%;
+    background-color: #fff;
+    padding: 0.625rem;
+    margin-bottom: 1.25rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+.categoryListHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem;
+}
+.categoryName {
+    font-size: 0.875rem;
+    font-family: 'Poppins';
+    font-weight: 500;
+}
+.categoryList {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #eeeeee;
+}
+.categoryItem {
+    width: 100%;
+    padding: 0.625rem;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.categoryItem:not(:last-child) {
+    border-bottom: 1px solid #eeeeee;
+}

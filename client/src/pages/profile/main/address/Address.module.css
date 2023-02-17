@@ -1,0 +1,57 @@
+.infoContainer {
+    padding: 0.625rem 2rem;
+}
+.header {
+    text-align: center;
+    padding: 0.625rem;
+    font-size: 1.5rem;
+}
+.content {
+    margin-bottom: 1rem;
+}
+
+.addressSection {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eeeeee;
+}
+.sectionHeader {
+    padding: 0.625rem;
+    font-weight: 500;
+}
+.streetInput {
+    padding: 0.5em;
+    font-size: 0.875rem;
+    border: 1px solid #acacac;
+    border-radius: 0.25rem;
+}
+
+.deliverAddressGroup {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    margin-left: 0.5rem;
+}
+.deliverLabel {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-right: 0.25rem;
+}
+.deliverAddress {
+    font-size: 0.875rem;
+    margin-left: 1rem;
+    position: relative;
+}
+.deliverAddress::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    background-color: currentColor;
+}
+.emptyAddress {
+    font-size: 0.875rem;
+    margin-left: 1rem;
+    color: var(--danger-clr);
+}

@@ -1,0 +1,60 @@
+.commentContainer {
+    padding: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+}
+.commentContainer + .commentContainer {
+    border-top: 1px solid #eeeeee;
+}
+.userImage {
+    margin-right: 1rem;
+}
+.image {
+    --size: 2.5rem;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+}
+.commentDetails {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.userName {
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 0.25rem;
+}
+.userName:hover {
+    text-decoration: underline currentColor;
+}
+.time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0;
+}
+.commentContent {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+.commentReaction {
+    display: flex;
+    align-items: center;
+}
+.reactionIcon,
+.reactionCount {
+    color: var(--text-secondary);
+    margin-right: 0.5rem;
+}
+.reactionIcon {
+    cursor: pointer;
+    font-size: 1rem !important;
+}
+.reactionIcon:hover {
+    color: var(--dark-clr);
+}
+.reactionCount {
+    font-size: 0.875rem;
+}

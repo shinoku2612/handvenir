@@ -1,0 +1,138 @@
+:root {
+    /* COMPONENT SIZES */
+    --header-height: 3.75rem;
+    --subheader-height: 3.75rem;
+
+    --loader-index: 1000;
+    --header-index: 999;
+
+    /* COLORS */
+    --primary-clr: #2271ff;
+    --primary-hover-clr: #2259be;
+    --secondary-clr: #5995fd;
+    --secondary-clr-hover: #4d84e2;
+    --social-icon-hover: #4481eb;
+
+    --danger-clr: #dc3545;
+    --info-clr: #17a2b8;
+    --warning-clr: #ffc107;
+    --success-clr: #28a745;
+    --light-clr: #f8f9fa;
+    --dark-clr: #343a40;
+    --text-secondary: #6c757d;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+    -webkit-tap-highlight-color: transparent;
+}
+@font-face {
+    font-family: 'Poppins';
+    src: url(../fonts/Poppins-Light.ttf) url(../fonts/Poppins-Regular.ttf)
+        url(../fonts/Poppins-Medium.ttf) url(../fonts/Poppins-SemiBold.ttf)
+        url(../fonts/Poppins-Bold.ttf);
+}
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* margin: 0.625rem; */
+    padding: 0.5em 1em;
+    border-radius: 0.25em;
+    cursor: pointer;
+    border: 0.125em solid;
+    font-weight: bold;
+    transition: 150ms ease;
+    user-select: none;
+
+    text-decoration: none;
+
+    outline: none;
+
+    background-color: var(--bg-clr, transparent);
+    color: var(--text-clr, #000000);
+    border-color: var(--bg-clr, #000000);
+}
+.btn:hover {
+    filter: brightness(0.98);
+}
+.btn:active {
+    transform: scale(0.9);
+}
+.btn:disabled,
+.btn.disabled,
+button:disabled,
+button.disabled {
+    opacity: 0.75;
+    cursor: default;
+    pointer-events: none;
+}
+.no-bordered {
+    border: none !important;
+}
+.btn-circular {
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+}
+.btn-rounded {
+    border-radius: 100vh;
+}
+.btn-outlined:not(:hover) {
+    background-color: var(--text-clr);
+    color: var(--bg-clr);
+}
+.btn-primary {
+    --bg-clr: var(--primary-clr);
+    --text-clr: #ffffff;
+}
+.btn-light {
+    --bg-clr: var(--light-clr);
+    --text-clr: var(--dark-clr);
+}
+.btn-dark {
+    --bg-clr: var(--dark-clr);
+    --text-clr: var(--light-clr);
+}
+.btn-danger {
+    --bg-clr: var(--danger-clr);
+    --text-clr: #fff;
+}
+.btn-secondary {
+    --bg-clr: var(--secondary-clr);
+    --text-clr: #fff;
+}
+.btn-groups {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+.m-inline-1 {
+    margin: 0 1rem;
+}
+.mt-1 {
+    margin-top: 1rem;
+}
+.mb-1 {
+    margin-bottom: 1rem;
+}
+.width-full {
+    width: 100%;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.text-small {
+    font-size: 0.75rem;
+}
+.text-secondary {
+    color: var(--text-secondary);
+}
+.clickable-link:hover {
+    cursor: pointer;
+    text-decoration: underline currentColor;
+}

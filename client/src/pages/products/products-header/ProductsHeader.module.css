@@ -1,0 +1,10 @@
+.listHeader {
+    display: flex;
+    margin-bottom: 0.625rem;
+    border-bottom: 1px solid var(--menu-border);
+}
+.filterCritetia {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}

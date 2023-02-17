@@ -1,0 +1,29 @@
+.products {
+    padding: 0.625rem;
+    margin-top: 1rem;
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+.productSidebar {
+    margin-top: 0.625rem;
+}
+.productList {
+    padding: 1rem;
+    border-radius: 0.625rem;
+    background-color: inherit;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.15);
+    --item-view: 3;
+    --column-gap: 1rem;
+    display: grid;
+    gap: var(--column-gap);
+    grid-template-columns: repeat(var(--item-view), 1fr);
+}
+
+.products::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: #f5f5f5;
+}
+.products::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: #cccccc;
+}

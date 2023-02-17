@@ -1,0 +1,28 @@
+.infoContainer {
+    padding: 0.625rem 2rem;
+}
+.header {
+    text-align: center;
+    padding: 0.625rem;
+    font-size: 1.5rem;
+}
+.content {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+.filterContainer {
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #eeeeee;
+}
+.filterHeader {
+    font-size: 0.875rem;
+}
+.filterGroup {
+    display: grid;
+    column-gap: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+}
+.filterSelect {
+    font-size: 0.75rem;
+}

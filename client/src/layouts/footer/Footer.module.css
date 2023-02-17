@@ -1,0 +1,218 @@
+.footer {
+    width: 100%;
+    padding-top: 2.5rem;
+    background-color: #fbfbfb;
+    margin-top: 4rem;
+}
+.topSection {
+    width: 100%;
+    display: flex;
+}
+.footerLeft,
+.footerRight {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    flex-basis: 50%;
+}
+.leftMenu,
+.rightMenu {
+    padding: 0 0.625rem;
+    flex: 1;
+    margin-bottom: 1.25rem;
+}
+.menuTitle {
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+}
+.menuContainer {
+    list-style: none;
+    margin-top: 0.625rem;
+    width: 100%;
+}
+.menuItem,
+.menuItem > * {
+    font-size: 0.75rem;
+    text-decoration: none;
+    color: var(--dark-clr);
+    padding: 0.25rem 0;
+    transition: color 150ms ease-in-out;
+    text-transform: capitalize;
+}
+.paymentList,
+.socialList {
+    display: flex;
+    align-items: center;
+    margin-top: 0.625rem;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.paymentMethod {
+    width: 3.125rem;
+    height: 1.875rem;
+    background-color: #ffffff;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.25rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    user-select: none;
+}
+.paymentMethod .image {
+    width: 100%;
+    object-fit: contain;
+}
+.menuItem > *:hover,
+.privacyItem:hover,
+.socialIcon:hover {
+    color: var(--primary-clr);
+}
+
+.footerRight {
+    flex-direction: column;
+}
+.socialIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    margin-bottom: 0.25rem;
+    transition: color 150ms ease-in-out;
+}
+.socialIcon + .socialIcon,
+.paymentMethod + .paymentMethod {
+    margin-left: 0.625rem;
+}
+.inputGroup {
+    display: flex;
+    margin-top: 0.5rem;
+}
+.input {
+    flex: 1;
+    padding: 0.625rem;
+    font-size: 0.75rem;
+
+    background-color: #ffffff;
+    border: 1px solid #acacac;
+    outline: none;
+}
+.input:focus {
+    border: 1px solid var(--dark-clr);
+}
+.btnSubscribe {
+    background-color: #000000;
+    padding: 0.5em 2em;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 150ms ease-in-out;
+}
+.btnSubscribe:hover {
+    background-color: #626262;
+}
+
+.bottomSection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 1.5rem;
+    padding: 2rem 0;
+    border-top: 1px solid #eeeeee;
+}
+.copyright {
+    margin-right: 1.5rem;
+    padding: 0 1rem;
+    color: var(--dark-clr);
+    font-size: 0.875rem;
+    font-weight: 300;
+}
+.privacyList {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.privacyItem {
+    color: var(--dark-clr);
+    font-size: 0.8rem;
+    font-weight: 300;
+    padding-right: 0.5rem;
+    transition: color 150ms ease-in-out;
+}
+.privacyItem + .privacyItem {
+    padding-left: 0.5rem;
+    border-left: 1px solid var(--dark-clr);
+}
+@media (max-width: 48rem) {
+    .footer {
+        margin-top: 2rem;
+    }
+    .topSection {
+        flex-direction: column;
+    }
+}
+@media (max-width: 30rem) {
+    .footer {
+        padding-top: 1rem;
+    }
+    .footerLeft {
+        flex-direction: column;
+        border-bottom: 1px solid #eeeeee;
+        margin-bottom: 1rem;
+    }
+    .leftMenu + .leftMenu,
+    .rightMenu + .rightMenu {
+        border-top: 1px solid #eeeeee;
+        margin-bottom: 0;
+        padding: 1rem 0;
+    }
+    .menuTitle {
+        text-align: center;
+    }
+    .menuContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .socialList,
+    .paymentList {
+        justify-content: center;
+    }
+    .inputGroup {
+        flex-direction: column;
+    }
+    .btnSubscribe {
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+
+    .bottomSection {
+        margin-top: 0;
+        flex-direction: column;
+        padding: 0;
+    }
+    .copyright {
+        margin: 1rem 0;
+    }
+    .privacyList {
+        width: 100%;
+        border-top: 1px solid #eeeeee;
+        justify-content: center;
+        flex-direction: column;
+        padding: 1rem 0;
+    }
+    .privacyItem + .privacyItem {
+        border: none;
+    }
+}

@@ -1,0 +1,106 @@
+.category {
+    width: 100%;
+    padding: 0.625rem 0;
+    margin-top: 4rem;
+}
+.categoryContainer {
+    --item-view: 7;
+    --column-gap: 1rem;
+    display: grid;
+    gap: var(--column-gap);
+    grid-auto-flow: column;
+    grid-auto-columns: calc(100% / var(--item-view));
+    overflow-x: auto;
+    padding: 0.625rem 0.5rem;
+    scroll-snap-type: inline mandatory;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+}
+.categoryContainer::-webkit-scrollbar {
+    display: none;
+}
+.categoryItem {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scroll-snap-align: start;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3) inset;
+    text-decoration: none;
+}
+.categoryName {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--dark-clr);
+    text-align: center;
+    padding: 10px 0;
+}
+.image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+}
+.container {
+    position: relative;
+}
+.actionBtnLeft,
+.actionBtnRight {
+    --btn-size: 2.5rem;
+    position: absolute;
+    top: 50%;
+    width: var(--btn-size);
+    height: var(--btn-size);
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+}
+.actionBtnLeft {
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+.actionBtnRight {
+    right: 0;
+    transform: translate(50%, -50%);
+}
+@media (max-width: 75rem) {
+    .category {
+        margin-top: 1rem;
+    }
+}
+@media (max-width: 75rem) and (min-width: 62rem) {
+    .categoryContainer {
+        --item-view: 6;
+    }
+}
+@media (max-width: 62rem) and (min-width: 48rem) {
+    .categoryContainer {
+        --item-view: 5;
+    }
+}
+@media (max-width: 48rem) and (min-width: 36rem) {
+    .categoryContainer {
+        --item-view: 4;
+    }
+}
+@media (max-width: 36rem) {
+    .categoryContainer {
+        --item-view: 4;
+    }
+    .actionBtnLeft,
+    .actionBtnRight {
+        --btn-size: 2rem;
+        transform: translate(0, -50%);
+    }
+}
+@media (max-width: 30rem) {
+    .categoryContainer {
+        --item-view: 3;
+    }
+}

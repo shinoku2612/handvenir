@@ -1,0 +1,28 @@
+.quantityGroup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: inherit;
+}
+.actionBtn,
+.quantity {
+    font-size: inherit;
+    --size: 2em;
+    height: var(--size);
+    background-color: #ffffff;
+
+    border: 1px solid #eeeeee;
+    outline: none;
+}
+.actionBtn {
+    width: var(--size);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.quantity {
+    width: calc(1.5 * var(--size));
+    cursor: text;
+    text-align: center;
+}

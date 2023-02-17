@@ -1,0 +1,28 @@
+.slideImageContainer {
+    --slider-height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--slider-height);
+}
+.slideImage {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+}
+@media (max-width: 48rem) {
+    .slideImageContainer {
+        --slider-height: 40vh;
+    }
+}
+@media (max-width: 36rem) {
+    .slideImageContainer {
+        --slider-height: 30vh;
+    }
+}
+@media (max-width: 30rem) {
+    .slideImageContainer {
+        --slider-height: 25vh;
+    }
+}

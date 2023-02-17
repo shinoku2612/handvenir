@@ -1,0 +1,25 @@
+.menuItem {
+    --item-size: 2.5rem;
+    width: var(--item-size);
+    height: var(--item-size);
+    border-radius: 50%;
+    border: 1px solid #acacac;
+    background-color: #ffffff;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 150ms ease;
+    text-decoration: none;
+    color: #000000;
+}
+.menuItem:active {
+    transform: scale(0.9);
+}
+.userAvatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}

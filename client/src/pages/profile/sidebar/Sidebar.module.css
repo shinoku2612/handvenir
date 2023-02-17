@@ -1,0 +1,90 @@
+.sidebarTop {
+    background-color: inherit;
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+    border-radius: 0.625rem;
+    box-shadow: 0.5rem 0.5rem 1.25rem #c7c7c7, -0.5rem -0.5rem 1.25rem #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.avatarContainer,
+.nameContainer {
+    --p: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--p);
+    position: relative;
+    overflow: hidden;
+}
+.avatarContainer {
+    border-radius: 50%;
+    background: inherit;
+    box-shadow: 0.25rem 0.25rem 1rem #cccccc, -0.25rem -0.25rem 1rem #ffffff;
+}
+.avatar {
+    --avatar-size: 8rem;
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    border-radius: 50%;
+}
+.name {
+    font-family: 'Poppins';
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.sidebarBottom {
+    background-color: inherit;
+    padding: 0.625rem;
+    margin-bottom: 0.625rem;
+    border-radius: 0.625rem;
+    box-shadow: 0.5rem 0.5rem 1.25rem #c7c7c7, -0.5rem -0.5rem 1.25rem #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.menuContainer {
+    width: 100%;
+    padding: 0 0.625rem;
+}
+.menuItem {
+    padding: 0.625rem;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background-color: inherit;
+    border-radius: 0.25rem;
+    transition: background-color 100ms ease;
+    color: #000;
+    text-decoration: none;
+}
+.menuItem + .menuItem {
+    margin-top: 0.625rem;
+}
+.menuItem:hover,
+.menuActive {
+    /* background-color: var(--primary-clr);
+    color: #ffffff; */
+
+    box-shadow: inset 0.25rem 0.25rem 0.4rem #d1d1d1,
+        inset -0.25rem -0.25rem 0.4rem rgb(240, 240, 240);
+}
+.menuTitle {
+    padding: 0.25rem;
+    margin-left: 0.5rem;
+}
+.menuImage {
+    --size: 2.5rem;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 0.025rem;
+    object-fit: contain;
+    object-position: center;
+}

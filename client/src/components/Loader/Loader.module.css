@@ -1,0 +1,74 @@
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: var(--loader-index);
+}
+.loader.fill {
+    background-color: #ffffff;
+}
+.loader.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.loaderContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 100px;
+    height: 100px;
+    animation: scale 1000ms linear infinite;
+}
+.loaderComponent {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    animation: rotate 1000ms linear infinite;
+}
+.loaderComponent:nth-child(1) {
+    top: 0;
+    left: 0;
+    background-color: var(--warning-clr);
+}
+.loaderComponent:nth-child(2) {
+    top: 0;
+    right: 0;
+    background-color: var(--info-clr);
+}
+.loaderComponent:nth-child(3) {
+    bottom: 0;
+    left: 0;
+    background-color: var(--danger-clr);
+}
+.loaderComponent:nth-child(4) {
+    bottom: 0;
+    right: 0;
+    background-color: var(--success-clr);
+}
+
+@keyframes scale {
+    0%,
+    10%,
+    90%,
+    100% {
+        width: 100px;
+        height: 100px;
+    }
+    50% {
+        width: 150px;
+        height: 150px;
+    }
+}
+@keyframes rotate {
+    0%,
+    10% {
+        transform: rotate(0deg);
+    }
+    50%,
+    90%,
+    100% {
+        transform: rotate(90deg);
+    }
+}

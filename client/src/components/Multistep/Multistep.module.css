@@ -1,0 +1,137 @@
+.multistepWrapper {
+    padding: 0.5rem;
+    margin-top: 1rem;
+}
+.multistepHeader {
+    --label-size: 2.5rem;
+    --line-animate-time: 300ms;
+    --step-animate-time: 100ms;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    grid-auto-flow: column;
+
+    position: relative;
+}
+.stepContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+}
+.stepContainer::before,
+.stepContainer::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background-color: #eeeeee;
+    top: calc(var(--label-size) / 2);
+    left: -50%;
+}
+.stepContainer::after {
+    transform-origin: left;
+    transform: scaleX(0);
+    background-color: var(--primary-clr);
+}
+.stepContainer:first-child::before,
+.stepContainer:first-child::after {
+    display: none;
+}
+.stepContainer.done::after {
+    animation-name: scaleRight;
+    animation-duration: var(--line-animate-time);
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+.stepContainer.done .stepLabel,
+.stepContainer.done .stepName {
+    animation-duration: var(--step-animate-time);
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-delay: var(--line-animate-time);
+}
+.stepContainer.done .stepLabel {
+    animation-name: fillColor;
+}
+.stepContainer.done .stepName {
+    animation-name: colorUp;
+}
+.stepLabel {
+    z-index: 1;
+    width: var(--label-size);
+    height: var(--label-size);
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.3);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.stepName {
+    font-size: 0.75rem;
+    margin: 0.5rem 0;
+    text-transform: capitalize;
+    text-align: center;
+
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    overflow: hidden;
+    display: -webkit-box;
+}
+.multistepBody {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(12.5rem, 1fr));
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+.multistepBody > * {
+    grid-column: 2 / 3;
+}
+.multistepFooter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.5rem;
+    padding: 0 5rem;
+    margin-top: 1rem;
+}
+.actionBtn {
+    font-size: 0.875rem;
+    padding: 0.25em 1em;
+    color: var(--primary-clr);
+    border: 1px solid currentColor;
+    background-color: #ffffff;
+    border-radius: 100vh;
+    cursor: pointer;
+    transition: background-color 50ms ease-in-out;
+    user-select: none;
+}
+.actionBtn:hover {
+    background-color: var(--primary-clr);
+    color: #ffffff;
+}
+
+@keyframes scaleRight {
+    to {
+        transform: scaleX(1);
+    }
+}
+@keyframes fillColor {
+    to {
+        background-color: var(--primary-clr);
+        color: #ffffff;
+        font-weight: 600;
+    }
+}
+@keyframes colorUp {
+    to {
+        color: var(--primary-clr);
+    }
+}

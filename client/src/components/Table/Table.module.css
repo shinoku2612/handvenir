@@ -1,0 +1,44 @@
+.tableContainer {
+    overflow: auto;
+    border: 0.0625rem solid #eeeeee;
+    background-color: #ffffff;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    max-height: 27rem;
+    overscroll-behavior: none;
+}
+.tableContainer::-webkit-scrollbar {
+    display: none;
+}
+.tableContainer table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow: auto;
+}
+.tableContainer table thead {
+    background-color: #eeeeee;
+    position: sticky;
+    top: 0;
+}
+.tableContainer table tbody tr,
+.tableContainer table tfoot tr {
+    border-top: 0.0625rem solid #eeeeee;
+}
+.tableContainer table th,
+.tableContainer table td {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    text-align: center;
+}
+.tableContainer table tfoot {
+    background-color: #ffffff;
+    position: sticky;
+    bottom: 0;
+}
+
+.paginationContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

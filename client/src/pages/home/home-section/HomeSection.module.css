@@ -1,0 +1,70 @@
+.homeSection {
+    width: 100%;
+    padding: 0.625rem 0;
+    margin-top: 4rem;
+}
+.sectionContainer {
+    --item-view: 4;
+    --column-gap: 1.25rem;
+    display: grid;
+    gap: var(--column-gap);
+    grid-auto-flow: column;
+    grid-auto-columns: calc(100% / var(--item-view));
+    overflow-x: auto;
+    padding: 0.625rem 0.5rem;
+    scroll-snap-type: inline mandatory;
+    overscroll-behavior-inline: contain;
+    scroll-behavior: smooth;
+}
+.sectionContainer::-webkit-scrollbar {
+    display: none;
+}
+.container {
+    position: relative;
+}
+.actionBtnLeft,
+.actionBtnRight {
+    --btn-size: 2.5rem;
+    position: absolute;
+    top: 50%;
+    width: var(--btn-size);
+    height: var(--btn-size);
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+}
+.actionBtnLeft {
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+.actionBtnRight {
+    right: 0;
+    transform: translate(50%, -50%);
+}
+@media (max-width: 75rem) {
+    .homeSection {
+        margin-top: 0;
+    }
+}
+@media (max-width: 62rem) and (min-width: 48rem) {
+    .homeSection .sectionContainer {
+        --item-view: 3;
+    }
+}
+@media (max-width: 48rem) {
+    .sectionContainer {
+        --item-view: 2;
+    }
+}
+@media (max-width: 36rem) {
+    .actionBtnLeft,
+    .actionBtnRight {
+        --btn-size: 2rem;
+        transform: translate(0, -50%);
+    }
+}

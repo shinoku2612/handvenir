@@ -1,0 +1,97 @@
+.addressCard {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-radius: 0.25rem;
+    margin: 0 0.5rem;
+    margin-top: 1rem;
+
+    box-shadow: 0 0 0.5rem #b6b6b6;
+    position: relative;
+    background-color: #ffffff;
+}
+.addressCard.main {
+    background-color: var(--primary-clr);
+    color: #ffffff;
+    font-weight: 500;
+}
+.location {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: inherit;
+}
+.location + .location {
+    border-left: 1px solid #eeeeee;
+}
+.locationType {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+.locationName {
+    font-size: 0.8rem;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    overflow: hidden;
+    display: -webkit-box;
+}
+.dropdownContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.25rem;
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: inherit;
+}
+.dropdownMenu {
+    position: absolute;
+    top: 100%;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: #ffffff;
+    color: #000000;
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.3));
+    list-style: none;
+    min-width: 10rem;
+    padding: 0.5rem;
+    border-radius: 0.25em;
+    display: none;
+    z-index: 1;
+}
+.dropdownMenu::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-bottom: 0.5rem solid #ffffff;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+}
+.dropdownContainer.active > .dropdownMenu {
+    display: block;
+}
+.dropDownItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em;
+    font-size: 0.75rem;
+    border-radius: inherit;
+}
+.dropDownItem + .dropDownItem {
+    border-top: 1px solid #eeeeee;
+}
+.dropDownItem:hover {
+    background-color: var(--primary-clr);
+    color: #ffffff;
+}

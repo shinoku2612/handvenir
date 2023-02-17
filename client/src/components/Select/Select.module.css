@@ -1,0 +1,83 @@
+.select {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.label {
+    font-family: 'Poppins';
+    font-size: inherit;
+    font-weight: 500;
+}
+.value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5em;
+    margin-top: 0.5rem;
+
+    background-color: #fbfbfc;
+    border-radius: 0.25rem;
+    border: 1px solid var(--text-secondary);
+}
+.optionContainer {
+    padding: 0 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+
+    z-index: 5;
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    visibility: hidden;
+}
+.optionContainer.expand {
+    animation: fadedExpand 200ms ease-in-out forwards;
+}
+.option {
+    user-select: none;
+    padding: 0.5em 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid #eeeeee;
+    border-radius: inherit;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    transition-duration: 100ms;
+    transition-timing-function: ease-in-out;
+    transition-property: background-color, color;
+}
+.option:hover,
+.option.selected {
+    background-color: var(--primary-clr);
+    color: #ffffff;
+}
+
+.rotateUp {
+    animation: rotateUp 200ms ease-in-out forwards;
+}
+
+@keyframes fadedExpand {
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: scaleY(1);
+    }
+}
+@keyframes rotateUp {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(-180deg);
+    }
+}

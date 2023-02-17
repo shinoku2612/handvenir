@@ -1,0 +1,12 @@
+.profile {
+    padding: 0.625rem;
+    /* margin-top: 1rem; */
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+.mainSection {
+    padding: 1rem;
+    border-radius: 0.625rem;
+    background-color: inherit;
+    box-shadow: 0.5rem 0.5rem 1.25rem #c7c7c7, -0.5rem -0.5rem 1.25rem #ffffff;
+}
