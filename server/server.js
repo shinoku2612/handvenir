@@ -4,9 +4,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 
-// import routers / middlewares
-const authRoute = require('./routes/auth.route.js');
-
 // configurations
 dotenv.config();
 const app = express();
@@ -16,11 +13,15 @@ app.use(express.json());
 app.use(cookieParser());
 
 // MongoDB connection
-const MongoDBConnect = require('./databases/mongo.connect.js');
-MongoDBConnect(process.env.NODE_MONGO_URI);
+require('./databases/mongo.connect.js');
+
+// import routers / middlewares
+const authRoute = require('./routes/auth.route.js');
+const otpRoute = require('./routes/otp.route.js');
 
 // use middlewares - routers
 app.use('/api/auth', authRoute);
+app.use('/api/otp', otpRoute);
 
 // app listening
 const runningPort = process.env.NODE_PORT || 3032;

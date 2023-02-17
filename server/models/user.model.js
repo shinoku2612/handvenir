@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const { ShinPayConnector } = require('../databases/mongo.connect');
 
-const UserSchema = mongoose.Schema(
+const UserSchema = new mongoose.Schema(
     {
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
@@ -17,10 +18,11 @@ const UserSchema = mongoose.Schema(
                 district: { type: String },
                 town: { type: String },
                 street: { type: String },
+                isMain: { type: Boolean, default: false },
             },
         ],
     },
     { timestamps: true },
 );
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = ShinPayConnector.model('User', UserSchema);
