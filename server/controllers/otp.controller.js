@@ -6,8 +6,7 @@ const UserModel = require('../models/user.model');
 
 async function sendOTP(req, res) {
     try {
-        req.user = null;
-        const { type, email, password } = req.body;
+        const { type, email } = req.body;
 
         const existOTP = await OTPModel.findOne({ receiver: email });
         if (existOTP) {
@@ -57,7 +56,7 @@ async function sendOTP(req, res) {
                 });
             }
         }
-        req.user = { email, password };
+
         await newOTP.save();
         sendMail(email, 'Account register', registerMail(OTPCode));
         return res.status(201).json({
@@ -67,7 +66,7 @@ async function sendOTP(req, res) {
             data: newOTP,
         });
     } catch (error) {
-        res.status(500).json(error.message);
+        return res.status(500).json(error.message);
     }
 }
 

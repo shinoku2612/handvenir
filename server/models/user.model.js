@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const { ShinPayConnector } = require('../databases/mongo.connect');
 
 const UserSchema = new mongoose.Schema(
@@ -24,5 +25,24 @@ const UserSchema = new mongoose.Schema(
     },
     { timestamps: true },
 );
+
+UserSchema.pre('save', async function (next) {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(this.password, salt);
+        this.password = hashPassword;
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
+UserSchema.methods.validateCode = async function (password) {
+    try {
+        const result = await bcrypt.compare(password, this.password);
+        return result;
+    } catch (error) {
+        return false;
+    }
+};
 
 module.exports = ShinPayConnector.model('User', UserSchema);
