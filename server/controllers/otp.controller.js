@@ -1,3 +1,4 @@
+const sendMail = require('../helper/mail.helper');
 const generateOTP = require('../helper/otp.helper');
 const OTPModel = require('../models/otp.model');
 const UserModel = require('../models/user.model');
@@ -57,6 +58,7 @@ async function sendOTP(req, res) {
         }
         req.user = { email, password };
         await newOTP.save();
+        sendMail(email, 'Account register');
         return res.status(201).json({
             code: '1021',
             status: 'success',
