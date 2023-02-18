@@ -14,7 +14,7 @@ async function sendMail(receiver, subject, mailTemplate) {
         replyTo: 'noreply.account.shinpay@gmail.com',
         to: receiver,
         subject,
-        html: 'Hello',
+        html: mailTemplate,
     });
 }
 module.exports = sendMail;
