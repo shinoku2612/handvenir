@@ -59,6 +59,7 @@ async function sendOTP(req, res) {
 
         await newOTP.save();
         sendMail(email, 'Account register', registerMail(OTPCode));
+
         return res.status(201).json({
             code: '1021',
             status: 'success',
@@ -66,7 +67,12 @@ async function sendOTP(req, res) {
             data: newOTP,
         });
     } catch (error) {
-        return res.status(500).json(error.message);
+        return res.status(500).json({
+            code: '0050',
+            status: 'error',
+            error: 'internal-server-error',
+            messgae: error.message,
+        });
     }
 }
 

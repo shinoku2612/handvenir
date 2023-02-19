@@ -28,6 +28,7 @@ OTPSchema.pre('save', async function (next) {
 OTPSchema.methods.validateCode = async function (code) {
     try {
         const result = await bcrypt.compare(code, this.code);
+        if (result) this.delete();
         return result;
     } catch (error) {
         return false;

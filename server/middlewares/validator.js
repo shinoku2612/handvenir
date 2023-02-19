@@ -4,8 +4,15 @@ async function validateOTP(req, res, next) {
     try {
         const { code, email, password } = req.body;
 
-        const OTP = await OTPModel.findOne({ receiver: email });
-        const isValid = await OTP.validateCode(code);
+        const existOTP = await OTPModel.findOne({ receiver: email });
+        if (!existOTP)
+            return res.status(404).json({
+                code: '0044',
+                status: 'error',
+                error: 'notfound',
+                message: 'Code not found!',
+            });
+        const isValid = await existOTP.validateCode(code);
 
         if (!isValid)
             return res.status(401).json({
