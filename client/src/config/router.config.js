@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import Loader from '../components/Loader/Loader';
 import Layout from '../layouts/Layout';
-import { getUser } from '../redux/selectors';
+import { getUserId } from '../redux/selectors';
 import { PATH } from './constant.config';
 
 // Page not found
@@ -51,9 +51,16 @@ const queryClient = new QueryClient({
 });
 
 export default function Router() {
-    const user = useSelector(getUser);
+    const userId = useSelector(getUserId);
     const router = createBrowserRouter([
-        { path: PATH.auth, element: <Authentication /> },
+        {
+            path: PATH.auth,
+            element: userId ? (
+                <Navigate to={`/${PATH.profile.index}`} />
+            ) : (
+                <Authentication />
+            ),
+        },
         {
             path: '/',
             element: <Layout />,
@@ -61,7 +68,11 @@ export default function Router() {
                 { index: true, element: <Home /> },
                 {
                     path: PATH.profile.index,
-                    element: user ? <Profile /> : <Navigate to={`/${PATH.auth}`} />,
+                    element: userId ? (
+                        <Profile />
+                    ) : (
+                        <Navigate to={`/${PATH.auth}`} />
+                    ),
                     children: [
                         { index: true, element: <Information /> },
                         {

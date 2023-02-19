@@ -5,12 +5,12 @@ import MENU from '../../../config/menu.config';
 import cx from '../../../utils/class-name';
 import styles from './ResponsiveMenu.module.css';
 
-export default function ResponsiveMenu({ user }) {
+export default function ResponsiveMenu({ userId }) {
     const [showMenu, setShowMenu] = useState(false);
 
     function HeaderMenu() {
         let filteredMenu;
-        if (user) {
+        if (userId) {
             filteredMenu = MENU.header.filter(
                 (menu) => menu.accessibility !== 'public',
             );

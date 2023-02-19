@@ -11,4 +11,5 @@ export const privateRequest = axios.create({
     headers: {
         'x-authorization': `Bearer ${TOKEN}`,
     },
+    withCredentials: true,
 });

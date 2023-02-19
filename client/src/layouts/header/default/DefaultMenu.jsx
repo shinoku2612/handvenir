@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import MENU from '../../../config/menu.config';
 import styles from './DefaultMenu.module.css';
 
-export default function DefaultMenu({ user }) {
+export default function DefaultMenu({ userId }) {
     function HeaderMenu() {
         let filteredMenu;
-        if (user) {
+        if (userId) {
             filteredMenu = MENU.header.filter(
                 (menu) => menu.accessibility !== 'public',
             );

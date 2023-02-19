@@ -40,10 +40,15 @@ export default function OTP({ onSubmit, onHideOTP }) {
             e.target.previousSibling.focus();
     }
 
+    function handleSubmitOTP(e) {
+        e.preventDefault();
+        onSubmit(code.join(''));
+    }
+
     // [RENDER]
     return ReactDOM.createPortal(
         <div className={styles.otpContainer}>
-            <div className={styles.otpArea}>
+            <form className={styles.otpArea} onSubmit={handleSubmitOTP}>
                 <div className={styles.otpHeader}>
                     <div className={styles.backArrow} onClick={onHideOTP}>
                         <KeyboardBackspaceOutlined
@@ -89,10 +94,11 @@ export default function OTP({ onSubmit, onHideOTP }) {
                 <button
                     className="btn btn-danger"
                     disabled={code.length < 6 || lifeTime === 0}
+                    type="submit"
                 >
                     Confirm
                 </button>
-            </div>
+            </form>
         </div>,
         document.body,
     );

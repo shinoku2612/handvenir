@@ -6,19 +6,44 @@ import { NavLink } from 'react-router-dom';
 import OTP from '../../../components/OTP/OTP';
 import InputField from '../../../components/Form/InputField/InputField';
 import Form from '../../../components/Form/Form';
+import { useDispatch } from 'react-redux';
+import { sendOTPService } from '../../../services/otp.service';
+import { registerService } from '../../../services/authentication.service';
 
 export default function Register({ isSignUp, setIsSignUp }) {
     // [STATES]
     const [showOTP, setShowOTP] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     // [HANDLER FUNCTIONS]
-    function handleSubmitForm() {
-        console.log('Submitted');
+    async function handleSubmitForm() {
+        try {
+            const isOTPSent = await sendOTPService(
+                { type: 'register', email },
+                dispatch,
+            );
 
-        setShowOTP(true);
+            if (isOTPSent) setShowOTP(true);
+        } catch (error) {
+            console.log(error.message);
+            setShowOTP(false);
+        }
     }
-    function handleRegister() {
-        setIsSignUp(false);
+    async function handleRegister(code) {
+        try {
+            const isSignedUp = await registerService(
+                { code, email, password },
+                dispatch,
+            );
+            if (isSignedUp) {
+                setShowOTP(false);
+                setIsSignUp(false);
+            } else setShowOTP(true);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     // [RENDER]
@@ -39,6 +64,8 @@ export default function Register({ isSignUp, setIsSignUp }) {
                     type="email"
                     placeholder="Email *"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 >
                     <Email />
                 </InputField>
@@ -47,6 +74,8 @@ export default function Register({ isSignUp, setIsSignUp }) {
                     type="password"
                     placeholder="Password *"
                     required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 >
                     <Lock />
                 </InputField>
@@ -65,13 +94,12 @@ export default function Register({ isSignUp, setIsSignUp }) {
 function FormHeader() {
     return <h2 className={styles.title}>Sign up</h2>;
 }
-function FormFooter({ onClick }) {
+function FormFooter() {
     return (
         <React.Fragment>
             <button
                 type="submit"
                 className={cx('btn', 'btn-rounded', styles.solidBtn)}
-                onClick={onClick}
             >
                 Sign up
             </button>

@@ -5,11 +5,11 @@ import DefaultMenu from './default/DefaultMenu';
 import ResponsiveMenu from './responsive/ResponsiveMenu';
 import SearchBar from './search-bar/SearchBar';
 import { useSelector } from 'react-redux';
-import { getUser } from '../../redux/selectors';
+import { getUserId } from '../../redux/selectors';
 
 export default function Header() {
     // [STATES]
-    const user = useSelector(getUser);
+    const userId = useSelector(getUserId);
     const [screenSize, setScreenSize] = useState(window.innerWidth);
     const [isResponsive, setIsResponsive] = useState(false);
 
@@ -49,9 +49,9 @@ export default function Header() {
                     </div>
                     <div className={styles.headerRight}>
                         {isResponsive ? (
-                            <ResponsiveMenu user={user} />
+                            <ResponsiveMenu userId={userId} />
                         ) : (
-                            <DefaultMenu user={user} />
+                            <DefaultMenu userId={userId} />
                         )}
                     </div>
                 </div>

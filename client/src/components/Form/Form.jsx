@@ -39,6 +39,7 @@ export default function Form({
     function handleSubmitForm(e) {
         try {
             const isValidate = handleValidateForm(e);
+            console.log(isValidate)
             if (!isValidate)
                 throw new ValidationError('form-submit', 'Invalid form data');
             onSubmit();
