@@ -11,8 +11,8 @@ If you want to reload when make changes, try **`npm run dev`** instead, it will 
 
 ## Custom Response Codes
 
-**_Pattern: `<M><S><A><HTTP>`_**
-There is a rule for code pattern of the server response: start with model code (**_1 digit_**), followed by a number related to status (**_0 if error and 1 otherwise_**), the code of action/request (**_2 digits_**) and **_HTTP status code_** (except a middle one).
+**_Pattern: `<M><S><A><HTTP>`_**\
+There is a rule for code pattern of the server response: start with model code (**_1 digit_**), followed by a number related to status (**_0 if error and 1 otherwise_**), the code of action/request (**_2 digits_**) and **_HTTP status code_** (except a middle one).\
 _<u>Example</u>: `110221` if user successfully registered; `100341` if user logged in with wrong credentials._
 
 #### _Model code:_
@@ -29,8 +29,8 @@ _<u>Example</u>: `110221` if user successfully registered; `100341` if user logg
 |`1`            |Request success  |
 
 #### _Action/request code:_
-|     Value     |     Related     |
-|:-------------:|:---------------:|
+|     Value      |     Related     |
+|:--------------:|:---------------:|
 |`00`            |Send OTP         |
 |`01`            |Validate OTP     |
 |`02`            |Register         |
