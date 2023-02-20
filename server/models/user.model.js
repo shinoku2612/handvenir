@@ -6,10 +6,10 @@ const UserSchema = new mongoose.Schema(
     {
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
-        phone: { type: String },
-        first_name: { type: String },
-        last_name: { type: String },
-        gender: { type: String },
+        phone: { type: String, default: '' },
+        first_name: { type: String, default: 'User' },
+        last_name: { type: String, default: 'Client' },
+        gender: { type: String, default: 'Male' },
         date_of_birth: { type: Date, default: new Date() },
         avatar: { type: String, default: '' },
         address_line: [
