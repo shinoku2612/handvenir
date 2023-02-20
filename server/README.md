@@ -11,28 +11,23 @@ If you want to reload when make changes, try **`npm run dev`** instead, it will 
 
 ## Custom Response Codes
 
-**_Pattern: `<M><S><A><HTTP>`_**\
-There is a rule for code pattern of the server response: start with model code (**_1 digit_**), followed by a number related to status (**_0 if error and 1 otherwise_**), the code of action/request (**_2 digits_**) and **_HTTP status code_** (except a middle one).\
-_<u>Example</u>: `110221` if user successfully registered; `100341` if user logged in with wrong credentials._
+**_Pattern: `<HTTP><ModelCode>`_**
 
-#### _Model code:_
-|     Value     |     Related     |
-|:-------------:|:---------------:|
-|`0`            |OTP model        |
-|`1`            |User model       |
-|`2`            |Token model      |
+#### _OTP status code: `00x`_
+ HTTP status code | Model code | Response code |             Response type             
+:----------------:|:----------:|:-------------:|:-------------------------------------:
+`400`             |`001`       |code: `400001` |Multiple calls from multiple IP address
+`400 `            |`002`       |code: `400002` |Unexpected request type
+`401 `            |`003`       |code: `401003` |Invalid OTP
+`200 `            |`004`       |code: `200004` |Code sent successfully
 
-#### _Status code:_
-|     Value     |     Related     |
-|:-------------:|:---------------:|
-|`0`            |Request failure  |
-|`1`            |Request success  |
-
-#### _Action/request code:_
-|     Value      |     Related     |
-|:--------------:|:---------------:|
-|`00`            |Send OTP         |
-|`01`            |Validate OTP     |
-|`02`            |Register         |
-|`03`            |Log in           |
-|`04`            |Get user         |
+#### _Authentication status code: `1xx`_
+_`10x` for register, `11x` for login and `12x` for logout_
+ HTTP status code | Model code | Response code |             Response type             
+:----------------:|:----------:|:-------------:|:-------------------------------------:
+`409`             |`101`       |code: `409101` |Duplicated identifier
+`200 `            |`102`       |code: `200102` |Successfully registered
+`404 `            |`111`       |code: `404111` |Unregistered user
+`401 `            |`112`       |code: `401112` |Wrong credentials
+`200 `            |`113`       |code: `200113` |Successfully logged in
+`200 `            |`121`       |code: `200121` |Successfully logged out
