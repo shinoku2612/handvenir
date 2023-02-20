@@ -1,4 +1,5 @@
 const OTPModel = require('../models/otp.model');
+const { OTPResponse } = require('../helper/response.helper');
 
 async function validateOTP(req, res, next) {
     try {
@@ -6,21 +7,11 @@ async function validateOTP(req, res, next) {
 
         const existOTP = await OTPModel.findOne({ receiver: email });
         if (!existOTP)
-            return res.status(404).json({
-                code: '0044',
-                status: 'error',
-                error: 'notfound',
-                message: 'Code not found!',
-            });
+            return res.status(404).json(OTPResponse.CodeNotFoundError());
         const isValid = await existOTP.validateCode(code);
 
         if (!isValid)
-            return res.status(401).json({
-                code: '0041',
-                status: 'error',
-                error: 'unauthorized',
-                message: 'Invalid code!',
-            });
+            return res.status(401).json(OTPResponse.InvalidCodeError());
         req.user = { email, password };
         next();
     } catch (error) {

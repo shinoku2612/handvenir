@@ -19,14 +19,15 @@ If you want to reload when make changes, try **`npm run dev`** instead, it will 
 `400`             |`001`       |code: `400001` |Multiple calls from multiple IP address
 `400 `            |`002`       |code: `400002` |Unexpected request type
 `401 `            |`003`       |code: `401003` |Invalid OTP
-`200 `            |`004`       |code: `200004` |Code sent successfully
+`404 `            |`004`       |code: `404004` |Code not found
+`201 `            |`005`       |code: `201005` |Code sent successfully
 
 #### _Authentication status code: `1xx`_
 _`10x` for register, `11x` for login and `12x` for logout_
  HTTP status code | Model code | Response code |             Response type             
 :----------------:|:----------:|:-------------:|:-------------------------------------:
 `409`             |`101`       |code: `409101` |Duplicated identifier
-`200 `            |`102`       |code: `200102` |Successfully registered
+`201 `            |`102`       |code: `201102` |Successfully registered
 `404 `            |`111`       |code: `404111` |Unregistered user
 `401 `            |`112`       |code: `401112` |Wrong credentials
 `200 `            |`113`       |code: `200113` |Successfully logged in

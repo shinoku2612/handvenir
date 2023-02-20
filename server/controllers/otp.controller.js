@@ -3,6 +3,7 @@ const generateOTP = require('../helper/otp.helper');
 const { registerMail } = require('../helper/template.helper');
 const OTPModel = require('../models/otp.model');
 const UserModel = require('../models/user.model');
+const { OTPResponse, AuthResponse } = require('../helper/response.helper');
 
 async function sendOTP(req, res) {
     try {
@@ -11,12 +12,7 @@ async function sendOTP(req, res) {
         const existOTP = await OTPModel.findOne({ receiver: email });
         if (existOTP) {
             await existOTP.delete();
-            return res.status(400).json({
-                code: '0040',
-                status: 'error',
-                error: 'bad-request',
-                message: 'Only 1 request at the same time, please wait!',
-            });
+            return res.status(400).json(OTPResponse.MultipleCallError());
         }
 
         const user = await UserModel.findOne({ email: email });
@@ -28,44 +24,27 @@ async function sendOTP(req, res) {
         switch (type) {
             case 'register': {
                 if (user)
-                    return res.status(409).json({
-                        code: '0049',
-                        status: 'error',
-                        error: 'duplicated',
-                        message: 'Email has already been in used!',
-                    });
+                    return res
+                        .status(409)
+                        .json(AuthResponse.DuplicatedError('email'));
                 break;
             }
             case 'login': {
                 if (!user)
-                    return res.status(404).json({
-                        code: '0044',
-                        status: 'error',
-                        error: 'not-found',
-                        message:
-                            'Cannot reach this user, please check you credentials and try again!',
-                    });
+                    return res
+                        .status(404)
+                        .json(AuthResponse.UnregisteredError());
                 break;
             }
             default: {
-                return res.status(404).json({
-                    code: '0040',
-                    status: 'error',
-                    error: 'bad-request',
-                    message: `Unexpected request type :: type=${type}!`,
-                });
+                return res.status(400).json(OTPResponse.TypeError(type));
             }
         }
 
         await newOTP.save();
         sendMail(email, 'Account register', registerMail(OTPCode));
 
-        return res.status(201).json({
-            code: '1021',
-            status: 'success',
-            message: 'Please check your email to receiver OTP code!',
-            data: newOTP,
-        });
+        return res.status(201).json(OTPResponse.SuccessfullySent());
     } catch (error) {
         return res.status(500).json({
             code: '0050',
