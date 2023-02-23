@@ -15,12 +15,9 @@ async function validateOTP(req, res, next) {
         req.user = { email, password };
         next();
     } catch (error) {
-        return res.status(500).json({
-            code: '0050',
-            status: 'error',
-            error: 'internal-server-error',
-            message: error.message,
-        });
+        return res
+            .status(500)
+            .json(ServerResponse.InternalError(error.message));
     }
 }
 

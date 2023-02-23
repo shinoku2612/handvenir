@@ -94,7 +94,39 @@ class AuthResponse {
     }
 }
 
+class UserResponse {
+    static #STATUS_FAILED = 'information-failed';
+    static #STATUS_SUCCESS = 'information-success';
+
+    static SuccessfullyGetUser(user) {
+        return {
+            code: '200201',
+            status: this.#STATUS_SUCCESS,
+            data: user,
+        };
+    }
+    static NotAllowed() {
+        return {
+            code: '403202',
+            status: this.#STATUS_FAILED,
+            data: 'You cannot get this user information',
+        };
+    }
+}
+
+class ServerResponse {
+    static InternalError(error) {
+        return {
+            code: '500',
+            status: 'server-error',
+            data: error,
+        };
+    }
+}
+
 module.exports = {
     OTPResponse,
     AuthResponse,
+    ServerResponse,
+    UserResponse,
 };

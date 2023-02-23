@@ -1,13 +1,17 @@
-const sendMail = require('../helper/mail.helper');
-const generateOTP = require('../helper/otp.helper');
+const { sendMail } = require('../helper/mail.helper');
+const { generateOTP } = require('../helper/generator.helper');
 const { registerMail } = require('../helper/template.helper');
 const OTPModel = require('../models/otp.model');
 const UserModel = require('../models/user.model');
-const { OTPResponse, AuthResponse } = require('../helper/response.helper');
+const {
+    OTPResponse,
+    AuthResponse,
+    ServerResponse,
+} = require('../helper/response.helper');
 
 async function sendOTP(req, res) {
     try {
-        const { type, email } = req.body;
+        const { type, email, password } = req.body;
 
         const existOTP = await OTPModel.findOne({ receiver: email });
         if (existOTP) {
@@ -34,6 +38,11 @@ async function sendOTP(req, res) {
                     return res
                         .status(404)
                         .json(AuthResponse.UnregisteredError());
+                const isAuthenticated = await user.validatePassword(password);
+                if (!isAuthenticated)
+                    return res
+                        .status(404)
+                        .json(AuthResponse.CredentialsError());
                 break;
             }
             default: {
@@ -46,12 +55,9 @@ async function sendOTP(req, res) {
 
         return res.status(201).json(OTPResponse.SuccessfullySent());
     } catch (error) {
-        return res.status(500).json({
-            code: '0050',
-            status: 'error',
-            error: 'internal-server-error',
-            messgae: error.message,
-        });
+        return res
+            .status(500)
+            .json(ServerResponse.InternalError(error.message));
     }
 }
 

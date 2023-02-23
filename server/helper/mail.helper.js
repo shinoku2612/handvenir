@@ -17,4 +17,4 @@ async function sendMail(receiver, subject, mailTemplate) {
         html: mailTemplate,
     });
 }
-module.exports = sendMail;
+module.exports = { sendMail };

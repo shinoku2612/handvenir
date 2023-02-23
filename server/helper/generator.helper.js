@@ -1,3 +1,4 @@
+const JWT = require('jsonwebtoken');
 const type = require('./type.helper');
 
 function generateOTP(length) {
@@ -10,4 +11,9 @@ function generateOTP(length) {
     return numberList.join('');
 }
 
-module.exports = generateOTP;
+function generateAccessToken(payload) {
+    return JWT.sign(payload, process.env.NODE_ACCESS_TOKEN_SECRET, {
+        expiresIn: '15m',
+    });
+}
+module.exports = { generateOTP, generateAccessToken };
