@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from '../../../../components/Select/Select';
 import USER_INFO from '../../../../config/user.config';
-import { getUser } from '../../../../redux/selectors';
-import { setUser } from '../../../../redux/slice/user.slice';
+import { getUserId } from '../../../../redux/selectors';
+import { getUserService } from '../../../../services/user.service';
 import styles from './Information.module.css';
 
 export default function Information() {
     // [STATES]
-    const user = useSelector(getUser);
+    const userId = useSelector(getUserId);
     const dispatch = useDispatch();
-    const [updatedUser, setUpdatedUser] = useState({ ...user });
-
+    const { isLoading, data: user } = useQuery(['user', userId], () =>
+        getUserService(userId, dispatch),
+    );
+    // console.log(user);
     const [editable, setEditable] = useState(false);
-    const [gender, setGender] = useState(user.gender);
+    const [gender, setGender] = useState('');
 
     // [HANDLER FUNCTIONS]
-    function handleUpdateUser(e) {
-        const field = e.target.name;
-        const value = e.target.value;
-        setUpdatedUser((prev) => ({ ...prev, [field]: value }));
-    }
     function handleSaveChange() {
         // Do something
-        dispatch(setUser({ ...updatedUser, gender }));
         setEditable(false);
     }
     function handleCancelChange() {
         // Do something
+        setGender(user.gender);
         setEditable(false);
     }
+
+    if (isLoading) return <h3>Loading...</h3>;
 
     // [RENDER]
     return (
@@ -45,18 +45,28 @@ export default function Information() {
                                 name={info.id}
                                 className={styles.input}
                                 type={info.type}
-                                value={updatedUser[info.id]}
-                                onChange={handleUpdateUser}
+                                value={
+                                    info.type === 'date'
+                                        ? new Date(user[info.id]).toISOString().slice(0, 10)
+                                        : user[info.id]
+                                }
+                                onChange={() => {}}
                             />
                         ) : (
-                            <p className={styles.input}>{user[info.id]}</p>
+                            <p className={styles.input}>
+                                {info.type === 'date'
+                                    ? new Intl.DateTimeFormat().format(
+                                          new Date(user[info.id]),
+                                      )
+                                    : user[info.id] || 'Not updated yet'}
+                            </p>
                         )}
                     </div>
                 ))}
                 <Select
                     editable={editable}
                     label="Gender"
-                    defaultValue={gender}
+                    defaultValue={gender || user.gender}
                     renderData={['Male', 'Female']}
                     onSelect={setGender}
                 />

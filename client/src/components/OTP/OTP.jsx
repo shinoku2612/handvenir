@@ -5,7 +5,7 @@ import { KeyboardBackspaceOutlined } from '@mui/icons-material';
 import { OTP_LIFE_TIME } from '../../config/constant.config';
 import { hideEmail } from '../../utils/helper';
 
-export default function OTP({ onSubmit, onHideOTP }) {
+export default function OTP({ to, onSubmit, onHideOTP }) {
     // [STATES]
     const [code, setCode] = useState([]);
     const [lifeTime, setLifeTime] = useState(OTP_LIFE_TIME);
@@ -62,9 +62,7 @@ export default function OTP({ onSubmit, onHideOTP }) {
                 </div>
                 <div className={styles.otpSubHeader}>
                     Verification code was sent to
-                    <p className={styles.otpOwnerEmail}>
-                        {hideEmail('shinoku1801@gmail.com')}
-                    </p>
+                    <p className={styles.otpOwnerEmail}>{hideEmail(to)}</p>
                 </div>
                 <div className={styles.otpInput}>
                     {new Array(6).fill(6).map((ele, i) => (

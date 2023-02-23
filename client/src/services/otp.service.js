@@ -1,11 +1,12 @@
 import { publicRequest } from '../config/axios.config';
 import { setToast } from '../redux/slice/global.slice';
 
-export async function sendOTPService({ type, email }, dispatch) {
+export async function sendOTPService({ type, email, password }, dispatch) {
     try {
         await publicRequest.post('/otp/auth', {
             type,
             email,
+            password,
         });
         return true;
     } catch (error) {
@@ -13,7 +14,7 @@ export async function sendOTPService({ type, email }, dispatch) {
             setToast({
                 show: true,
                 type: 'danger',
-                message: 'Oops! Cannot send OTP, please try again!',
+                message: error.response.data.data,
             }),
         );
         return false;

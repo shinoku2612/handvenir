@@ -2,18 +2,15 @@ import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './sidebar/Sidebar';
 import styles from './Profile.module.css';
-import { useSelector } from 'react-redux';
-import { getUser } from '../../redux/selectors';
 
 export default function Profile() {
     // [STATES]
-    const user = useSelector(getUser);
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--
     useEffect(() => {
-        document.title = `${user.first_name} ${user.last_name} | ${process.env.REACT_APP_SITE_TITLE}`;
-    }, [user]);
+        document.title = `Profile | ${process.env.REACT_APP_SITE_TITLE}`;
+    }, []);
 
     // [RENDER]
     return (

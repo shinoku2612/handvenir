@@ -21,7 +21,7 @@ export default function Login({ isSignUp }) {
     async function handleSubmitForm() {
         try {
             const isOTPSent = await sendOTPService(
-                { type: 'login', email },
+                { type: 'login', email, password },
                 dispatch,
             );
 
@@ -75,6 +75,7 @@ export default function Login({ isSignUp }) {
             </Form>
             {showOTP && (
                 <OTP
+                    to={email}
                     onSubmit={handleLogin}
                     onHideOTP={() => setShowOTP(false)}
                 />

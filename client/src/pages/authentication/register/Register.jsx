@@ -21,7 +21,7 @@ export default function Register({ isSignUp, setIsSignUp }) {
     async function handleSubmitForm() {
         try {
             const isOTPSent = await sendOTPService(
-                { type: 'register', email },
+                { type: 'register', email, password },
                 dispatch,
             );
 
@@ -82,6 +82,7 @@ export default function Register({ isSignUp, setIsSignUp }) {
             </Form>
             {showOTP && (
                 <OTP
+                    to={email}
                     onSubmit={handleRegister}
                     onHideOTP={() => setShowOTP(false)}
                 />

@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        currentUser: {},
         address: [
             {
                 _id: 1,
@@ -26,9 +25,6 @@ const userSlice = createSlice({
         ],
     },
     reducers: {
-        setUser: (state, action) => {
-            state.currentUser = action.payload;
-        },
         addUserAddress: (state, action) => {
             state.address.push(action.payload);
         },
@@ -53,6 +49,6 @@ const userSlice = createSlice({
     },
 });
 
-export const { setUser, addUserAddress, setMainAddress, deleteUserAddress } =
+export const { addUserAddress, setMainAddress, deleteUserAddress } =
     userSlice.actions;
 export default userSlice.reducer;

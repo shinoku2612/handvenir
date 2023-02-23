@@ -4,7 +4,7 @@ import { setToast } from '../redux/slice/global.slice';
 
 export async function registerService({ code, email, password }, dispatch) {
     try {
-        await publicRequest.post('/auth/register', {
+        const res = await publicRequest.post('/auth/register', {
             code,
             email,
             password,
@@ -13,7 +13,7 @@ export async function registerService({ code, email, password }, dispatch) {
             setToast({
                 show: true,
                 type: 'success',
-                message: 'Successfully register. Welcome to our platform!',
+                message: res.data.data,
             }),
         );
         return true;
@@ -22,7 +22,7 @@ export async function registerService({ code, email, password }, dispatch) {
             setToast({
                 show: true,
                 type: 'danger',
-                message: error.response.data.message,
+                message: error.response.data.data,
             }),
         );
         return false;
@@ -42,7 +42,7 @@ export async function loginService({ code, email, password }, dispatch) {
             setToast({
                 show: true,
                 type: 'danger',
-                message: error.response.data.message,
+                message: error.response.data.data,
             }),
         );
         return false;
