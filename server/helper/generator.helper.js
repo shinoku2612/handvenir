@@ -13,7 +13,12 @@ function generateOTP(length) {
 
 function generateAccessToken(payload) {
     return JWT.sign(payload, process.env.NODE_ACCESS_TOKEN_SECRET, {
-        expiresIn: '15m',
+        expiresIn: process.env.NODE_ACCESS_TOKEN_TIME,
     });
 }
-module.exports = { generateOTP, generateAccessToken };
+function generateRefreshToken(payload) {
+    return JWT.sign(payload, process.env.NODE_REFRESH_TOKEN_SECRET, {
+        expiresIn: process.env.NODE_REFRESH_TOKEN_TIME,
+    });
+}
+module.exports = { generateOTP, generateAccessToken, generateRefreshToken };

@@ -84,12 +84,54 @@ class AuthResponse {
             data: responseData,
         };
     }
+    // [REFRESH-TOKEN]
+    static Unauthorized() {
+        return {
+            code: '401131',
+            status: this.#STATUS_FAILED,
+            data: 'Unauthorized',
+        };
+    }
     // [LOGOUT]
     static SuccessfullyLoggedOut() {
         return {
             code: '200121',
             status: this.#STATUS_SUCCESS,
             data: 'Successfully logged out',
+        };
+    }
+}
+
+class TokenResponse {
+    static #STATUS_FAILED = 'token-failed';
+    static #STATUS_SUCCESS = 'token-success';
+
+    static TokenNotFound() {
+        return {
+            code: '404301',
+            status: this.#STATUS_FAILED,
+            data: 'Invalid token',
+        };
+    }
+    static InvalidTokenError() {
+        return {
+            code: '400302',
+            status: this.#STATUS_FAILED,
+            data: 'Invalid token',
+        };
+    }
+    static SuccessfullyRefresh(responseData) {
+        return {
+            code: '200303',
+            status: this.#STATUS_SUCCESS,
+            data: responseData,
+        };
+    }
+    static VerifyError(error) {
+        return {
+            code: '401304',
+            status: this.#STATUS_FAILED,
+            data: error,
         };
     }
 }
@@ -101,6 +143,13 @@ class UserResponse {
     static SuccessfullyGetUser(user) {
         return {
             code: '200201',
+            status: this.#STATUS_SUCCESS,
+            data: user,
+        };
+    }
+    static SuccessfullyUpdateUser(user) {
+        return {
+            code: '200203',
             status: this.#STATUS_SUCCESS,
             data: user,
         };
@@ -129,4 +178,5 @@ module.exports = {
     AuthResponse,
     ServerResponse,
     UserResponse,
+    TokenResponse,
 };

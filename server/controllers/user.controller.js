@@ -18,4 +18,22 @@ async function getUserById(req, res) {
     }
 }
 
-module.exports = { getUserById };
+async function editUser(req, res) {
+    try {
+        const { userId } = req.params;
+        const updatedInfo = { ...req.body };
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            userId,
+            { $set: updatedInfo },
+            { new: true },
+        );
+        const { password, ...others } = updatedUser._doc;
+        return res
+            .status(200)
+            .json(UserResponse.SuccessfullyUpdateUser(others));
+    } catch (error) {
+        res.status(500).json(ServerResponse.InternalError(error.message));
+    }
+}
+
+module.exports = { getUserById, editUser };

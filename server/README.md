@@ -23,7 +23,7 @@ If you want to reload when make changes, try **`npm run dev`** instead, it will 
 `201 `            |`005`       |code: `201005` |Code sent successfully
 
 #### _Authentication status code: `1xx`_
-_`10x` for register, `11x` for login and `12x` for logout_
+_`10x` for register, `11x` for login, `12x` for logout and `13x` for refresh token_
  HTTP status code | Model code | Response code |             Response type             
 :----------------:|:----------:|:-------------:|:-------------------------------------:
 `409`             |`101`       |code: `409101` |Duplicated identifier
@@ -32,3 +32,24 @@ _`10x` for register, `11x` for login and `12x` for logout_
 `401 `            |`112`       |code: `401112` |Wrong credentials
 `200 `            |`113`       |code: `200113` |Successfully logged in
 `200 `            |`121`       |code: `200121` |Successfully logged out
+`401 `            |`131`       |code: `401131` |Unauthorized
+
+#### _User status code: `20x`_
+ HTTP status code | Model code | Response code |             Response type             
+:----------------:|:----------:|:-------------:|:-------------------------------------:
+`200`             |`201`       |code: `200201` |Successfully get user
+`200 `            |`203`       |code: `200203` |Successfully update user
+`403 `            |`202`       |code: `403202` |Forbidden: Not allowed
+
+#### _Token status code: `30x`_
+ HTTP status code | Model code | Response code |             Response type             
+:----------------:|:----------:|:-------------:|:-------------------------------------:
+`404`             |`301`       |code: `404301` |Token not found
+`400 `            |`302`       |code: `400302` |Invalid token error
+`200 `            |`303`       |code: `200303` |Successfully refresh token
+`401 `            |`304`       |code: `401304` |Verify error
+
+#### _Server error response `50x`_
+ HTTP status code | Model code | Response code |             Response type             
+:----------------:|:----------:|:-------------:|:-------------------------------------:
+`500`             |none        |code: `500`    |Internal Server Error
