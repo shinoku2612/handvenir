@@ -55,7 +55,7 @@ export default function Products() {
                                 onClearFilter={handleClearFilter}
                             >
                                 <ExpandList
-                                    title="Food type"
+                                    title="Categories"
                                     categories={categories}
                                     criteria={criteria}
                                     onSetCriteria={handleSetCriteria}

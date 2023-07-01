@@ -1,10 +1,17 @@
-import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import Sidebar from './sidebar/Sidebar';
-import styles from './Profile.module.css';
+import React, { useEffect } from "react";
+import { Outlet } from "react-router-dom";
+import Sidebar from "./sidebar/Sidebar";
+import styles from "./Profile.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserId } from "../../redux/selectors";
+import { useQuery } from "react-query";
+import { getUserService } from "../../services/user.service";
 
 export default function Profile() {
     // [STATES]
+    const userId = useSelector(getUserId);
+    const dispatch = useDispatch();
+    useQuery(["user", userId], () => getUserService(userId, dispatch));
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--

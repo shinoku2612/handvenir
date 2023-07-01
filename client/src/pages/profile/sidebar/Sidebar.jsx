@@ -1,10 +1,14 @@
-import React from 'react';
-import MENU from '../../../config/menu.config';
-import styles from './Sidebar.module.css';
-import { NavLink } from 'react-router-dom';
-import classNames from '../../../utils/class-name';
+import React from "react";
+import MENU from "../../../config/menu.config";
+import styles from "./Sidebar.module.css";
+import { NavLink } from "react-router-dom";
+import classNames from "../../../utils/class-name";
+import { useSelector } from "react-redux";
+import { getUser } from "../../../redux/selectors";
 
 export default function Sidebar() {
+    // [STATES]
+    const user = useSelector(getUser);
     // [RENDER]
     return (
         <div className={styles.sidebar}>
@@ -17,7 +21,7 @@ export default function Sidebar() {
                     />
                 </div>
                 <div className={styles.nameContainer}>
-                    <p className={styles.name}>Shinoku</p>
+                    <p className={styles.name}>{user.name}</p>
                 </div>
             </div>
             <div className={styles.sidebarBottom}>

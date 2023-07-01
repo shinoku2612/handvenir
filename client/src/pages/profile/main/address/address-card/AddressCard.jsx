@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import styles from "./AddressCard.module.css";
+import cx from "../../../../../utils/class-name";
+import { Delete, MoreHoriz, MyLocation } from "@mui/icons-material";
 import {
-    deleteUserAddress,
-    setMainAddress,
-} from '../../../../../redux/slice/user.slice';
-import styles from './AddressCard.module.css';
-import cx from '../../../../../utils/class-name';
-import { Delete, MoreHoriz, MyLocation } from '@mui/icons-material';
+    deleteAddressService,
+    setDefaultAddressService,
+} from "../../../../../services/user.service";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserId } from "../../../../../redux/selectors";
 
-export default function AddressCard({ address, isMain }) {
+export default function AddressCard({ addressId, address, isMain }) {
     // [STATES]
-    const dispatch = useDispatch();
+    const userId = useSelector(getUserId);
     const [showDropdown, setShowDropdown] = useState(false);
+    const dispatch = useDispatch();
 
     // [HANDLER FUNCTIONS]
-    function handleSetMainAddress(addressId) {
-        return function () {
-            dispatch(setMainAddress(addressId));
-        };
+    async function handleSetDefaultAddress() {
+        try {
+            await setDefaultAddressService(userId, dispatch, addressId);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
-    function handleDeleteAddress(addressId) {
-        return function () {
-            dispatch(deleteUserAddress(addressId));
-        };
+    async function handleDeleteAddress() {
+        try {
+            await deleteAddressService(userId, dispatch, addressId);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     // [RENDER]
@@ -55,17 +61,20 @@ export default function AddressCard({ address, isMain }) {
                 onClick={() => setShowDropdown((prev) => !prev)}
             >
                 <MoreHoriz />
-                <ul className={styles.dropdownMenu} aria-hidden>
+                <ul
+                    className={styles.dropdownMenu}
+                    aria-hidden
+                >
                     <li
                         className={styles.dropDownItem}
-                        onClick={handleSetMainAddress(address._id)}
+                        onClick={handleSetDefaultAddress}
                     >
                         <span>Set as default</span>
                         <MyLocation fontSize="small" />
                     </li>
                     <li
                         className={styles.dropDownItem}
-                        onClick={handleDeleteAddress(address._id)}
+                        onClick={handleDeleteAddress}
                     >
                         <span>Delete</span>
                         <Delete fontSize="small" />

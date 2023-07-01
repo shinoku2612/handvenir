@@ -1,45 +1,21 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import cx from '../../../utils/class-name';
-import styles from './Login.module.css';
-import { Email, FacebookOutlined, Google, Lock } from '@mui/icons-material';
-import { NavLink } from 'react-router-dom';
-import InputField from '../../../components/Form/InputField/InputField';
-import Form from '../../../components/Form/Form';
-import OTP from '../../../components/OTP/OTP';
-import { sendOTPService } from '../../../services/otp.service';
-import { loginService } from '../../../services/authentication.service';
+import React, { useState } from "react";
+import cx from "../../../utils/class-name";
+import styles from "./Login.module.css";
+import { Email, FacebookOutlined, Google } from "@mui/icons-material";
+import InputField from "../../../components/Form/InputField/InputField";
+import Form from "../../../components/Form/Form";
+import { useDispatch } from "react-redux";
+import { sendLoginLinkService } from "../../../services/authentication.service";
 
 export default function Login({ isSignUp }) {
     // [STATES]
-    const [showOTP, setShowOTP] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
     const dispatch = useDispatch();
 
     // [HANDLER FUNCTIONS]
-    async function handleSubmitForm() {
+    async function handleLogin() {
         try {
-            const isOTPSent = await sendOTPService(
-                { type: 'login', email, password },
-                dispatch,
-            );
-
-            if (isOTPSent) setShowOTP(true);
-        } catch (error) {
-            console.log(error.message);
-            setShowOTP(false);
-        }
-    }
-
-    async function handleLogin(code) {
-        try {
-            const isLoggedIn = await loginService(
-                { code, email, password },
-                dispatch,
-            );
-            if (isLoggedIn) setShowOTP(false);
-            else setShowOTP(true);
+            await sendLoginLinkService(email, dispatch);
         } catch (error) {
             console.log(error.message);
         }
@@ -49,7 +25,7 @@ export default function Login({ isSignUp }) {
     return (
         <React.Fragment>
             <Form
-                onSubmit={handleSubmitForm}
+                onSubmit={handleLogin}
                 className={cx(styles.authForm, styles.signInForm, {
                     [styles.signUpMode]: isSignUp,
                 })}
@@ -64,22 +40,7 @@ export default function Login({ isSignUp }) {
                 >
                     <Email />
                 </InputField>
-                <InputField
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                >
-                    <Lock />
-                </InputField>
             </Form>
-            {showOTP && (
-                <OTP
-                    to={email}
-                    onSubmit={handleLogin}
-                    onHideOTP={() => setShowOTP(false)}
-                />
-            )}
         </React.Fragment>
     );
 }
@@ -91,12 +52,9 @@ function FormHeader() {
 function FormFooter() {
     return (
         <React.Fragment>
-            <NavLink className={styles.forgotPassword}>
-                Forgot Password?
-            </NavLink>
             <button
                 type="submit"
-                className={cx('btn', 'btn-rounded', styles.solidBtn)}
+                className={cx("btn", "btn-rounded", styles.solidBtn)}
             >
                 Login
             </button>

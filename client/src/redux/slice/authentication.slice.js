@@ -1,16 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const globalSlice = createSlice({
-    name: 'authentication',
+    name: "authentication",
     initialState: {
-        userId: '',
+        userId: JSON.parse(localStorage.getItem("userId")) || "",
     },
     reducers: {
         login: (state, action) => {
             state.userId = action.payload;
+            localStorage.setItem("userId", JSON.stringify(action.payload));
+        },
+        logout: (state, action) => {
+            state.userId = "";
+            localStorage.removeItem("userId");
         },
     },
 });
 
-export const { login } = globalSlice.actions;
+export const { login, logout } = globalSlice.actions;
 export default globalSlice.reducer;

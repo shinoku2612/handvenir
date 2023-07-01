@@ -1,24 +1,31 @@
-const JWT = require('jsonwebtoken');
-const type = require('./type.helper');
+const JWT = require("jsonwebtoken");
+const type = require("./type.helper");
 
-function generateOTP(length) {
-    if (type(length) !== 'number' || length === 0) length = 6;
-    const numberList = [];
-    for (let i = 0; i < length; i++) {
-        const digit = Math.floor(Math.random() * 10);
-        numberList.push(digit);
+class HGenerator {
+    static generateOTP(length) {
+        if (type(length) !== "number" || length === 0) length = 6;
+        const numberList = [];
+        for (let i = 0; i < length; i++) {
+            const digit = Math.floor(Math.random() * 10);
+            numberList.push(digit);
+        }
+        return numberList.join("");
     }
-    return numberList.join('');
-}
 
-function generateAccessToken(payload) {
-    return JWT.sign(payload, process.env.NODE_ACCESS_TOKEN_SECRET, {
-        expiresIn: process.env.NODE_ACCESS_TOKEN_TIME,
-    });
+    static generateToken(payload, secret, expiresIn) {
+        return JWT.sign(payload, secret, {
+            expiresIn: expiresIn,
+        });
+    }
+    static generateAccessToken(payload, expiresIn) {
+        return JWT.sign(payload, process.env.NODE_ACCESS_TOKEN_SECRET, {
+            expiresIn: expiresIn,
+        });
+    }
+    static generateRefreshToken(payload, expiresIn) {
+        return JWT.sign(payload, process.env.NODE_REFRESH_TOKEN_SECRET, {
+            expiresIn: expiresIn,
+        });
+    }
 }
-function generateRefreshToken(payload) {
-    return JWT.sign(payload, process.env.NODE_REFRESH_TOKEN_SECRET, {
-        expiresIn: process.env.NODE_REFRESH_TOKEN_TIME,
-    });
-}
-module.exports = { generateOTP, generateAccessToken, generateRefreshToken };
+module.exports = HGenerator;

@@ -1,46 +1,47 @@
-import React, { lazy, Suspense } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { useSelector } from 'react-redux';
+import React, { lazy, Suspense } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { useSelector } from "react-redux";
 import {
     RouterProvider,
     createBrowserRouter,
     Navigate,
-} from 'react-router-dom';
-import Loader from '../components/Loader/Loader';
-import Layout from '../layouts/Layout';
-import { getUserId } from '../redux/selectors';
-import { PATH } from './constant.config';
+} from "react-router-dom";
+import Loader from "../components/Loader/Loader";
+import Layout from "../layouts/Layout";
+import { getUserId } from "../redux/selectors";
+import { PATH } from "./constant.config";
 
 // Page not found
-const NotFound = lazy(() => import('../pages/not-found/NotFound'));
+const NotFound = lazy(() => import("../pages/not-found/NotFound"));
 // Authentication pages
 const Authentication = lazy(() =>
-    import('../pages/authentication/Authentication'),
+    import("../pages/authentication/Authentication"),
 );
+const Register = lazy(() => import("../pages/register/Register"));
+const Login = lazy(() => import("../pages/login/Login"));
 // Home page
-const Home = lazy(() => import('../pages/home/Home'));
+const Home = lazy(() => import("../pages/home/Home"));
 // Profile pages
-const Profile = lazy(() => import('../pages/profile/Profile'));
+const Profile = lazy(() => import("../pages/profile/Profile"));
 const Information = lazy(() =>
-    import('../pages/profile/main/information/Information'),
+    import("../pages/profile/main/information/Information"),
 );
-const Password = lazy(() => import('../pages/profile/main/password/Password'));
-const Address = lazy(() => import('../pages/profile/main/address/Address'));
-const Credit = lazy(() => import('../pages/profile/main/credit/Credit'));
+const Address = lazy(() => import("../pages/profile/main/address/Address"));
+const Credit = lazy(() => import("../pages/profile/main/credit/Credit"));
 const ShoppingHistory = lazy(() =>
-    import('../pages/profile/main/shopping-history/ShoppingHistory'),
+    import("../pages/profile/main/shopping-history/ShoppingHistory"),
 );
 const ShopRegister = lazy(() =>
-    import('../pages/profile/main/shop-register/ShopRegister'),
+    import("../pages/profile/main/shop-register/ShopRegister"),
 );
-const ShopList = lazy(() => import('../pages/profile/main/shop-list/ShopList'));
+const ShopList = lazy(() => import("../pages/profile/main/shop-list/ShopList"));
 // Product pages
-const Products = lazy(() => import('../pages/products/Products'));
+const Products = lazy(() => import("../pages/products/Products"));
 const ProductDetail = lazy(() =>
-    import('../pages/product-detail/ProductDetail'),
+    import("../pages/product-detail/ProductDetail"),
 );
 // Cart page
-const Cart = lazy(() => import('../pages/cart/Cart'));
+const Cart = lazy(() => import("../pages/cart/Cart"));
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -62,7 +63,15 @@ export default function Router() {
             ),
         },
         {
-            path: '/',
+            path: PATH.register,
+            element: <Register />,
+        },
+        {
+            path: PATH.login,
+            element: <Login />,
+        },
+        {
+            path: "/",
             element: <Layout />,
             children: [
                 { index: true, element: <Home /> },
@@ -75,10 +84,6 @@ export default function Router() {
                     ),
                     children: [
                         { index: true, element: <Information /> },
-                        {
-                            path: PATH.profile.password,
-                            element: <Password />,
-                        },
                         {
                             path: PATH.profile.address,
                             element: <Address />,
@@ -116,7 +121,7 @@ export default function Router() {
             ],
         },
         {
-            path: '*',
+            path: "*",
             element: <NotFound />,
         },
     ]);

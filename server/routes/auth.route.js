@@ -1,16 +1,16 @@
-const express = require('express');
-const { validateOTP } = require('../middlewares/validator');
-const {
-    register,
-    login,
-    refreshToken,
-    logout,
-} = require('../controllers/auth.controller');
+const express = require("express");
 const router = express.Router();
+const AuthController = require("../controllers/auth.controller");
 
-router.post('/register', validateOTP, register);
-router.post('/login', validateOTP, login);
-router.put('/refresh-token/:userId', refreshToken);
-router.delete('/logout/:userId', logout);
+const MValidator = require("../middlewares/validator.middleware");
+const MVerifier = require("../middlewares/verifier.middleware");
+
+router.post("/register", MValidator.validateEmail, AuthController.register);
+router.get("/register", AuthController.registerWithLink);
+router.post("/login", MValidator.validateEmail, AuthController.login);
+router.get("/login", AuthController.loginWithLink);
+
+router.put("/refresh-token/:userId", AuthController.refreshToken);
+router.delete("/logout/:userId", AuthController.logout);
 
 module.exports = router;

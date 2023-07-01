@@ -1,46 +1,22 @@
-import React, { useState } from 'react';
-import cx from '../../../utils/class-name';
-import styles from './Register.module.css';
-import { Email, FacebookOutlined, Google, Lock } from '@mui/icons-material';
-import { NavLink } from 'react-router-dom';
-import OTP from '../../../components/OTP/OTP';
-import InputField from '../../../components/Form/InputField/InputField';
-import Form from '../../../components/Form/Form';
-import { useDispatch } from 'react-redux';
-import { sendOTPService } from '../../../services/otp.service';
-import { registerService } from '../../../services/authentication.service';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import cx from "../../../utils/class-name";
+import styles from "./Register.module.css";
+import { Email, FacebookOutlined, Google } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
+import InputField from "../../../components/Form/InputField/InputField";
+import Form from "../../../components/Form/Form";
+import { sendRegisterLinkService } from "../../../services/authentication.service";
 
-export default function Register({ isSignUp, setIsSignUp }) {
+export default function Register({ isSignUp }) {
     // [STATES]
-    const [showOTP, setShowOTP] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
     const dispatch = useDispatch();
 
     // [HANDLER FUNCTIONS]
-    async function handleSubmitForm() {
+    async function handleRegister() {
         try {
-            const isOTPSent = await sendOTPService(
-                { type: 'register', email, password },
-                dispatch,
-            );
-
-            if (isOTPSent) setShowOTP(true);
-        } catch (error) {
-            console.log(error.message);
-            setShowOTP(false);
-        }
-    }
-    async function handleRegister(code) {
-        try {
-            const isSignedUp = await registerService(
-                { code, email, password },
-                dispatch,
-            );
-            if (isSignedUp) {
-                setShowOTP(false);
-                setIsSignUp(false);
-            } else setShowOTP(true);
+            await sendRegisterLinkService(email, dispatch);
         } catch (error) {
             console.log(error.message);
         }
@@ -52,7 +28,7 @@ export default function Register({ isSignUp, setIsSignUp }) {
             <Form
                 validate
                 defaultValidate={false}
-                onSubmit={handleSubmitForm}
+                onSubmit={handleRegister}
                 className={cx(styles.authForm, styles.signUpForm, {
                     [styles.signUpMode]: isSignUp,
                 })}
@@ -69,24 +45,7 @@ export default function Register({ isSignUp, setIsSignUp }) {
                 >
                     <Email />
                 </InputField>
-                <InputField
-                    name="password"
-                    type="password"
-                    placeholder="Password *"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                >
-                    <Lock />
-                </InputField>
             </Form>
-            {showOTP && (
-                <OTP
-                    to={email}
-                    onSubmit={handleRegister}
-                    onHideOTP={() => setShowOTP(false)}
-                />
-            )}
         </React.Fragment>
     );
 }
@@ -100,7 +59,7 @@ function FormFooter() {
         <React.Fragment>
             <button
                 type="submit"
-                className={cx('btn', 'btn-rounded', styles.solidBtn)}
+                className={cx("btn", "btn-rounded", styles.solidBtn)}
             >
                 Sign up
             </button>

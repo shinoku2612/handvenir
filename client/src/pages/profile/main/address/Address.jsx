@@ -1,16 +1,17 @@
-import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Multistep from '../../../../components/Multistep/Multistep';
-import Select from '../../../../components/Select/Select';
-import { getUserAddress } from '../../../../redux/selectors';
-import { addUserAddress } from '../../../../redux/slice/user.slice';
-import AddressCard from './address-card/AddressCard';
-import styles from './Address.module.css';
+import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Multistep from "../../../../components/Multistep/Multistep";
+import Select from "../../../../components/Select/Select";
+import { getUser, getUserId } from "../../../../redux/selectors";
+import AddressCard from "./address-card/AddressCard";
+import styles from "./Address.module.css";
+import { insertAddressService } from "../../../../services/user.service";
 
 export default function Address() {
     // [STATES]
-    const userAddress = useSelector(getUserAddress);
-    const mainAddress = userAddress.find((addr) => addr.isMain === true);
+    const userId = useSelector(getUserId);
+    const user = useSelector(getUser);
+    const mainAddress = user.addresses?.find((addr) => addr.isMain === true);
 
     const dispatch = useDispatch();
 
@@ -18,9 +19,19 @@ export default function Address() {
     const multistepRef = useRef();
 
     // [HANDLER FUNCTIONS]
-    function handleFinishMultistep(e) {
-        e.preventDefault();
-        dispatch(addUserAddress(addressData));
+    async function handleFinishMultistep(e) {
+        try {
+            e.preventDefault();
+            /* Call set address request */
+            const result = await insertAddressService(
+                userId,
+                dispatch,
+                addressData,
+            );
+            if (result) console.log("Successfully");
+        } catch (error) {
+            console.log(error.message);
+        }
     }
     function handleSelectOnStep(key) {
         return function (value) {
@@ -47,11 +58,11 @@ export default function Address() {
                     <Multistep
                         autoNext
                         headers={[
-                            'country',
-                            'city',
-                            'district',
-                            'town',
-                            'street',
+                            "country",
+                            "city",
+                            "district",
+                            "town",
+                            "street",
                         ]}
                         value={addressData}
                         onFinish={handleFinishMultistep}
@@ -59,27 +70,27 @@ export default function Address() {
                         ref={multistepRef}
                     >
                         <Select
-                            renderData={['Vietnam', 'Japan']}
+                            renderData={["Vietnam", "Japan"]}
                             defaultValue={addressData.country}
-                            onSelect={handleSelectOnStep('country')}
+                            onSelect={handleSelectOnStep("country")}
                             data-index="1"
                         />
                         <Select
-                            renderData={['Ho Chi Minh', 'Tokyo']}
+                            renderData={["Ho Chi Minh", "Tokyo"]}
                             defaultValue={addressData.city}
-                            onSelect={handleSelectOnStep('city')}
+                            onSelect={handleSelectOnStep("city")}
                             data-index="2"
                         />
                         <Select
-                            renderData={['Thu Duc', 'Haido']}
+                            renderData={["Thu Duc", "Haido"]}
                             defaultValue={addressData.district}
-                            onSelect={handleSelectOnStep('district')}
+                            onSelect={handleSelectOnStep("district")}
                             data-index="3"
                         />
                         <Select
-                            renderData={['Linh Trung', 'Beika']}
+                            renderData={["Linh Trung", "Beika"]}
                             defaultValue={addressData.town}
-                            onSelect={handleSelectOnStep('town')}
+                            onSelect={handleSelectOnStep("town")}
                         />
                         <input
                             autoComplete="off"
@@ -100,16 +111,22 @@ export default function Address() {
                 </section>
 
                 <section className={styles.addressSection}>
-                    <span className={styles.sectionHeader}>Others</span>
-                    {userAddress.map((address, index) => (
-                        <AddressCard
-                            key={index}
-                            address={address}
-                            isMain={
-                                mainAddress && mainAddress._id === address._id
-                            }
-                        />
-                    ))}
+                    <span className={styles.sectionHeader}>My addresses</span>
+                    {user.addresses?.length === 0 ? (
+                        <p>You haven't added any address, please add one!</p>
+                    ) : (
+                        user.addresses?.map((address, index) => (
+                            <AddressCard
+                                key={address._id}
+                                addressId={address._id}
+                                address={address}
+                                isMain={
+                                    mainAddress &&
+                                    mainAddress._id === address._id
+                                }
+                            />
+                        ))
+                    )}
                 </section>
             </div>
         </div>
@@ -123,7 +140,7 @@ function DeliveryAddress({ address }) {
             <p className={styles.deliverLabel}>Deliver to:</p>
             {address ? (
                 <span className={styles.deliverAddress}>
-                    {address.country}, {address.city}, {address.district},{' '}
+                    {address.country}, {address.city}, {address.district},{" "}
                     {address.town}, {address.street}
                 </span>
             ) : (

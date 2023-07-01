@@ -5,7 +5,7 @@ const { ShinPayConnector } = require('../databases/mongo.connect');
 const OTPSchema = new mongoose.Schema(
     {
         code: { type: String },
-        receiver: { type: String, ref: 'User' },
+        userId: { type: String, ref: 'User' },
         send_time: {
             type: Date,
             default: Date.now,
@@ -25,7 +25,7 @@ OTPSchema.pre('save', async function (next) {
         next(error);
     }
 });
-OTPSchema.methods.validateCode = async function (code) {
+OTPSchema.methods.verify = async function (code) {
     try {
         const result = await bcrypt.compare(code, this.code);
         if (result) this.delete();

@@ -1,54 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
-    name: 'user',
+    name: "user",
     initialState: {
-        address: [
-            {
-                _id: 1,
-                country: 'Vietnam',
-                city: 'Ho Chi Minh',
-                district: 'Thu Duc',
-                town: 'Linh Trung',
-                street: '01 Vo Van Ngan',
-                isMain: true,
-            },
-            {
-                _id: 2,
-                country: 'Japan',
-                city: 'Tokyo',
-                district: 'Haido',
-                town: 'Beika',
-                street: '221B Beika',
-                isMain: false,
-            },
-        ],
+        information: {
+            email: "",
+            name: "",
+            phone: "",
+            gender: "",
+            date_of_birth: new Date().toISOString(),
+            avatar: "",
+            addresses: [],
+        },
     },
     reducers: {
-        addUserAddress: (state, action) => {
-            state.address.push(action.payload);
+        setUser: (state, action) => {
+            state.information = action.payload;
         },
-        setMainAddress: (state, action) => {
-            const mainAddress = state.address.find(
-                (addr) => addr.isMain === true,
-            );
-            if (mainAddress) mainAddress.isMain = false;
-            const updatedAddressId = action.payload;
-            const updatedAddress = state.address.find(
-                (addr) => addr._id === updatedAddressId,
-            );
-            updatedAddress.isMain = true;
-        },
-        deleteUserAddress: (state, action) => {
-            const deletedAddressId = action.payload;
-            const deletedAddressIndex = state.address.findIndex(
-                (addr) => addr._id === deletedAddressId,
-            );
-            state.address.splice(deletedAddressIndex, 1);
+        clearUser: (state) => {
+            state = state.initialState;
         },
     },
 });
 
-export const { addUserAddress, setMainAddress, deleteUserAddress } =
-    userSlice.actions;
+export const { setUser } = userSlice.actions;
 export default userSlice.reducer;

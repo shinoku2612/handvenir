@@ -1,8 +1,8 @@
 // import libraries
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const cookieParser = require('cookie-parser');
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 // configurations
 dotenv.config();
@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: ['http://localhost:3000', 'https://shin-pay.vercel.app'],
+        origin: ["http://localhost:3000", "https://shin-pay.vercel.app"],
         credentials: true,
     }),
 );
@@ -18,16 +18,19 @@ app.use(cookieParser());
 app.use(express.json());
 
 // MongoDB connection
-require('./databases/mongo.connect.js');
+require("./databases/mongo.connect.js");
 
 // import routers / middlewares
-const otpRoute = require('./routes/otp.route.js');
-const authRoute = require('./routes/auth.route.js');
-const userRoute = require('./routes/user.route.js');
+const authRoute = require("./routes/auth.route.js");
+const cartRoute = require("./routes/cart.route.js");
+const commentRoute = require("./routes/comment.route.js");
+const otpRoute = require("./routes/otp.route.js");
+const productRoute = require("./routes/product.route.js");
+const userRoute = require("./routes/user.route.js");
 
 // use middlewares - routers
-app.use('/api/otp', otpRoute);
-app.use('/api/auth', authRoute);
+app.use("/api/auth", authRoute);
+// app.use('/api/otp', otpRoute);
 app.use('/api/user', userRoute);
 
 // app listening

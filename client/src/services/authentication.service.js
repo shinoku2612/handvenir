@@ -1,19 +1,15 @@
-import { publicRequest } from '../config/axios.config';
-import { login } from '../redux/slice/authentication.slice';
-import { setToast } from '../redux/slice/global.slice';
+import { privateRequest, publicRequest } from "../config/axios.config";
+import { login, logout } from "../redux/slice/authentication.slice";
+import { setToast } from "../redux/slice/global.slice";
 
-export async function registerService({ code, email, password }, dispatch) {
+export async function sendRegisterLinkService(email, dispatch) {
     try {
-        const res = await publicRequest.post('/auth/register', {
-            code,
-            email,
-            password,
-        });
+        const res = await publicRequest.post("/auth/register", { email });
         dispatch(
             setToast({
                 show: true,
-                type: 'success',
-                message: res.data.data,
+                type: "success",
+                message: res.data,
             }),
         );
         return true;
@@ -21,28 +17,106 @@ export async function registerService({ code, email, password }, dispatch) {
         dispatch(
             setToast({
                 show: true,
-                type: 'danger',
-                message: error.response.data.data,
+                type: "danger",
+                message: error.message,
             }),
         );
         return false;
     }
 }
-export async function loginService({ code, email, password }, dispatch) {
+
+export async function registerService({ token }, dispatch) {
     try {
-        const res = await publicRequest.post('/auth/login', {
-            code,
-            email,
-            password,
-        });
+        const res = await publicRequest.get(`auth/register?t=${token}`);
+        dispatch(
+            setToast({
+                show: true,
+                type: "success",
+                message: res.data,
+            }),
+        );
+        return true;
+    } catch (error) {
+        dispatch(
+            setToast({
+                show: true,
+                type: "danger",
+                message: error.message,
+            }),
+        );
+        return false;
+    }
+}
+
+export async function sendLoginLinkService(email, dispatch) {
+    try {
+        const res = await publicRequest.post("/auth/login", { email });
+        dispatch(
+            setToast({
+                show: true,
+                type: "success",
+                message: res.data,
+            }),
+        );
+        return true;
+    } catch (error) {
+        dispatch(
+            setToast({
+                show: true,
+                type: "danger",
+                message: error.message,
+            }),
+        );
+        return false;
+    }
+}
+export async function loginService({ userId, token }, dispatch) {
+    try {
+        const res = await publicRequest.get(
+            `auth/login?i=${userId}&t=${token}`,
+        );
+        dispatch(login(res.data?.userId));
+        return true;
+    } catch (error) {
+        dispatch(
+            setToast({
+                show: true,
+                type: "danger",
+                message: error.message,
+            }),
+        );
+        return false;
+    }
+}
+
+export async function refreshTokenService(userId, dispatch) {
+    try {
+        const res = await privateRequest.put(`/auth/refresh-token/${userId}`);
         dispatch(login(res.data.data.userId));
         return true;
     } catch (error) {
         dispatch(
             setToast({
                 show: true,
-                type: 'danger',
-                message: error.response.data.data,
+                type: "danger",
+                message: error.message,
+            }),
+        );
+        return false;
+    }
+}
+
+export async function logoutService(userId, dispatch) {
+    try {
+        await privateRequest.delete(`/auth/logout/${userId}`);
+        dispatch(logout());
+        return true;
+    } catch (error) {
+        dispatch(
+            setToast({
+                show: true,
+                type: "danger",
+                message: error.message,
             }),
         );
         return false;
