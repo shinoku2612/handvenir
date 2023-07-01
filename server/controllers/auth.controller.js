@@ -10,6 +10,7 @@ class AuthController {
     static async register(req, res) {
         try {
             const { email } = req.body;
+            const origin = req.headers.origin;
             const user = await UserModel.findOne({ email: email });
             if (!user) {
                 const token = HGenerator.generateToken(
@@ -17,7 +18,7 @@ class AuthController {
                     process.env.NODE_TOKEN_SECRET,
                     "5m",
                 );
-                const registerLink = `http://localhost:3000/register?t=${token}`;
+                const registerLink = `${origin}/register?t=${token}`;
                 // const registerLink = `http://localhost:8080/api/auth/register?t=${token}`;
                 await HMail.send(
                     email,
@@ -53,6 +54,7 @@ class AuthController {
     static async login(req, res) {
         try {
             const { email } = req.body;
+            const origin = req.headers.origin;
             const user = await UserModel.findOne({ email: email });
             if (user) {
                 const userSecret = user.secret;
@@ -61,7 +63,7 @@ class AuthController {
                     userSecret,
                     "5m",
                 );
-                const loginLink = `http://localhost:3000/login?i=${user._id}&t=${token}`;
+                const loginLink = `${origin}/login?i=${user._id}&t=${token}`;
                 // const loginLink = `http://localhost:8080/api/auth/login?i=${user._id}&t=${token}`;
                 await HMail.send(
                     email,
