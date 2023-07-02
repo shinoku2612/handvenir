@@ -1,22 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import ProductItem from '../../components/ProductItem/ProductItem';
-import { getCategories } from '../../services/category.service';
-import { getAllProducts } from '../../services/product.service';
-import Category from './category/Category';
-import ExpandList from './category/expand-list/ExpandList';
-import Sort from './category/sort/Sort';
-import ProductsHeader from './products-header/ProductsHeader';
-import styles from './Products.module.css';
+import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import ProductItem from "../../components/ProductItem/ProductItem";
+import { getCategories } from "../../services/category.service";
+import {
+    filterProductService,
+    findProductService,
+    getAllProductService,
+} from "../../services/product.service";
+import Category from "./category/Category";
+import ExpandList from "./category/expand-list/ExpandList";
+import Sort from "./category/sort/Sort";
+import ProductsHeader from "./products-header/ProductsHeader";
+import styles from "./Products.module.css";
+import { useSearchParams } from "react-router-dom";
 
 export default function Products() {
     // [API QUERIES]
-    const { data: products = [] } = useQuery('product-list', getAllProducts);
-    const { data: categories = [] } = useQuery('categories', getCategories);
+    const [searchParams] = useSearchParams();
+    const searchQuery = searchParams.get("search");
+    const filterQuery = searchParams.get("category");
+    const { data: products = [] } = useQuery(
+        ["product-list", searchQuery, filterQuery],
+        () => {
+            if (!searchQuery && !filterQuery) return getAllProductService();
+            if (searchQuery) return findProductService(searchQuery);
+            if (filterQuery) return filterProductService(filterQuery);
+        },
+    );
+    const { data: categories = [] } = useQuery("categories", getCategories);
 
     // [STATES]
     const [criteria, setCriteria] = useState([]);
-    const [sortCriteria, setSortCriteria] = useState('');
+    const [sortCriteria, setSortCriteria] = useState("");
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--
@@ -25,10 +40,11 @@ export default function Products() {
     }, []);
 
     // [HANDLER FUNCTIONS]
-    function handleSetCriteria(value) {
+    function handleSetCriteria({ name, slug }) {
         setCriteria((prev) => {
-            if (prev.includes(value)) return prev.filter((p) => p !== value);
-            return prev.concat(value);
+            const isSelected = prev.some((p) => p.slug === slug);
+            if (isSelected) return prev.filter((p) => p.slug !== slug);
+            return prev.concat({ name, slug });
         });
     }
     function handleClearFilter() {

@@ -71,7 +71,8 @@
 }
 .infoLabel {
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    font-weight: 600;
+    color: var(--dark-clr);
 }
 .infoValue {
     display: flex;

@@ -1,7 +1,7 @@
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { Checkbox, Collapse } from '@mui/material';
-import React, { useState } from 'react';
-import styles from './ExpandList.module.css';
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import { Checkbox, Collapse } from "@mui/material";
+import React, { useState } from "react";
+import styles from "./ExpandList.module.css";
 
 export default function ExpandList({
     title,
@@ -37,9 +37,18 @@ export default function ExpandList({
                     <div
                         key={category._id}
                         className={styles.categoryItem}
-                        onClick={() => onSetCriteria(category.name)}
+                        onClick={() =>
+                            onSetCriteria({
+                                name: category.name,
+                                slug: category.slug.current,
+                            })
+                        }
                     >
-                        <Checkbox checked={criteria.includes(category.name)} />
+                        <Checkbox
+                            checked={criteria.some(
+                                (c) => c.slug === category.slug.current,
+                            )}
+                        />
                         <p>{category.name}</p>
                     </div>
                 ))}

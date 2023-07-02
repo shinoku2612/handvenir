@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
-import styles from './Cart.module.css';
-import { Checkbox, Skeleton } from '@mui/material';
-import { DeleteForever } from '@mui/icons-material';
-import QuantityGroup from '../../components/QuantityGroup/QuantityGroup';
-import Table from '../../components/Table/Table';
-import { getCart } from '../../services/cart.service';
-import { getProductById } from '../../services/product.service';
-import { urlFor } from '../../utils/sanity-client';
-import Loader from '../../components/Loader/Loader';
+import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import styles from "./Cart.module.css";
+import { Checkbox, Skeleton } from "@mui/material";
+import { DeleteForever } from "@mui/icons-material";
+import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
+import Table from "../../components/Table/Table";
+import { getCart } from "../../services/cart.service";
+import { getProductByIdService } from "../../services/product.service";
+import { urlFor } from "../../utils/sanity-client";
+import Loader from "../../components/Loader/Loader";
 
 export default function Cart() {
     // [QUERIES]
-    const { data: cart } = useQuery('cart', getCart);
+    const { data: cart } = useQuery("cart", getCart);
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--
@@ -22,6 +22,7 @@ export default function Cart() {
 
     // [RENDER]
     if (cart === undefined) return <Loader variant="overlay" />;
+    if (cart.length === 0) return <h3>Your cart is empty</h3>;
 
     return (
         <div className={styles.cart}>
@@ -31,12 +32,15 @@ export default function Cart() {
                         <h3 className={styles.cartHeader}>My cart</h3>
                         <Table
                             headers={[
-                                <Checkbox defaultChecked title="Select all" />,
-                                'Product',
-                                'Quantity',
-                                'Price',
-                                'Total',
-                                'Action',
+                                <Checkbox
+                                    defaultChecked
+                                    title="Select all"
+                                />,
+                                "Product",
+                                "Quantity",
+                                "Price",
+                                "Total",
+                                "Action",
                             ]}
                             data={cart}
                             pagination
@@ -91,8 +95,8 @@ export default function Cart() {
 function ProductRow({ item }) {
     // [QUERIES]
     const { isLoading, data: product } = useQuery(
-        ['single-product', item.productId],
-        () => getProductById(item.productId),
+        ["single-product", item.productId],
+        () => getProductByIdService(item.productId),
     );
 
     // [STATES]
@@ -105,7 +109,10 @@ function ProductRow({ item }) {
             <td>
                 <div className={styles.productInfo}>
                     {isLoading ? (
-                        <Skeleton width={100} height={80} />
+                        <Skeleton
+                            width={100}
+                            height={80}
+                        />
                     ) : (
                         <img
                             src={urlFor(product.image)}
@@ -118,7 +125,7 @@ function ProductRow({ item }) {
                             <Skeleton
                                 variant="text"
                                 width={200}
-                                sx={{ fontSize: '1rem', marginLeft: '1rem' }}
+                                sx={{ fontSize: "1rem", marginLeft: "1rem" }}
                             />
                         ) : (
                             product.name
@@ -130,13 +137,19 @@ function ProductRow({ item }) {
                 {isLoading ? (
                     <Skeleton height={50} />
                 ) : (
-                    <QuantityGroup quantity={quantity} onChange={setQuantity} />
+                    <QuantityGroup
+                        quantity={quantity}
+                        onChange={setQuantity}
+                    />
                 )}
             </td>
             <td>
                 <span className={styles.info}>
                     {isLoading ? (
-                        <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+                        <Skeleton
+                            variant="text"
+                            sx={{ fontSize: "1rem" }}
+                        />
                     ) : (
                         product.price
                     )}
@@ -145,7 +158,10 @@ function ProductRow({ item }) {
             <td>
                 <strong className={styles.info}>
                     {isLoading ? (
-                        <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+                        <Skeleton
+                            variant="text"
+                            sx={{ fontSize: "1rem" }}
+                        />
                     ) : (
                         quantity * product.price
                     )}
@@ -156,7 +172,7 @@ function ProductRow({ item }) {
                     <DeleteForever
                         className={styles.action}
                         sx={{
-                            transition: 'transform 200ms ease-in-out;',
+                            transition: "transform 200ms ease-in-out;",
                         }}
                     />
                 )}

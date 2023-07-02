@@ -1,10 +1,14 @@
 .listHeader {
     display: flex;
+    align-items: center;
     margin-bottom: 0.625rem;
     border-bottom: 1px solid var(--menu-border);
 }
+
 .filterCritetia {
     flex: 1;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    row-gap: 0.625rem;
 }

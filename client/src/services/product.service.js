@@ -1,13 +1,47 @@
-import { client } from '../utils/sanity-client';
-export async function getAllProducts() {
+import { client } from "../utils/sanity-client";
+import { publicRequest } from "../config/axios.config";
+export async function getAllProductService() {
     try {
-        const query = '*[_type == "product"]';
-        const resData = await client.fetch(query);
-        return resData;
+        const res = await publicRequest.get("/product/all");
+        return res.data;
     } catch (error) {
         return error.message;
     }
 }
+
+export async function getProductBySlugService(slug) {
+    try {
+        const res = await publicRequest(`/product/single/${slug}`);
+        return res.data;
+    } catch (error) {
+        return error.message;
+    }
+}
+export async function getProductByIdService(productId) {
+    try {
+        const res = await publicRequest.get(`/product/get/${productId}`);
+        return res.data;
+    } catch (error) {
+        return error.message;
+    }
+}
+export async function findProductService(searchQuery) {
+    try {
+        const res = await publicRequest.get(`/product/find?s=${searchQuery}`);
+        return res.data;
+    } catch (error) {
+        return error.message;
+    }
+}
+export async function filterProductService(filterQuery) {
+    try {
+        const res = await publicRequest.get(`/product/filter?c=${filterQuery}`);
+        return res.data;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 export async function getNewProductList(limit) {
     try {
         const query = `*[_type == "product"] | order(_createdAt desc)[0..${
@@ -34,24 +68,6 @@ export async function getRandomProductList(limit) {
             randomList.push(resData[index]);
         }
         return randomList;
-    } catch (error) {
-        return error.message;
-    }
-}
-export async function getProductBySlug(slug) {
-    try {
-        const query = `*[_type == "product" && slug.current == "${slug}"][0]`;
-        const resData = await client.fetch(query);
-        return resData;
-    } catch (error) {
-        return error.message;
-    }
-}
-export async function getProductById(productId) {
-    try {
-        const query = `*[_type == "product" && _id == "${productId}"][0]`;
-        const resData = await client.fetch(query);
-        return resData;
     } catch (error) {
         return error.message;
     }

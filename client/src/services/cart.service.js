@@ -1,9 +1,7 @@
-import { client } from '../utils/sanity-client';
 export async function getCart() {
     try {
-        const query = '*[_type == "cart"]';
-        const resData = await client.fetch(query);
-        return resData;
+        const cart = [];
+        return cart;
     } catch (error) {
         return error.message;
     }
