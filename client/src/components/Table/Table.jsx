@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import styles from './Table.module.css';
-import { Pagination } from '@mui/material';
+import React, { useState, useMemo } from "react";
+import styles from "./Table.module.css";
+import { Pagination } from "@mui/material";
 
 export default function Table({
     headers,
@@ -12,16 +12,10 @@ export default function Table({
 }) {
     // [STATES]
     const [page, setPage] = useState(1);
-    const [renderData, setRenderData] = useState(data);
-
-    // [SIDE EFFECTS]
-    // --Pagination data--
-    useEffect(() => {
-        if (pagination) {
-            setRenderData(
-                data.slice((page - 1) * rowPerPage, page * rowPerPage),
-            );
-        }
+    const renderData = useMemo(() => {
+        if (pagination)
+            return data.slice((page - 1) * rowPerPage, page * rowPerPage);
+        else return data;
     }, [page, pagination, rowPerPage, data]);
 
     // [HANDLER FUNCTIONS]
@@ -36,7 +30,10 @@ export default function Table({
                 <thead>
                     <tr>
                         {headers.map((header) => (
-                            <th key={header} scope="col">
+                            <th
+                                key={header}
+                                scope="col"
+                            >
                                 {header}
                             </th>
                         ))}
@@ -47,7 +44,10 @@ export default function Table({
                         <React.Fragment
                             key={keyExtractor(item, index) || index}
                         >
-                            {<Item item={item} index={index} />}
+                            <Item
+                                item={item}
+                                index={index}
+                            />
                         </React.Fragment>
                     ))}
                 </tbody>

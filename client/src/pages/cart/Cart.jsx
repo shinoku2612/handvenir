@@ -64,7 +64,7 @@ export default function Cart() {
                             pagination
                             rowPerPage={3}
                             renderItem={ProductRow}
-                            keyExtractor={(item, index) => item._id}
+                            keyExtractor={(item) => item.productId}
                         />
                     </div>
                     <div className={styles.orderSummary}>
