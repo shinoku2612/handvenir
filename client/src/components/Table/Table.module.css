@@ -20,6 +20,7 @@
     background-color: #eeeeee;
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 .tableContainer table tbody tr,
 .tableContainer table tfoot tr {

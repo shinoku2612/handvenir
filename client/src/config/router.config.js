@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import { useSelector } from "react-redux";
 import {
     RouterProvider,
@@ -8,7 +7,7 @@ import {
 } from "react-router-dom";
 import Loader from "../components/Loader/Loader";
 import Layout from "../layouts/Layout";
-import { getUserId } from "../redux/selectors";
+import { getUser } from "../redux/selectors";
 import { PATH } from "./constant.config";
 
 // Page not found
@@ -43,20 +42,12 @@ const ProductDetail = lazy(() =>
 // Cart page
 const Cart = lazy(() => import("../pages/cart/Cart"));
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-        },
-    },
-});
-
 export default function Router() {
-    const userId = useSelector(getUserId);
+    const user = useSelector(getUser);
     const router = createBrowserRouter([
         {
             path: PATH.auth,
-            element: userId ? (
+            element: user ? (
                 <Navigate to={`/${PATH.profile.index}`} />
             ) : (
                 <Authentication />
@@ -64,11 +55,19 @@ export default function Router() {
         },
         {
             path: PATH.register,
-            element: <Register />,
+            element: user ? (
+                <Navigate to={`/${PATH.profile.index}`} />
+            ) : (
+                <Register />
+            ),
         },
         {
             path: PATH.login,
-            element: <Login />,
+            element: user ? (
+                <Navigate to={`/${PATH.profile.index}`} />
+            ) : (
+                <Login />
+            ),
         },
         {
             path: "/",
@@ -77,7 +76,7 @@ export default function Router() {
                 { index: true, element: <Home /> },
                 {
                     path: PATH.profile.index,
-                    element: userId ? (
+                    element: user ? (
                         <Profile />
                     ) : (
                         <Navigate to={`/${PATH.auth}`} />
@@ -126,10 +125,8 @@ export default function Router() {
         },
     ]);
     return (
-        <QueryClientProvider client={queryClient}>
-            <Suspense fallback={<Loader />}>
-                <RouterProvider router={router} />
-            </Suspense>
-        </QueryClientProvider>
+        <Suspense fallback={<Loader />}>
+            <RouterProvider router={router} />
+        </Suspense>
     );
 }

@@ -1,22 +1,44 @@
-import React, { useEffect, useRef } from 'react';
-import Toast from './components/Toast/Toast';
-import { useSelector } from 'react-redux';
-import { getToast } from './redux/selectors';
-import Router from './config/router.config';
+import React, { useEffect, useRef } from "react";
+import Toast from "./components/Toast/Toast";
+import { useDispatch, useSelector } from "react-redux";
+import { getToast, getUserId } from "./redux/selectors";
+import Router from "./config/router.config";
+import { useQuery } from "react-query";
+import { getUserService } from "./services/user.service";
+import { syncLocalCartService } from "./services/cart.service";
 
 function App() {
-    const toastRef = useRef();
-
+    // [STATES]
+    const userId = useSelector(getUserId);
     const toast = useSelector(getToast);
+    const toastRef = useRef();
+    const dispatch = useDispatch();
+
+    // [API QUERIES]
+    useQuery(["user", userId], () => {
+        if (userId) {
+            getUserService(userId, dispatch);
+            syncLocalCartService(userId, dispatch);
+        }
+    });
+
+    // [SIDE EFFECTS]
     useEffect(() => {
         if (toast.show) {
             toastRef.current.showToast(toast.type, toast.message);
         }
     }, [toast]);
+
+    // [RENDER]
     return (
         <React.Fragment>
             <Router />
-            <Toast ref={toastRef} variant="fill" autoClose timeline />
+            <Toast
+                ref={toastRef}
+                variant="fill"
+                autoClose
+                timeline
+            />
         </React.Fragment>
     );
 }

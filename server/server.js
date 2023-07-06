@@ -30,6 +30,7 @@ const userRoute = require("./routes/user.route.js");
 
 // use middlewares - routers
 app.use("/api/auth", authRoute);
+app.use("/api/cart", cartRoute);
 // app.use('/api/otp', otpRoute);
 app.use("/api/product", productRoute);
 app.use("/api/user", userRoute);

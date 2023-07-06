@@ -4,8 +4,29 @@ import styles from "./ProductItem.module.css";
 import { FavoriteBorder } from "@mui/icons-material";
 import { Rating } from "@mui/material";
 import cx from "../../utils/class-name";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserId } from "../../redux/selectors";
+import { addToCartService } from "../../services/cart.service";
 
 export default function ProductItem({ product, buttonSize }) {
+    // [STATES]
+    const userId = useSelector(getUserId);
+    const dispatch = useDispatch();
+
+    // [HANDLER FUNCTIONS]
+    async function handleAddToCart(e) {
+        try {
+            e.preventDefault();
+            e.stopPropagation();
+            const cartItem = {
+                productId: product._id,
+                quantity: 1,
+            };
+            await addToCartService(userId, dispatch, cartItem);
+        } catch (error) {
+            console.log("Add to current device");
+        }
+    }
     // [RENDER]
     return (
         <NavLink
@@ -40,12 +61,13 @@ export default function ProductItem({ product, buttonSize }) {
                 </span>
             </div>
             <div className={styles.actionContainer}>
-                <div
+                <button
                     className={cx("btn", "btn-rounded", styles.addCartBtn)}
                     style={{ fontSize: buttonSize }}
+                    onClick={handleAddToCart}
                 >
                     Add to Cart
-                </div>
+                </button>
             </div>
         </NavLink>
     );

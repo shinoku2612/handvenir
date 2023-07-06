@@ -1,18 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import './assets/css/global-style.css';
-import './assets/css/bootstrap-grid.min.css';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
-import { Store } from './redux/store';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./assets/css/global-style.css";
+import "./assets/css/bootstrap-grid.min.css";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { Store } from "./redux/store";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 root.render(
     <React.StrictMode>
-        <Provider store={Store}>
-            <App />
-        </Provider>
+        <QueryClientProvider client={queryClient}>
+            <Provider store={Store}>
+                <App />
+            </Provider>
+        </QueryClientProvider>
     </React.StrictMode>,
 );
 

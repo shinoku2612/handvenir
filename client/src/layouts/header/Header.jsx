@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './Header.module.css';
-import DefaultMenu from './default/DefaultMenu';
-import ResponsiveMenu from './responsive/ResponsiveMenu';
-import SearchBar from './search-bar/SearchBar';
-import { useSelector } from 'react-redux';
-import { getUserId } from '../../redux/selectors';
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import styles from "./Header.module.css";
+import DefaultMenu from "./default/DefaultMenu";
+import ResponsiveMenu from "./responsive/ResponsiveMenu";
+import SearchBar from "./search-bar/SearchBar";
+import { useSelector } from "react-redux";
+import { getUserId } from "../../redux/selectors";
 
 export default function Header() {
     // [STATES]
@@ -19,10 +19,10 @@ export default function Header() {
             setScreenSize(window.innerWidth);
         }
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener("resize", handleResize);
 
         return function () {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener("resize", handleResize);
         };
     });
     useEffect(() => {
@@ -35,7 +35,10 @@ export default function Header() {
             <div className="container">
                 <div className={styles.headerRow}>
                     <div className={styles.headerLeft}>
-                        <NavLink to="/" className={styles.logo}>
+                        <NavLink
+                            to="/"
+                            className={styles.logo}
+                        >
                             <img
                                 src={`${process.env.PUBLIC_URL}/logo.png`}
                                 alt=""

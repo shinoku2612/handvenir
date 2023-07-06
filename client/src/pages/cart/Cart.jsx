@@ -1,18 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Cart.module.css";
 import { Checkbox, Skeleton } from "@mui/material";
 import { DeleteForever } from "@mui/icons-material";
 import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
 import Table from "../../components/Table/Table";
-import { getCart } from "../../services/cart.service";
+import {
+    getCartService,
+    getCartTotalService,
+    removeFromCartService,
+} from "../../services/cart.service";
 import { getProductByIdService } from "../../services/product.service";
-import { urlFor } from "../../utils/sanity-client";
 import Loader from "../../components/Loader/Loader";
+import { getCart, getCartTotal, getUserId } from "../../redux/selectors";
+import EmptyCart from "./empty/EmptyCart";
 
 export default function Cart() {
+    // [STATES]
+    const userId = useSelector(getUserId);
+    const dispatch = useDispatch();
     // [QUERIES]
-    const { data: cart } = useQuery("cart", getCart);
+    const { isLoading } = useQuery("cart", () =>
+        getCartService(userId, dispatch),
+    );
+    const cart = useSelector(getCart);
+    useQuery(["cart-total", cart], () => {
+        if (cart) {
+            getCartTotalService(dispatch, cart.product_list);
+        }
+    });
+    const cartTotal = useSelector(getCartTotal);
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--
@@ -21,8 +39,8 @@ export default function Cart() {
     }, []);
 
     // [RENDER]
-    if (cart === undefined) return <Loader variant="overlay" />;
-    if (cart.length === 0) return <h3>Your cart is empty</h3>;
+    if (isLoading) return <Loader variant="overlay" />;
+    if (!cart) return <EmptyCart />;
 
     return (
         <div className={styles.cart}>
@@ -42,9 +60,9 @@ export default function Cart() {
                                 "Total",
                                 "Action",
                             ]}
-                            data={cart}
+                            data={cart.product_list}
                             pagination
-                            rowPerPage={5}
+                            rowPerPage={3}
                             renderItem={ProductRow}
                             keyExtractor={(item, index) => item._id}
                         />
@@ -56,13 +74,15 @@ export default function Cart() {
                                 <span className={styles.summaryLabel}>
                                     Subtotal
                                 </span>
-                                <span className={styles.summaryValue}>365</span>
+                                <span className={styles.summaryValue}>
+                                    ${cartTotal}
+                                </span>
                             </div>
                             <div className={styles.summaryInfo}>
                                 <span className={styles.summaryLabel}>
                                     Estimated shipping
                                 </span>
-                                <span className={styles.summaryValue}>9</span>
+                                <span className={styles.summaryValue}>$9</span>
                             </div>
                             <div className={styles.summaryInfo}>
                                 <span className={styles.summaryLabel}>
@@ -78,7 +98,9 @@ export default function Cart() {
                             </div>
                             <div className={styles.totalInfo}>
                                 <span className={styles.totalLabel}>Total</span>
-                                <span className={styles.totalValue}>374</span>
+                                <span className={styles.totalValue}>
+                                    ${cartTotal}
+                                </span>
                             </div>
                             <div className="btn btn-dark width-full">
                                 Place order
@@ -101,6 +123,17 @@ function ProductRow({ item }) {
 
     // [STATES]
     const [quantity, setQuantity] = useState(item.quantity);
+    const userId = useSelector(getUserId);
+    const dispatch = useDispatch();
+
+    // [HANDLER FUNCTIONS]
+    async function handleRemoveProduct() {
+        try {
+            await removeFromCartService(userId, dispatch, item.productId);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     // [RENDER]
     return (
@@ -115,7 +148,7 @@ function ProductRow({ item }) {
                         />
                     ) : (
                         <img
-                            src={urlFor(product.image)}
+                            src={product.image}
                             alt={product.name}
                             className={styles.image}
                         />
@@ -128,7 +161,7 @@ function ProductRow({ item }) {
                                 sx={{ fontSize: "1rem", marginLeft: "1rem" }}
                             />
                         ) : (
-                            product.name
+                            product.title
                         )}
                     </span>
                 </div>
@@ -151,7 +184,7 @@ function ProductRow({ item }) {
                             sx={{ fontSize: "1rem" }}
                         />
                     ) : (
-                        product.price
+                        `$${product.price}`
                     )}
                 </span>
             </td>
@@ -163,7 +196,7 @@ function ProductRow({ item }) {
                             sx={{ fontSize: "1rem" }}
                         />
                     ) : (
-                        quantity * product.price
+                        `$${quantity * product.price}`
                     )}
                 </strong>
             </td>
@@ -174,6 +207,7 @@ function ProductRow({ item }) {
                         sx={{
                             transition: "transform 200ms ease-in-out;",
                         }}
+                        onClick={handleRemoveProduct}
                     />
                 )}
             </td>

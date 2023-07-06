@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import Carousel from '../../components/Carousel/Carousel';
-import Category from './categories/Category';
-import HomeSection from './home-section/HomeSection';
-import styles from './Home.module.css';
-import {
-    getNewProductList,
-    getRandomProductList,
-} from '../../services/product.service';
-import { getBannerList } from '../../services/banner.service';
-import { urlFor } from '../../utils/sanity-client';
+import React, { useEffect } from "react";
+import { useQuery } from "react-query";
+// import Carousel from "../../components/Carousel/Carousel";
+import Category from "./categories/Category";
+import HomeSection from "./home-section/HomeSection";
+// import styles from "./Home.module.css";
+import { getLatestProductService } from "../../services/product.service";
+// import { getBannerList } from "../../services/banner.service";
+// import { urlFor } from "../../utils/sanity-client";
 
 export default function Home() {
     // [API QUERIES]
-    const { isLoading: newProductLoading, data: newProductList } = useQuery(
-        'new-product-list',
-        () => getNewProductList(6),
-    );
-    const { isLoading: randomProductLoading, data: randomProductList } =
-        useQuery('random-product-list', () => getRandomProductList(6));
-    const { data: banners = [] } = useQuery('banner-list', getBannerList);
+    const { isLoading: latestProductLoading, data: latestProductList } =
+        useQuery("latest-product-list", () => getLatestProductService(6));
+    // const { data: banners = [] } = useQuery("banner-list", getBannerList);
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--
@@ -30,7 +23,11 @@ export default function Home() {
     // [RENDER]
     return (
         <React.Fragment>
-            <Carousel autoplay delay={5000} duration={500}>
+            {/* <Carousel
+                autoplay
+                delay={5000}
+                duration={500}
+            >
                 {banners.map((banner) => (
                     <div
                         key={banner._id}
@@ -43,22 +40,22 @@ export default function Home() {
                         />
                     </div>
                 ))}
-            </Carousel>
+            </Carousel> */}
             <div className="container">
                 <Category />
                 <HomeSection
-                    data={randomProductList}
-                    isLoading={randomProductLoading}
+                    data={latestProductList}
+                    isLoading={latestProductLoading}
                     title="Today Best Deals For You!"
                 />
                 <HomeSection
-                    data={randomProductList}
-                    isLoading={randomProductLoading}
+                    data={latestProductList}
+                    isLoading={latestProductLoading}
                     title="Weekly Popular Products"
                 />
                 <HomeSection
-                    data={newProductList}
-                    isLoading={newProductLoading}
+                    data={latestProductList}
+                    isLoading={latestProductLoading}
                     title="New Products"
                 />
             </div>

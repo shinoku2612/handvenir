@@ -71,7 +71,7 @@ class ProductController {
             return res.status(500).json(error.message);
         }
     }
-    static async findProduct(req, res) {
+    static async searchProduct(req, res) {
         try {
             const { s: search } = req.query;
             if (!search) return res.status(200).json([]);
@@ -118,6 +118,20 @@ class ProductController {
                 { new: true, projection: ProductController.aggregation },
             );
             return res.status(200).json(product);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
+    static async getLatestProducts(req, res) {
+        try {
+            const { limit } = req.params;
+            const latestProductList = await ProductModel.find(
+                {},
+                ProductController.aggregation,
+            )
+                .sort({ createdAt: -1 })
+                .limit(limit);
+            return res.status(200).json(latestProductList);
         } catch (error) {
             return res.status(500).json(error.message);
         }

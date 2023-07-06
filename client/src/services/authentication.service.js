@@ -1,6 +1,8 @@
 import { privateRequest, publicRequest } from "../config/axios.config";
 import { login, logout } from "../redux/slice/authentication.slice";
+import { clearCart } from "../redux/slice/cart.slice";
 import { setToast } from "../redux/slice/global.slice";
+import { clearUser } from "../redux/slice/user.slice";
 
 export async function sendRegisterLinkService(email, dispatch) {
     try {
@@ -27,23 +29,9 @@ export async function sendRegisterLinkService(email, dispatch) {
 
 export async function registerService({ token }, dispatch) {
     try {
-        const res = await publicRequest.get(`auth/register?t=${token}`);
-        dispatch(
-            setToast({
-                show: true,
-                type: "success",
-                message: res.data,
-            }),
-        );
+        await publicRequest.get(`auth/register?t=${token}`);
         return true;
     } catch (error) {
-        dispatch(
-            setToast({
-                show: true,
-                type: "danger",
-                message: error.message,
-            }),
-        );
         return false;
     }
 }
@@ -78,13 +66,6 @@ export async function loginService({ userId, token }, dispatch) {
         dispatch(login(res.data?.userId));
         return true;
     } catch (error) {
-        dispatch(
-            setToast({
-                show: true,
-                type: "danger",
-                message: error.message,
-            }),
-        );
         return false;
     }
 }
@@ -110,6 +91,8 @@ export async function logoutService(userId, dispatch) {
     try {
         await privateRequest.delete(`/auth/logout/${userId}`);
         dispatch(logout());
+        dispatch(clearCart());
+        dispatch(clearUser());
         return true;
     } catch (error) {
         dispatch(

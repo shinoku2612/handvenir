@@ -16,12 +16,12 @@ export default function Sidebar() {
                 <div className={styles.avatarContainer}>
                     <img
                         className={styles.avatar}
-                        src="https://genk.mediacdn.vn/k:thumb_w/640/2015/1-2-1444483204242/nhung-dieu-thu-vi-ve-pikachu-bieu-tuong-cua-pokemon.png"
+                        src={user?.avatar}
                         alt="User avatar"
                     />
                 </div>
                 <div className={styles.nameContainer}>
-                    <p className={styles.name}>{user.name}</p>
+                    <p className={styles.name}>{user?.name}</p>
                 </div>
             </div>
             <div className={styles.sidebarBottom}>

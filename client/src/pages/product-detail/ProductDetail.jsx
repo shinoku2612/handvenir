@@ -7,6 +7,9 @@ import { Rating } from "@mui/material";
 import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
 import Comment from "./comment/Comment";
 import Loader from "../../components/Loader/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserId } from "../../redux/selectors";
+import { addToCartService } from "../../services/cart.service";
 
 export default function ProductDetail() {
     // [API QUERIES]
@@ -17,6 +20,23 @@ export default function ProductDetail() {
 
     // [STATES]
     const [quantity, setQuantity] = useState(1);
+    const userId = useSelector(getUserId);
+    const dispatch = useDispatch();
+
+    // [HANDLER FUNCTIONS]
+    async function handleAddToCart(e) {
+        try {
+            e.preventDefault();
+            e.stopPropagation();
+            const cartItem = {
+                productId: product._id,
+                quantity: quantity,
+            };
+            await addToCartService(userId, dispatch, cartItem);
+        } catch (error) {
+            console.log("Add to current device");
+        }
+    }
 
     // [RENDER]
     if (product === undefined) return <Loader variant="overlay" />;
@@ -72,10 +92,15 @@ export default function ProductDetail() {
                             </div>
                         </div>
                         <div className="btn-groups">
-                            <div className="btn btn-danger">Add to cart</div>
-                            <div className="btn btn-danger btn-outlined m-inline-1">
+                            <button
+                                className="btn btn-danger"
+                                onClick={handleAddToCart}
+                            >
+                                Add to cart
+                            </button>
+                            <button className="btn btn-danger btn-outlined m-inline-1">
                                 Add to wish lish
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </section>
