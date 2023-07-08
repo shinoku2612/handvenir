@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import styles from './Authentication.module.css';
-import loginSVG from '../../assets/images/login.svg';
-import registerSVG from '../../assets/images/register.svg';
-import cx from '../../utils/class-name';
-import Login from './login/Login';
-import Register from './register/Register';
-import Header from '../../layouts/header/Header';
+import React, { useEffect, useState } from "react";
+import styles from "./Authentication.module.css";
+import loginSVG from "../../assets/images/login.svg";
+import registerSVG from "../../assets/images/register.svg";
+import cx from "../../utils/class-name";
+import Login from "./login/Login";
+import Register from "./register/Register";
+import Header from "../../layouts/header/Header";
+import { useSelector } from "react-redux";
+import { getIsLoading } from "../../redux/selectors";
+import Loader from "../../components/Loader/Loader";
 
 export default function Authentication() {
     // [STATES]
     const [isSignUp, setIsSignUp] = useState(false);
+    const isLoading = useSelector(getIsLoading);
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--
@@ -23,6 +27,7 @@ export default function Authentication() {
     // [RENDER]
     return (
         <React.Fragment>
+            {isLoading ? <Loader variant="overlay" /> : null}
             <Header />
             <div
                 className={cx(styles.authentication, {
@@ -51,8 +56,8 @@ export default function Authentication() {
                             </p>
                             <button
                                 className={cx(
-                                    'btn',
-                                    'btn-rounded',
+                                    "btn",
+                                    "btn-rounded",
                                     styles.transparentBtn,
                                 )}
                                 onClick={() => setIsSignUp(true)}
@@ -78,8 +83,8 @@ export default function Authentication() {
                             </p>
                             <button
                                 className={cx(
-                                    'btn',
-                                    'btn-rounded',
+                                    "btn",
+                                    "btn-rounded",
                                     styles.transparentBtn,
                                 )}
                                 onClick={() => setIsSignUp(false)}

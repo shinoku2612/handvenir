@@ -47,12 +47,12 @@ export default function ProductDetail() {
                     <div className={styles.productImage}>
                         <img
                             src={product.image}
-                            alt={product.name}
+                            alt={product.title}
                             className={styles.image}
                         />
                     </div>
                     <div className={styles.productInfo}>
-                        <h3 className={styles.productName}>{product.name}</h3>
+                        <h3 className={styles.productName}>{product.title}</h3>
                         <div className={styles.productRating}>
                             <span className={styles.ratingPoint}>
                                 {product.ratingPoint}

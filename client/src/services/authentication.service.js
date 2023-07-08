@@ -1,7 +1,7 @@
 import { privateRequest, publicRequest } from "../config/axios.config";
 import { login, logout } from "../redux/slice/authentication.slice";
 import { clearCart } from "../redux/slice/cart.slice";
-import { setToast } from "../redux/slice/global.slice";
+import { setLoading, setToast } from "../redux/slice/global.slice";
 import { clearUser } from "../redux/slice/user.slice";
 
 export async function sendRegisterLinkService(email, dispatch) {
@@ -38,6 +38,7 @@ export async function registerService({ token }, dispatch) {
 
 export async function sendLoginLinkService(email, dispatch) {
     try {
+        dispatch(setLoading(true));
         const res = await publicRequest.post("/auth/login", { email });
         dispatch(
             setToast({
@@ -46,6 +47,7 @@ export async function sendLoginLinkService(email, dispatch) {
                 message: res.data,
             }),
         );
+        dispatch(setLoading(false));
         return true;
     } catch (error) {
         dispatch(
@@ -55,6 +57,7 @@ export async function sendLoginLinkService(email, dispatch) {
                 message: error.message,
             }),
         );
+        dispatch(setLoading(false));
         return false;
     }
 }

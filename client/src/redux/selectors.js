@@ -1,5 +1,6 @@
 // [GLOBAL SELECTOR]
 export const getToast = (state) => state.global.toast;
+export const getIsLoading = (state) => state.global.isLoading;
 // [AUTHENTICATION SELECTOR]
 export const getUserId = (state) => state.authentication.userId;
 // [USER SELETOR]
