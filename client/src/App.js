@@ -36,8 +36,6 @@ function App() {
             <Toast
                 ref={toastRef}
                 variant="fill"
-                autoClose
-                timeline
             />
         </React.Fragment>
     );

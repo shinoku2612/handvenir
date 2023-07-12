@@ -1,15 +1,17 @@
 import { privateRequest } from "../config/axios.config";
 import { setCart, setCartTotal } from "../redux/slice/cart.slice";
 import { setToast } from "../redux/slice/global.slice";
+import { CartDB } from "../utils/indexedDB";
 export async function getCartService(userId, dispatch) {
     try {
-        if (!userId) return true;
         const res = await privateRequest.get(`/cart/${userId}`);
         dispatch(setCart(res.data));
         return true;
     } catch (error) {
-        console.log(error.message);
-        return false;
+        const productList = await CartDB.getAll();
+
+        if (productList) dispatch(setCart({ product_list: productList }));
+        return true;
     }
 }
 export async function addToCartService(
@@ -24,15 +26,15 @@ export async function addToCartService(
         });
         dispatch(setCart(res.data));
     } catch (error) {
-        const localCart = localStorage.getItem("cart");
-        const cart = JSON.parse(localCart) || { product_list: [] };
-        const existingItem = cart.product_list.find(
-            (product) => product.productId === productId,
-        );
-        if (existingItem) existingItem.quantity += quantity;
-        else cart.product_list.push({ productId, quantity });
-        localStorage.setItem("cart", JSON.stringify(cart));
-        dispatch(setCart(cart));
+        const product = await CartDB.getOne(productId);
+        let data = null;
+        if (!product) data = await CartDB.insertOne({ productId, quantity });
+        else
+            data = await CartDB.updateOne({
+                productId,
+                quantity: product.quantity + quantity,
+            });
+        if (data) dispatch(setCart({ product_list: data }));
     }
     dispatch(
         setToast({

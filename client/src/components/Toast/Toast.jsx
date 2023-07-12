@@ -3,11 +3,11 @@ import React, {
     useEffect,
     useImperativeHandle,
     useState,
-} from 'react';
-import ReactDOM from 'react-dom';
-import styles from './Toast.module.css';
-import { CheckCircle, Error, Close } from '@mui/icons-material';
-import cx from '../../utils/class-name';
+} from "react";
+import ReactDOM from "react-dom";
+import styles from "./Toast.module.css";
+import { CheckCircle, Error, Close } from "@mui/icons-material";
+import cx from "../../utils/class-name";
 
 function Toast(
     {
@@ -16,6 +16,7 @@ function Toast(
         delay = 3000,
         duration = 300,
         timeline = true,
+        position = "top-right",
     },
     ref,
 ) {
@@ -59,27 +60,25 @@ function Toast(
                 toastClassList = cx(toastClassList, styles.timeline);
             }
             switch (type) {
-                case 'success': {
+                case "success": {
                     toast = {
                         id: Date.now(),
-                        status: 'Success',
                         message: message,
                         statusIcon: <CheckCircle />,
-                        color: '#28a745',
-                        background: '#dcf8e7',
-                        animation: autoClose && toastAnimations.join(', '),
+                        color: "#28a745",
+                        background: "#dcf8e7",
+                        animation: autoClose && toastAnimations.join(", "),
                     };
                     break;
                 }
-                case 'danger': {
+                case "danger": {
                     toast = {
                         id: Date.now(),
-                        status: 'Failure',
                         message: message,
                         statusIcon: <Error />,
-                        color: '#dc3545',
-                        background: '#ffe4e4',
-                        animation: autoClose && toastAnimations.join(', '),
+                        color: "#dc3545",
+                        background: "#ffe4e4",
+                        animation: autoClose && toastAnimations.join(", "),
                     };
                     break;
                 }
@@ -101,7 +100,7 @@ function Toast(
 
     // [RENDER]
     return ReactDOM.createPortal(
-        <div className={styles.toastContainer}>
+        <div className={cx(styles.toastContainer, styles[position])}>
             {toastList.map((toast) => (
                 <div
                     key={toast.id}
@@ -109,13 +108,12 @@ function Toast(
                     style={{
                         color: toast.color,
                         animation: toast.animation,
-                        '--toast-bg': toast.background,
-                        '--timeline-countdown': `${delay}ms`,
+                        "--toast-bg": toast.background,
+                        "--timeline-countdown": `${delay}ms`,
                     }}
                 >
                     <div className={styles.toastIcon}>{toast.statusIcon}</div>
                     <div className={styles.toastBody}>
-                        <h3 className={styles.toastStatus}>{toast.status}</h3>
                         <p className={styles.toastMessage}>{toast.message}</p>
                     </div>
                     <div

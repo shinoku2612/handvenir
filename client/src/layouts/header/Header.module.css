@@ -11,6 +11,7 @@
     align-items: center;
     box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
 }
+
 .headerRow {
     display: flex;
     align-items: center;
@@ -18,14 +19,18 @@
     position: relative;
     z-index: 2;
 }
+
 .headerLeft {
     display: flex;
     align-items: center;
 }
+
 .logo {
     text-decoration: none;
     display: flex;
+    align-items: center;
 }
+
 .logoImg {
     --img-size: 3rem;
     width: var(--img-size);
@@ -35,16 +40,19 @@
     object-position: center;
     margin-right: 0.625rem;
 }
+
 .logoName {
     font-size: 1.75rem;
     font-weight: bold;
     font-style: italic;
     color: #000000;
 }
+
 .headerCenter {
     background-color: transparent;
     flex: 0 1 40%;
 }
+
 .headerRight {
     display: flex;
     align-items: center;
@@ -71,20 +79,24 @@
     transition-timing-function: ease-in-out;
     transition-property: opacity, visibility, transform;
 }
+
 @media (max-width: 48rem) {
     .headerCenter {
         display: none;
     }
+
     .subHeader {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
     }
 }
+
 @media (max-width: 30rem) {
     .headerRow {
         padding: 0 2rem;
     }
+
     .headerLeft {
         flex-grow: 1;
     }
