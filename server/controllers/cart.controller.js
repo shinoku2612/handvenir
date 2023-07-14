@@ -65,7 +65,25 @@ class CartController {
             return res.status(500).json(error.message);
         }
     }
-    static async updateCart(req, res) {}
+    static async updateCart(req, res) {
+        try {
+            const { userId } = req.params;
+            const { productId, quantity } = req.body;
+            if (quantity <= 0) return res.status(400).json("Invalid quantity");
+
+            const cart = await CartModel.findOneAndUpdate(
+                { userId, product_list: { $elemMatch: { productId } } },
+                {
+                    $set: { "product_list.$.quantity": quantity },
+                },
+                { new: true },
+            );
+
+            return res.status(200).json(cart);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
     static async checkout(req, res) {}
     static async syncLocalCart(req, res) {
         try {
