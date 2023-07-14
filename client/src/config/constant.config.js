@@ -15,6 +15,7 @@ export const PATH = {
     products: "products",
     productDetail: "product/:slug",
     cart: "my-cart",
+    wishList: "favorite",
     payment: {
         index: "order",
         result: "payment-result",

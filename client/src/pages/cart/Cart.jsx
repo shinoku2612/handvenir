@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Cart.module.css";
 import { Checkbox, Skeleton } from "@mui/material";
-import { DeleteForever } from "@mui/icons-material";
+import { DeleteForever, Done } from "@mui/icons-material";
 import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
 import Table from "../../components/Table/Table";
 import {
     getCartService,
     getCartTotalService,
     removeFromCartService,
+    updateCartService,
 } from "../../services/cart.service";
 import { getProductByIdService } from "../../services/product.service";
 import Loader from "../../components/Loader/Loader";
 import { getCart, getCartTotal, getUserId } from "../../redux/selectors";
-import EmptyCart from "./empty/EmptyCart";
+import cx from "../../utils/class-name";
+import emptyCartSVG from "../../assets/images/empty-cart.svg";
+// Error page
+const Error = lazy(() => import("../error/Error"));
 
 export default function Cart() {
     // [STATES]
@@ -40,7 +44,20 @@ export default function Cart() {
 
     // [RENDER]
     if (isLoading) return <Loader variant="overlay" />;
-    if (!cart) return <EmptyCart />;
+    if (!cart)
+        return (
+            <Error
+                image={{ src: emptyCartSVG, styles: { width: "32%" } }}
+                title="Empty Cart"
+                message={{
+                    header: "Unfotunately, your cart is empty!",
+                    info: "Look like you have not added anything to your cart.",
+                    suggest: "We suggest you go to shop",
+                }}
+                navigator={{ target: "/products", title: "Shop now" }}
+                isChild
+            />
+        );
 
     return (
         <div className={styles.cart}>
@@ -134,6 +151,16 @@ function ProductRow({ item }) {
             console.log(error.message);
         }
     }
+    async function handleUpdateProduct() {
+        try {
+            await updateCartService(userId, dispatch, {
+                productId: item.productId,
+                quantity,
+            });
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     // [RENDER]
     return (
@@ -203,13 +230,22 @@ function ProductRow({ item }) {
             <td>
                 {!isLoading && (
                     <DeleteForever
-                        className={styles.action}
+                        className={cx(styles.action, styles.delete)}
                         sx={{
                             transition: "transform 200ms ease-in-out;",
                         }}
                         onClick={handleRemoveProduct}
                     />
                 )}
+                {item.quantity !== quantity ? (
+                    <Done
+                        className={cx(styles.action, styles.save)}
+                        sx={{
+                            transition: "transform 200ms ease-in-out;",
+                        }}
+                        onClick={handleUpdateProduct}
+                    />
+                ) : null}
             </td>
         </tr>
     );

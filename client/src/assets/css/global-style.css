@@ -175,6 +175,10 @@ button.disabled {
     justify-content: center;
     align-items: center;
 }
+.flex-left {
+    display: flex;
+    align-items: center;
+}
 
 .text-small {
     font-size: 0.75rem;

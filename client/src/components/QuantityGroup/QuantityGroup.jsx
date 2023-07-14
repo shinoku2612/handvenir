@@ -1,23 +1,26 @@
-import React from 'react';
-import { checkType } from '../../utils/helper';
-import styles from './QuantityGroup.module.css';
+import React from "react";
+import { checkType } from "../../utils/helper";
+import styles from "./QuantityGroup.module.css";
 
 export default function QuantityGroup({ quantity = 1, onChange }) {
     // [STATES]
 
     // [HANDLER FUNCTIONS]
     function handleInputQuantity(e) {
-        const newValue = e.target.value.replace(/[^0-9]/g, '');
-        onChange(newValue);
+        const newValue = e.target.value.replace(/[^0-9]/g, "");
+        if (newValue <= 0) {
+            return onChange(1);
+        }
+        onChange(Number(newValue));
     }
     function handleChangeQuantity(type) {
         return function () {
-            if (checkType(onChange) !== 'function') return;
-            if (type === 'increase')
-                return onChange((prevQuantity) => Number(prevQuantity) + 1);
-            if (type === 'decrease')
+            if (checkType(onChange) !== "function") return;
+            if (type === "increase")
+                return onChange((prevQuantity) => prevQuantity + 1);
+            if (type === "decrease")
                 return onChange((prevQuantity) =>
-                    prevQuantity > 1 ? Number(prevQuantity) - 1 : 1,
+                    prevQuantity > 1 ? prevQuantity - 1 : 1,
                 );
         };
     }
@@ -25,7 +28,7 @@ export default function QuantityGroup({ quantity = 1, onChange }) {
         <div className={styles.quantityGroup}>
             <button
                 className={styles.actionBtn}
-                onClick={handleChangeQuantity('decrease')}
+                onClick={handleChangeQuantity("decrease")}
             >
                 -
             </button>
@@ -36,7 +39,7 @@ export default function QuantityGroup({ quantity = 1, onChange }) {
             />
             <button
                 className={styles.actionBtn}
-                onClick={handleChangeQuantity('increase')}
+                onClick={handleChangeQuantity("increase")}
             >
                 +
             </button>

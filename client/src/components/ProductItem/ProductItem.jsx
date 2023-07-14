@@ -7,6 +7,7 @@ import cx from "../../utils/class-name";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserId } from "../../redux/selectors";
 import { addToCartService } from "../../services/cart.service";
+import { addToWishListService } from "../../services/wish-list.service";
 
 export default function ProductItem({ product, buttonSize }) {
     // [STATES]
@@ -27,6 +28,15 @@ export default function ProductItem({ product, buttonSize }) {
             console.log("Add to current device");
         }
     }
+    async function handleAddToWishList(e) {
+        try {
+            e.preventDefault();
+            e.stopPropagation();
+            await addToWishListService(userId, dispatch, product._id);
+        } catch (error) {
+            console.log("Add to current device");
+        }
+    }
     // [RENDER]
     return (
         <NavLink
@@ -39,7 +49,11 @@ export default function ProductItem({ product, buttonSize }) {
                     src={product.image}
                     alt={product.title}
                 ></img>
-                <div className={styles.addWishList}>
+                <div
+                    className={styles.addWishList}
+                    role="button"
+                    onClick={handleAddToWishList}
+                >
                     <FavoriteBorder className={styles.icon} />
                 </div>
             </div>

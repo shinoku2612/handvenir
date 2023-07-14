@@ -1,8 +1,8 @@
 class IndexedDB {
-    constructor(databaseName, storeName, primaryKey) {
+    constructor(databaseName, stores, target) {
         this.databaseName = databaseName;
-        this.storeName = storeName;
-        this.primaryKey = primaryKey;
+        this.stores = stores;
+        this.target = target;
     }
 
     async connect() {
@@ -10,7 +10,13 @@ class IndexedDB {
         const request = indexedDB.open(this.databaseName);
         request.onupgradeneeded = (event) => {
             const db = event.target.result;
-            db.createObjectStore(this.storeName, { keyPath: this.primaryKey });
+            for (const store of this.stores) {
+                if (!db.objectStoreNames.contains(store.name)) {
+                    db.createObjectStore(store.name, {
+                        keyPath: store.keyPath,
+                    });
+                }
+            }
         };
         return new Promise((resolve, reject) => {
             request.onerror = (event) => {
@@ -24,8 +30,8 @@ class IndexedDB {
     }
     async insertOne(data) {
         const db = await this.connect();
-        const transaction = db.transaction(this.storeName, "readwrite");
-        const store = transaction.objectStore(this.storeName);
+        const transaction = db.transaction(this.target, "readwrite");
+        const store = transaction.objectStore(this.target);
 
         store.add(data);
 
@@ -41,8 +47,8 @@ class IndexedDB {
     }
     async insertMany(data) {
         const db = await this.connect();
-        const transaction = db.transaction(this.storeName, "readwrite");
-        const store = transaction.objectStore(this.storeName);
+        const transaction = db.transaction(this.target, "readwrite");
+        const store = transaction.objectStore(this.target);
 
         for (const item of data) {
             store.add(item);
@@ -59,8 +65,8 @@ class IndexedDB {
     }
     async deleteOne(primaryKey) {
         const db = await this.connect();
-        const transaction = db.transaction(this.storeName, "readwrite");
-        const store = transaction.objectStore(this.storeName);
+        const transaction = db.transaction(this.target, "readwrite");
+        const store = transaction.objectStore(this.target);
 
         store.delete(primaryKey);
 
@@ -76,8 +82,8 @@ class IndexedDB {
     }
     async deleteAll() {
         const db = await this.connect();
-        const transaction = db.transaction(this.storeName, "readwrite");
-        const store = transaction.objectStore(this.storeName);
+        const transaction = db.transaction(this.target, "readwrite");
+        const store = transaction.objectStore(this.target);
 
         store.clear();
 
@@ -92,8 +98,8 @@ class IndexedDB {
     }
     async getOne(primaryKey) {
         const db = await this.connect();
-        const transaction = db.transaction(this.storeName, "readonly");
-        const store = transaction.objectStore(this.storeName);
+        const transaction = db.transaction(this.target, "readonly");
+        const store = transaction.objectStore(this.target);
 
         const request = store.get(primaryKey);
 
@@ -108,8 +114,8 @@ class IndexedDB {
     }
     async getAll() {
         const db = await this.connect();
-        const transaction = db.transaction(this.storeName, "readonly");
-        const store = transaction.objectStore(this.storeName);
+        const transaction = db.transaction(this.target, "readonly");
+        const store = transaction.objectStore(this.target);
 
         const request = store.getAll();
 
@@ -125,8 +131,8 @@ class IndexedDB {
     }
     async updateOne(updates) {
         const db = await this.connect();
-        const transaction = db.transaction(this.storeName, "readwrite");
-        const store = transaction.objectStore(this.storeName);
+        const transaction = db.transaction(this.target, "readwrite");
+        const store = transaction.objectStore(this.target);
 
         store.put(updates);
 
@@ -143,4 +149,9 @@ class IndexedDB {
     async updateMany() {}
 }
 
-export const CartDB = new IndexedDB("ShinPay", "cart", "productId");
+const stores = [
+    { name: "cart", keyPath: "productId" },
+    { name: "wish_list", keyPath: "productId" },
+];
+export const CartDB = new IndexedDB("ShinPay", stores, "cart");
+export const WishListDB = new IndexedDB("ShinPay", stores, "wish_list");

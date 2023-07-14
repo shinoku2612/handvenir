@@ -41,7 +41,7 @@ const MENU = {
             id: "wish-list",
             icon: <Favorite />,
             path: "/favorite",
-            accessibility: "private",
+            accessibility: "all",
             title: "My favourite",
         },
         {

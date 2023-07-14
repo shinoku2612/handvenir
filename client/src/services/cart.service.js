@@ -35,6 +35,7 @@ export async function addToCartService(
                 quantity: product.quantity + quantity,
             });
         if (data) dispatch(setCart({ product_list: data }));
+        else dispatch(setCart(null));
     }
     dispatch(
         setToast({
@@ -52,18 +53,9 @@ export async function removeFromCartService(userId, dispatch, productId) {
         );
         dispatch(setCart(res.data));
     } catch (error) {
-        const localCart = localStorage.getItem("cart");
-        const cart = JSON.parse(localCart) || { product_list: [] };
-        cart.product_list = cart.product_list.filter(
-            (product) => product.productId !== productId,
-        );
-        if (cart.product_list.length === 0) {
-            localStorage.removeItem("cart");
-            dispatch(setCart(null));
-        } else {
-            localStorage.setItem("cart", JSON.stringify(cart));
-            dispatch(setCart(cart));
-        }
+        const data = await CartDB.deleteOne(productId);
+        if (data) dispatch(setCart({ product_list: data }));
+        else dispatch(setCart(null));
     }
     dispatch(
         setToast({
@@ -76,14 +68,13 @@ export async function removeFromCartService(userId, dispatch, productId) {
 }
 export async function syncLocalCartService(userId, dispatch) {
     try {
-        const localCart = localStorage.getItem("cart");
-        const cart = JSON.parse(localCart);
+        const cart = await CartDB.getAll();
         if (!cart) return false;
         const res = await privateRequest.put(`/cart/sync-local/${userId}`, {
-            productList: cart.product_list || [],
+            productList: cart || [],
         });
         dispatch(setCart(res.data));
-        localStorage.removeItem("cart");
+        await CartDB.deleteAll();
         return true;
     } catch (error) {
         console.log(error.message);
@@ -100,4 +91,31 @@ export async function getCartTotalService(dispatch, productList) {
     } catch (error) {
         return false;
     }
+}
+export async function updateCartService(
+    userId,
+    dispatch,
+    { productId, quantity },
+) {
+    try {
+        const res = await privateRequest.put(`/cart/update/${userId}`, {
+            productId,
+            quantity,
+        });
+        dispatch(setCart(res.data));
+    } catch (error) {
+        const data = await CartDB.updateOne({
+            productId,
+            quantity: quantity,
+        });
+        dispatch(setCart({ product_list: data }));
+    }
+    dispatch(
+        setToast({
+            show: true,
+            type: "success",
+            message: "Your cart is up to date",
+        }),
+    );
+    return true;
 }

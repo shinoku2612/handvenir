@@ -49,12 +49,19 @@
 }
 
 .action {
-    color: var(--danger-clr);
     cursor: pointer;
 }
 
 .action:hover {
     transform: scale(1.15);
+}
+
+.action.delete {
+    color: var(--danger-clr);
+}
+
+.action.save {
+    color: var(--success-clr);
 }
 
 .summaryInfo,
