@@ -15,7 +15,6 @@ export async function getUserService(userId, dispatch) {
                 message: error.message,
             }),
         );
-        localStorage.removeItem("userId");
         return false;
     }
 }

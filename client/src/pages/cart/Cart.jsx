@@ -17,6 +17,7 @@ import Loader from "../../components/Loader/Loader";
 import { getCart, getCartTotal, getUserId } from "../../redux/selectors";
 import cx from "../../utils/class-name";
 import emptyCartSVG from "../../assets/images/empty-cart.svg";
+import { NavLink } from "react-router-dom";
 // Error page
 const Error = lazy(() => import("../error/Error"));
 
@@ -163,80 +164,84 @@ function ProductRow({ item }) {
     }
 
     // [RENDER]
-    return (
-        <tr>
-            <td>{!isLoading && <Checkbox defaultChecked />}</td>
-            <td>
-                <div className={styles.productInfo}>
-                    {isLoading ? (
+    if (isLoading)
+        return (
+            <tr>
+                <td></td>
+                <td>
+                    <div className={styles.productInfo}>
                         <Skeleton
                             width={100}
                             height={80}
                         />
-                    ) : (
-                        <img
-                            src={product.image}
-                            alt={product.name}
-                            className={styles.image}
-                        />
-                    )}
-                    <span className={styles.info}>
-                        {isLoading ? (
-                            <Skeleton
-                                variant="text"
-                                width={200}
-                                sx={{ fontSize: "1rem", marginLeft: "1rem" }}
-                            />
-                        ) : (
-                            product.title
-                        )}
-                    </span>
-                </div>
-            </td>
-            <td>
-                {isLoading ? (
-                    <Skeleton height={50} />
-                ) : (
-                    <QuantityGroup
-                        quantity={quantity}
-                        onChange={setQuantity}
-                    />
-                )}
-            </td>
-            <td>
-                <span className={styles.info}>
-                    {isLoading ? (
                         <Skeleton
                             variant="text"
-                            sx={{ fontSize: "1rem" }}
+                            width={200}
+                            sx={{
+                                fontSize: "1rem",
+                                marginLeft: "1rem",
+                            }}
                         />
-                    ) : (
-                        `$${product.price}`
-                    )}
-                </span>
+                    </div>
+                </td>
+                <td>
+                    <Skeleton height={50} />
+                </td>
+                <td>
+                    <Skeleton
+                        variant="text"
+                        sx={{ fontSize: "1rem" }}
+                    />
+                </td>
+                <td>
+                    <Skeleton
+                        variant="text"
+                        sx={{ fontSize: "1rem" }}
+                    />
+                </td>
+                <td></td>
+            </tr>
+        );
+    return (
+        <tr>
+            <td>
+                <Checkbox defaultChecked />
+            </td>
+            <td>
+                <NavLink
+                    to={`/product/${product.slug}`}
+                    className={styles.productInfo}
+                >
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                        className={styles.image}
+                    />
+                    <span className={styles.info}>{product.title}</span>
+                </NavLink>
+            </td>
+            <td>
+                <QuantityGroup
+                    quantity={quantity}
+                    onChange={setQuantity}
+                />
+            </td>
+            <td>
+                <span className={styles.info}>${product.price}</span>
             </td>
             <td>
                 <strong className={styles.info}>
-                    {isLoading ? (
-                        <Skeleton
-                            variant="text"
-                            sx={{ fontSize: "1rem" }}
-                        />
-                    ) : (
-                        `$${quantity * product.price}`
-                    )}
+                    ${quantity * product.price}
                 </strong>
             </td>
             <td>
-                {!isLoading && (
-                    <DeleteForever
-                        className={cx(styles.action, styles.delete)}
-                        sx={{
-                            transition: "transform 200ms ease-in-out;",
-                        }}
-                        onClick={handleRemoveProduct}
-                    />
-                )}
+                <DeleteForever
+                    className={cx(styles.action, styles.delete)}
+                    sx={{
+                        transition: "transform 200ms ease-in-out;",
+                    }}
+                    onClick={handleRemoveProduct}
+                />
                 {item.quantity !== quantity ? (
                     <Done
                         className={cx(styles.action, styles.save)}

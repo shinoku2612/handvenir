@@ -6,6 +6,7 @@ import { clearUser } from "../redux/slice/user.slice";
 
 export async function sendRegisterLinkService(email, dispatch) {
     try {
+        dispatch(setLoading(true));
         const res = await publicRequest.post("/auth/register", { email });
         dispatch(
             setToast({
@@ -14,6 +15,7 @@ export async function sendRegisterLinkService(email, dispatch) {
                 message: res.data,
             }),
         );
+        dispatch(setLoading(false));
         return true;
     } catch (error) {
         dispatch(

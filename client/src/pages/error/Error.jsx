@@ -40,6 +40,7 @@ export default function Error({
                         <NavLink
                             to={navigator.target}
                             className="btn btn-primary mt-1"
+                            onClick={navigator.handler}
                         >
                             {navigator.title}
                         </NavLink>

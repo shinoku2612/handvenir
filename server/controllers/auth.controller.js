@@ -68,7 +68,7 @@ class AuthController {
                 await HMail.send(
                     email,
                     "Login",
-                    HMail.template.register,
+                    HMail.template.login,
                     loginLink,
                 );
             }

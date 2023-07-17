@@ -31,6 +31,12 @@
     align-items: center;
     text-align: left;
     /* width: 15rem; */
+    text-decoration: none;
+    color: #000;
+}
+
+.productInfo:hover {
+    text-decoration: underline;
 }
 
 .image {

@@ -27,13 +27,16 @@ const commentRoute = require("./routes/comment.route.js");
 const otpRoute = require("./routes/otp.route.js");
 const productRoute = require("./routes/product.route.js");
 const userRoute = require("./routes/user.route.js");
+const wishListRoute = require("./routes/wish-list.route.js");
 
 // use middlewares - routers
 app.use("/api/auth", authRoute);
 app.use("/api/cart", cartRoute);
+// app.use('/api/comment', otpRoute);
 // app.use('/api/otp', otpRoute);
 app.use("/api/product", productRoute);
 app.use("/api/user", userRoute);
+app.use("/api/wish-list", wishListRoute);
 
 // app listening
 const runningPort = process.env.NODE_PORT || 3032;

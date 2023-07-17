@@ -1,9 +1,9 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 class HMail {
-    static async send(receiver, subject, template, code) {
+    static async send(receiver, subject, template, link) {
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            service: "gmail",
             auth: {
                 user: process.env.NODE_AUTH_MAIL,
                 pass: process.env.NODE_AUTH_PASS,
@@ -12,15 +12,15 @@ class HMail {
 
         await transporter.sendMail({
             from: `"ShinPay" <${process.env.NODE_AUTH_MAIL}>`,
-            replyTo: 'noreply.account.shinpay@gmail.com',
+            replyTo: "noreply.account.shinpay@gmail.com",
             to: receiver,
             subject,
-            html: template(code),
+            html: template(link),
         });
     }
 
     static template = {
-        register: (code) => {
+        register: (link) => {
             return `
             <!DOCTYPE html>
             <html lang="en">
@@ -71,28 +71,17 @@ class HMail {
                         .regards {
                             padding: 4px 0;
                         }
-                        .code__container {
+                        .link__container {
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                        }
-                        .code {
-                            margin: auto;
-                            margin-top: 1rem;
-                            padding: 0.5em 1em;
-                            font-size: 24px;
-                            font-weight: 600;
-                            letter-spacing: 0.25em;
-                            background-color: #2271ff;
-                            border-radius: 0.3em;
-                            color: #fff;
                         }
                     </style>
                 </head>
                 <body>
                     <div id="mail__container">
                         <div class="header">
-                            <h3 class="greeting">Welcome</h3>
+                            <h3 class="greeting">Welcome to our platform</h3>
                             <div class="header__logo">
                                 <img src="https://shin-pay.vercel.app/logo.png" alt="${process.env.NODE_APP_NAME}" />
                             </div>
@@ -104,16 +93,13 @@ class HMail {
                             <div class="letter__body">
                                 <p class="thanks">
                                     Thank you for choosing <strong>${process.env.NODE_APP_NAME}</strong>. Use
-                                    this OTP to complete your register and verify your
+                                    this <a href="${link}" target="#">link</a> to complete your register progress and verify your
                                     account on our platform.
                                 </p>
                                 <p class="remind">
-                                    Remember, never share this OTP with anyone, not even if
+                                    Remember, never share this link with anyone, not even if
                                     <strong>${process.env.NODE_APP_NAME}</strong> ask to you.
                                 </p>
-                                <div class="code__container">
-                                    <p>${code}</p>
-                                </div>
                             </div>
                             <div class="letter__closing">
                                 <p class="regards">Regards,</p>
@@ -125,7 +111,7 @@ class HMail {
             </html>    
             `;
         },
-        login: (code) => {
+        login: (link) => {
             return `
             <!DOCTYPE html>
             <html lang="en">
@@ -176,28 +162,17 @@ class HMail {
                         .regards {
                             padding: 4px 0;
                         }
-                        .code__container {
+                        .link__container {
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                        }
-                        .code {
-                            margin: auto;
-                            margin-top: 1rem;
-                            padding: 0.5em 1em;
-                            font-size: 24px;
-                            font-weight: 600;
-                            letter-spacing: 0.25em;
-                            background-color: #2271ff;
-                            border-radius: 0.3em;
-                            color: #fff;
                         }
                     </style>
                 </head>
                 <body>
                     <div id="mail__container">
                         <div class="header">
-                            <h3 class="greeting">Welcome</h3>
+                            <h3 class="greeting">Welcome back</h3>
                             <div class="header__logo">
                                 <img src="https://shin-pay.vercel.app/logo.png" alt="${process.env.NODE_APP_NAME}" />
                             </div>
@@ -209,15 +184,12 @@ class HMail {
                             <div class="letter__body">
                                 <p class="thanks">
                                     Welcome back, use
-                                    this OTP to complete your login.
+                                    this <a href="${link}" target="#">link</a> to complete your login.
                                 </p>
                                 <p class="remind">
-                                    Remember, never share this OTP with anyone, not even if
+                                    Remember, never share this link with anyone, not even if
                                     <strong>${process.env.NODE_APP_NAME}</strong> ask to you.
                                 </p>
-                                <div class="code__container">
-                                    <p class="code">${code}</p>
-                                </div>
                             </div>
                             <div class="letter__closing">
                                 <p class="regards">Regards,</p>

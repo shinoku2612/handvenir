@@ -14,6 +14,7 @@ import {
     removeFromWishListService,
 } from "../../services/wish-list.service";
 import emptyWishListSVG from "../../assets/images/wish-list.svg";
+import { NavLink } from "react-router-dom";
 // Error page
 const Error = lazy(() => import("../error/Error"));
 
@@ -99,69 +100,71 @@ function ProductRow({ item }) {
     }
 
     // [RENDER]
-    return (
-        <tr>
-            <td>
-                <div className={styles.productInfo}>
-                    {isLoading ? (
+    if (isLoading)
+        return (
+            <tr>
+                <td>
+                    <div className={styles.productInfo}>
                         <Skeleton
                             width={100}
                             height={80}
                         />
-                    ) : (
-                        <img
-                            src={product.image}
-                            alt={product.name}
-                            className={styles.image}
+                        <Skeleton
+                            variant="text"
+                            width={200}
+                            sx={{
+                                fontSize: "1rem",
+                                marginLeft: "1rem",
+                            }}
                         />
-                    )}
-                    <span className={styles.info}>
-                        {isLoading ? (
-                            <Skeleton
-                                variant="text"
-                                width={200}
-                                sx={{ fontSize: "1rem", marginLeft: "1rem" }}
-                            />
-                        ) : (
-                            product.title
-                        )}
-                    </span>
-                </div>
+                    </div>
+                </td>
+                <td>
+                    <Skeleton
+                        variant="text"
+                        sx={{ fontSize: "1rem" }}
+                    />
+                </td>
+                <td>
+                    <Skeleton
+                        variant="text"
+                        sx={{ fontSize: "1rem" }}
+                    />
+                </td>
+                <td></td>
+            </tr>
+        );
+    return (
+        <tr>
+            <td>
+                <NavLink
+                    to={`/product/${product.slug}`}
+                    className={styles.productInfo}
+                >
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                        className={styles.image}
+                    />
+                    <span className={styles.info}>{product.title}</span>
+                </NavLink>
             </td>
             <td>
                 <span className={styles.description}>
-                    {isLoading ? (
-                        <Skeleton
-                            variant="text"
-                            sx={{ fontSize: "1rem" }}
-                        />
-                    ) : (
-                        product.description
-                    )}
+                    {product.description}
                 </span>
             </td>
             <td>
-                <span className={styles.info}>
-                    {isLoading ? (
-                        <Skeleton
-                            variant="text"
-                            sx={{ fontSize: "1rem" }}
-                        />
-                    ) : (
-                        `$${product.price}`
-                    )}
-                </span>
+                <span className={styles.info}>${product.price}</span>
             </td>
             <td>
-                {!isLoading && (
-                    <DeleteForever
-                        className={cx(styles.action, styles.delete)}
-                        sx={{
-                            transition: "transform 200ms ease-in-out;",
-                        }}
-                        onClick={handleRemoveProduct}
-                    />
-                )}
+                <DeleteForever
+                    className={cx(styles.action, styles.delete)}
+                    sx={{
+                        transition: "transform 200ms ease-in-out;",
+                    }}
+                    onClick={handleRemoveProduct}
+                />
             </td>
         </tr>
     );

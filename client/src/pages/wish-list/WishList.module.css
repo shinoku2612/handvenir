@@ -29,6 +29,12 @@
     display: flex;
     align-items: center;
     text-align: left;
+    text-decoration: none;
+    color: #000;
+}
+
+.productInfo:hover {
+    text-decoration: underline;
 }
 
 .image {
@@ -37,9 +43,11 @@
     object-fit: contain;
     object-position: center;
 }
+
 .info {
     width: 15rem;
 }
+
 .description {
     display: inline-block;
     text-align: justify;
