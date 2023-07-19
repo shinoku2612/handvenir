@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slice/authentication.slice";
 const Error = lazy(() => import("../../pages/error/Error"));
 
-export default function Loader({ variant = "fill", timeOut }) {
+export default function Loader({ variant = "fill", timeOut, iconSrc }) {
     const [showError, setShowError] = useState(false);
     const dispatch = useDispatch();
 
@@ -45,12 +45,20 @@ export default function Loader({ variant = "fill", timeOut }) {
     }
     return ReactDOM.createPortal(
         <div className={cx(styles.loader, styles[variant])}>
-            <div className={styles.loaderContainer}>
-                <span className={styles.loaderComponent}></span>
-                <span className={styles.loaderComponent}></span>
-                <span className={styles.loaderComponent}></span>
-                <span className={styles.loaderComponent}></span>
-            </div>
+            {iconSrc ? (
+                <img
+                    src={iconSrc}
+                    alt=""
+                    height="50%"
+                />
+            ) : (
+                <div className={styles.loaderContainer}>
+                    <span className={styles.loaderComponent}></span>
+                    <span className={styles.loaderComponent}></span>
+                    <span className={styles.loaderComponent}></span>
+                    <span className={styles.loaderComponent}></span>
+                </div>
+            )}
         </div>,
         document.body,
     );

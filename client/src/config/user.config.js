@@ -5,6 +5,7 @@ const USER_INFO = {
             id: "email",
             label: "Email",
             type: "email",
+            readonly: true,
         },
         { id: "phone", label: "Phone", type: "tel" },
         { id: "date_of_birth", label: "Birthday", type: "date" },

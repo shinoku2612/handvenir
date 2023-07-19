@@ -1,7 +1,15 @@
 import { privateRequest } from "../config/axios.config";
 import { setToast } from "../redux/slice/global.slice";
 import { WishListDB } from "../utils/indexedDB";
-export async function getWishListService(userId, dispatch) {
+export async function getLocalWishList() {
+    try {
+        const productList = await WishListDB.getAll();
+        return productList;
+    } catch (error) {
+        return null;
+    }
+}
+export async function getWishListService(userId) {
     try {
         const res = await privateRequest.get(`/wish-list/${userId}`);
         return res.data;

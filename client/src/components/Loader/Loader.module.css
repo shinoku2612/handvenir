@@ -5,6 +5,9 @@
     bottom: 0;
     right: 0;
     z-index: var(--loader-index);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .loader.fill {
     background-color: #ffffff;

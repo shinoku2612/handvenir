@@ -5,8 +5,6 @@ import { getToast, getUserId } from "./redux/selectors";
 import Router from "./config/router.config";
 import { useQuery } from "react-query";
 import { getUserService } from "./services/user.service";
-import { syncLocalCartService } from "./services/cart.service";
-import { syncLocalWishListService } from "./services/wish-list.service";
 
 function App() {
     // [STATES]
@@ -19,8 +17,6 @@ function App() {
     useQuery(["user", userId], () => {
         if (userId) {
             getUserService(userId, dispatch);
-            syncLocalCartService(userId, dispatch);
-            syncLocalWishListService(userId);
         }
     });
 

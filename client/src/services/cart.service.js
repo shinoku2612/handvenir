@@ -2,6 +2,15 @@ import { privateRequest } from "../config/axios.config";
 import { setCart, setCartTotal } from "../redux/slice/cart.slice";
 import { setToast } from "../redux/slice/global.slice";
 import { CartDB } from "../utils/indexedDB";
+export async function getLocalCart() {
+    try {
+        const productList = await CartDB.getAll();
+
+        return productList;
+    } catch (error) {
+        return null;
+    }
+}
 export async function getCartService(userId, dispatch) {
     try {
         const res = await privateRequest.get(`/cart/${userId}`);
@@ -66,12 +75,11 @@ export async function removeFromCartService(userId, dispatch, productId) {
     );
     return true;
 }
-export async function syncLocalCartService(userId, dispatch) {
+export async function syncLocalCartService(userId, dispatch, localCart) {
     try {
-        const cart = await CartDB.getAll();
-        if (!cart) return false;
+        if (!localCart) return false;
         const res = await privateRequest.put(`/cart/sync-local/${userId}`, {
-            productList: cart || [],
+            productList: localCart || [],
         });
         dispatch(setCart(res.data));
         await CartDB.deleteAll();

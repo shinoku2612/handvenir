@@ -3,61 +3,96 @@ import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Cart.module.css";
 import { Checkbox, Skeleton } from "@mui/material";
-import { DeleteForever, Done } from "@mui/icons-material";
+import { DeleteForever, Done, Upload } from "@mui/icons-material";
 import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
 import Table from "../../components/Table/Table";
 import {
     getCartService,
     getCartTotalService,
+    getLocalCart,
     removeFromCartService,
+    syncLocalCartService,
     updateCartService,
 } from "../../services/cart.service";
 import { getProductByIdService } from "../../services/product.service";
 import Loader from "../../components/Loader/Loader";
-import { getCart, getCartTotal, getUserId } from "../../redux/selectors";
+import {
+    getCart,
+    getCartTotal,
+    getUser,
+    getUserId,
+} from "../../redux/selectors";
 import cx from "../../utils/class-name";
 import emptyCartSVG from "../../assets/images/empty-cart.svg";
 import { NavLink } from "react-router-dom";
+import PopUp from "../../components/PopUp/PopUp";
+import { PATH } from "../../config/constant.config";
 // Error page
 const Error = lazy(() => import("../error/Error"));
 
 export default function Cart() {
     // [STATES]
     const userId = useSelector(getUserId);
+    const user = useSelector(getUser);
+    const cart = useSelector(getCart);
+    const cartTotal = useSelector(getCartTotal);
     const dispatch = useDispatch();
     // [QUERIES]
-    const { isLoading } = useQuery("cart", () =>
-        getCartService(userId, dispatch),
+    const { isLoading, data } = useQuery("cart", () =>
+        Promise.all([getCartService(userId, dispatch), getLocalCart()]).then(
+            ([cart, localCart]) => ({ cart, localCart }),
+        ),
     );
-    const cart = useSelector(getCart);
-    useQuery(["cart-total", cart], () => {
-        if (cart) {
-            getCartTotalService(dispatch, cart.product_list);
-        }
-    });
-    const cartTotal = useSelector(getCartTotal);
-
     // [SIDE EFFECTS]
     // --Change app title when switching page--
     useEffect(() => {
         document.title = `Cart | ${process.env.REACT_APP_SITE_TITLE}`;
     }, []);
+    useEffect(() => {
+        if (cart) {
+            getCartTotalService(dispatch, cart.product_list);
+        }
+    }, [dispatch, cart]);
+
+    // [HANDLER FUNCTIONS]
+    const handleSyncCart = async () => {
+        await syncLocalCartService(userId, dispatch, data.localCart);
+        window.location.replace(PATH.cart);
+    };
 
     // [RENDER]
     if (isLoading) return <Loader variant="overlay" />;
+
     if (!cart)
         return (
-            <Error
-                image={{ src: emptyCartSVG, styles: { width: "32%" } }}
-                title="Empty Cart"
-                message={{
-                    header: "Unfotunately, your cart is empty!",
-                    info: "Look like you have not added anything to your cart.",
-                    suggest: "We suggest you go to shop",
-                }}
-                navigator={{ target: "/products", title: "Shop now" }}
-                isChild
-            />
+            <React.Fragment>
+                <Error
+                    image={{ src: emptyCartSVG, styles: { width: "32%" } }}
+                    title="Empty Cart"
+                    message={{
+                        header: "Unfotunately, your cart is empty!",
+                        info: "Look like you have not added anything to your cart.",
+                        suggest: "We suggest you go to shop",
+                    }}
+                    navigator={{ target: "/products", title: "Shop now" }}
+                    isChild
+                />
+
+                {!!(user && data.localCart) ? (
+                    <PopUp
+                        title="Synchronize your cart"
+                        message="We noticed you currently have a shopping cart on your device, would you like to upload it to sync with your account?"
+                        handler={handleSyncCart}
+                    >
+                        <Upload
+                            sx={{
+                                color: "",
+                                lineHeight: 0,
+                            }}
+                        />
+                    </PopUp>
+                ) : null}
+            </React.Fragment>
         );
 
     return (
@@ -127,12 +162,26 @@ export default function Cart() {
                     </div>
                 </div>
             </div>
+            {!!(user && data.localCart) ? (
+                <PopUp
+                    title="Synchronize your cart"
+                    message="We noticed you currently have a shopping cart on your device, would you like to upload it to sync with your account?"
+                    handler={handleSyncCart}
+                >
+                    <Upload
+                        sx={{
+                            color: "",
+                            lineHeight: 0,
+                        }}
+                    />
+                </PopUp>
+            ) : null}
         </div>
     );
 }
 
 // [CUSTOM RENDERED ELEMENTS]
-function ProductRow({ item }) {
+const ProductRow = React.memo(({ item }) => {
     // [QUERIES]
     const { isLoading, data: product } = useQuery(
         ["single-product", item.productId],
@@ -145,14 +194,14 @@ function ProductRow({ item }) {
     const dispatch = useDispatch();
 
     // [HANDLER FUNCTIONS]
-    async function handleRemoveProduct() {
+    const handleRemoveProduct = async () => {
         try {
             await removeFromCartService(userId, dispatch, item.productId);
         } catch (error) {
             console.log(error.message);
         }
-    }
-    async function handleUpdateProduct() {
+    };
+    const handleUpdateProduct = async () => {
         try {
             await updateCartService(userId, dispatch, {
                 productId: item.productId,
@@ -161,7 +210,7 @@ function ProductRow({ item }) {
         } catch (error) {
             console.log(error.message);
         }
-    }
+    };
 
     // [RENDER]
     if (isLoading)
@@ -254,4 +303,4 @@ function ProductRow({ item }) {
             </td>
         </tr>
     );
-}
+});
