@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import Select from '../../../../components/Select/Select';
-import Table from '../../../../components/Table/Table';
-import styles from './ShoppingHistory.module.css';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import Select from "../../../../components/Select/Select";
+import Table from "../../../../components/Table/Table";
+import styles from "./ShoppingHistory.module.css";
+import { useQuery } from "react-query";
+import { getOrderService } from "../../../../services/order.service";
+import { useSelector } from "react-redux";
+import { getUserId } from "../../../../redux/selectors";
+import Loader from "../../../../components/Loader/Loader";
+import { formatDMY } from "../../../../utils/helper";
 
 export default function ShoppingHistory() {
     // [STATES]
-    const [sortFilter, setSortFilter] = useState('None');
-    const [statusFilter, setStatusFilter] = useState('All');
-    const [paymentMethod, setPaymentMethod] = useState('All');
+    const userId = useSelector(getUserId);
+    const [sortFilter, setSortFilter] = useState("None");
+    const [statusFilter, setStatusFilter] = useState("All");
+    const [paymentMethod, setPaymentMethod] = useState("All");
+
+    // [QUERIES]
+    const { isLoading, data } = useQuery("order", () =>
+        getOrderService(userId),
+    );
 
     // [RENDER]
+    if (isLoading) return <Loader variant="overlay" />;
     return (
         <div className={styles.infoContainer}>
             <h3 className={styles.header}>Shopping history</h3>
@@ -21,42 +34,36 @@ export default function ShoppingHistory() {
                             classNames={styles.filterSelect}
                             label="Total"
                             defaultValue={sortFilter}
-                            renderData={['None', 'Increase', 'Decrease']}
+                            renderData={["None", "Increase", "Decrease"]}
                             onSelect={setSortFilter}
                         />
                         <Select
                             classNames={styles.filterSelect}
                             label="Payment method"
                             defaultValue={statusFilter}
-                            renderData={['All', 'Credits', 'Cash on delivery']}
+                            renderData={["All", "Credits", "Cash on delivery"]}
                             onSelect={setStatusFilter}
                         />
                         <Select
                             classNames={styles.filterSelect}
                             label="Status"
                             defaultValue={paymentMethod}
-                            renderData={['All', 'Paid', 'Pending', 'Denied']}
+                            renderData={["All", "Paid", "Pending", "Denied"]}
                             onSelect={setPaymentMethod}
                         />
                     </div>
                 </section>
                 <Table
                     headers={[
-                        'Date',
-                        'Total',
-                        'Payment method',
-                        'Status',
-                        'Action',
+                        "Date",
+                        "Status",
+                        "Payment",
+                        "Address",
+                        "Total",
+                        "",
                     ]}
                     pagination
-                    data={[
-                        {
-                            date: 'Jan 1, 2023',
-                            total: '$99.99',
-                            method: 'COD',
-                            status: 'Paid',
-                        },
-                    ]}
+                    data={data}
                     renderItem={Order}
                     keyExtractor={(item) => item.date}
                 />
@@ -69,13 +76,16 @@ export default function ShoppingHistory() {
 function Order({ item }) {
     return (
         <tr>
-            <td>{item.date}</td>
-            <td>{item.total}</td>
+            <td>{formatDMY(item.createdAt)}</td>
+            <td>
+                <span className={`status ${item.status}`}>{item.status}</span>
+            </td>
             <td>{item.method}</td>
-            <td>{item.status}</td>
+            <td>{item.address}</td>
+            <td>${item.total}</td>
             <td>
                 <NavLink
-                    to="../address"
+                    to="#"
                     className="btn btn-primary btn-rounded text-small"
                 >
                     Details

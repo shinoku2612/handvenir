@@ -175,6 +175,7 @@ button.disabled {
     justify-content: center;
     align-items: center;
 }
+
 .flex-left {
     display: flex;
     align-items: center;
@@ -191,4 +192,31 @@ button.disabled {
 .clickable-link:hover {
     cursor: pointer;
     text-decoration: underline currentColor;
+}
+
+.status {
+    padding: 0.5em 1em;
+    border-radius: 100vh;
+    background-color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.status.pending {
+    color: #2271ff;
+    background-color: #2271ff1a;
+}
+
+.status.shipping {
+    color: #343a40;
+    background-color: #343a401a;
+}
+
+.status.paid {
+    color: #28a745;
+    background-color: #28a7451a;
+}
+
+.status.canceled {
+    color: #dc3545;
+    background-color: #dc35451a;
 }

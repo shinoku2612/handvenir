@@ -34,6 +34,7 @@ export default function Cart() {
     // [STATES]
     const userId = useSelector(getUserId);
     const user = useSelector(getUser);
+    const [mainAddress, setMainAddress] = useState("");
     const cart = useSelector(getCart);
     const cartTotal = useSelector(getCartTotal);
     const dispatch = useDispatch();
@@ -53,6 +54,14 @@ export default function Cart() {
             getCartTotalService(dispatch, cart.product_list);
         }
     }, [dispatch, cart]);
+    useEffect(() => {
+        if (user) {
+            const mainAddress = user.addresses?.find(
+                (addr) => addr.isMain === true,
+            );
+            setMainAddress(mainAddress);
+        }
+    }, [user]);
 
     // [HANDLER FUNCTIONS]
     const handleSyncCart = async () => {
@@ -131,24 +140,28 @@ export default function Cart() {
                                     ${cartTotal}
                                 </span>
                             </div>
-                            <div className={styles.summaryInfo}>
+                            {/* <div className={styles.summaryInfo}>
                                 <span className={styles.summaryLabel}>
                                     Estimated shipping
                                 </span>
                                 <span className={styles.summaryValue}>$9</span>
-                            </div>
-                            <div className={styles.summaryInfo}>
-                                <span className={styles.summaryLabel}>
-                                    Shipping to
-                                </span>
-                                <span
-                                    className="text-small text-secondary clickable-link"
-                                    title="Click to change delivery address"
-                                >
-                                    01 Vo Van Ngan, Linh Trung, Thu Đuc, Ho Chi
-                                    Minh
-                                </span>
-                            </div>
+                            </div> */}
+                            {mainAddress ? (
+                                <div className={styles.summaryInfo}>
+                                    <span className={styles.summaryLabel}>
+                                        Shipping to
+                                    </span>
+                                    <span
+                                        className="text-small text-secondary clickable-link"
+                                        title="Click to change delivery address"
+                                    >
+                                        {mainAddress.street}, {mainAddress.town}
+                                        , {mainAddress.district},{" "}
+                                        {mainAddress.city},{" "}
+                                        {mainAddress.country}
+                                    </span>
+                                </div>
+                            ) : null}
                             <div className={styles.totalInfo}>
                                 <span className={styles.totalLabel}>Total</span>
                                 <span className={styles.totalValue}>

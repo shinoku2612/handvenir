@@ -8,7 +8,7 @@ export const PATH = {
         index: "me",
         address: "address",
         credit: "credit-card",
-        history: "history",
+        history: "order",
         shopRegister: "shop-register",
         shop: "my-shop",
     },

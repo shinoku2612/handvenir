@@ -27,6 +27,8 @@
     border-radius: 0.5rem;
     background-color: #ffffff;
     width: 100%;
+    max-height: 15rem;
+    overflow: auto;
     position: absolute;
     left: 0;
     top: 100%;

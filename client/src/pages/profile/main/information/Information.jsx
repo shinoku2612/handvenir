@@ -58,28 +58,25 @@ export default function Information() {
                     >
                         <span className={styles.label}>{info.label}</span>
                         {editable ? (
-                            info.readonly ? (
-                                <p className={styles.input}>{user[info.id]}</p>
-                            ) : (
-                                <input
-                                    autoComplete="off"
-                                    name={info.id}
-                                    className={styles.input}
-                                    type={info.type}
-                                    defaultValue={
-                                        info.type === "date"
-                                            ? new Date(user[info.id])
-                                                  .toISOString()
-                                                  .slice(0, 10)
-                                            : user[info.id]
-                                    }
-                                    ref={(node) => {
-                                        const refMap = getRefMap();
-                                        if (node) refMap.set(info.id, node);
-                                        else refMap.delete(info.id);
-                                    }}
-                                />
-                            )
+                            <input
+                                autoComplete="off"
+                                name={info.id}
+                                className={styles.input}
+                                type={info.type}
+                                defaultValue={
+                                    info.type === "date"
+                                        ? new Date(user[info.id])
+                                              .toISOString()
+                                              .slice(0, 10)
+                                        : user[info.id]
+                                }
+                                ref={(node) => {
+                                    const refMap = getRefMap();
+                                    if (node) refMap.set(info.id, node);
+                                    else refMap.delete(info.id);
+                                }}
+                                readOnly={info.readonly}
+                            />
                         ) : (
                             <p className={styles.input}>
                                 {info.type === "date"

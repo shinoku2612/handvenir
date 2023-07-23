@@ -1,4 +1,4 @@
-import { ValidationError } from './errors';
+import { ValidationError } from "./errors";
 
 export function getBrowserWidth() {
     return Math.max(
@@ -25,20 +25,25 @@ export function checkType(data) {
     return type.toLowerCase();
 }
 export function hideEmail(email) {
-    return email.replace(/(\w{2})[\w.-]+@[\w]+[\w]/, '$1***@****');
+    return email.replace(/(\w{2})[\w.-]+@[\w]+[\w]/, "$1***@****");
+}
+export function formatDMY(date) {
+    const dateTime = new Date(date);
+    const formater = new Intl.DateTimeFormat("en-GB");
+    return formater.format(dateTime);
 }
 export function validateInput(input) {
-    if (input.value === '')
-        return new ValidationError(input.name, 'This field is required');
+    if (input.value === "")
+        return new ValidationError(input.name, "This field is required");
     switch (input.name) {
-        case 'email': {
+        case "email": {
             const pattern =
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (!pattern.test(input.value))
-                return new ValidationError(input.name, 'Invalid email format!');
+                return new ValidationError(input.name, "Invalid email format!");
             break;
         }
-        case 'password': {
+        case "password": {
             const lowerCaseTest = /(?=.*[a-z])/.test(input.value);
             const upperCaseTest = /(?=.*[A-Z])/.test(input.value);
             const digitTest = /(?=.*\d)/.test(input.value);
@@ -47,37 +52,37 @@ export function validateInput(input) {
             if (!lowerCaseTest) {
                 return new ValidationError(
                     input.name,
-                    'Password must contain at least 1 lower case character',
+                    "Password must contain at least 1 lower case character",
                 );
             }
             if (!upperCaseTest) {
                 return new ValidationError(
                     input.name,
-                    'Password must contain at least 1 upper case character',
+                    "Password must contain at least 1 upper case character",
                 );
             }
             if (!digitTest) {
                 return new ValidationError(
                     input.name,
-                    'Password must contain at least 1 digit',
+                    "Password must contain at least 1 digit",
                 );
             }
             if (!specialTest) {
                 return new ValidationError(
                     input.name,
-                    'Password must contain at least 1 special character',
+                    "Password must contain at least 1 special character",
                 );
             }
             if (input.value.length < 8) {
                 return new ValidationError(
                     input.name,
-                    'Password must contain at least 8 characters',
+                    "Password must contain at least 8 characters",
                 );
             }
             if (input.value.length > 30) {
                 return new ValidationError(
                     input.name,
-                    'Password must contain at most 30 characters',
+                    "Password must contain at most 30 characters",
                 );
             }
             break;

@@ -91,7 +91,7 @@ export async function syncLocalCartService(userId, dispatch, localCart) {
 }
 export async function getCartTotalService(dispatch, productList) {
     try {
-        const res = await privateRequest.post(`/cart/total`, {
+        const res = await privateRequest.post("/cart/total", {
             productList,
         });
         dispatch(setCartTotal(res.data?.total));

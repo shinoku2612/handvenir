@@ -6,6 +6,7 @@ import { getUser, getUserId } from "../../../../redux/selectors";
 import AddressCard from "./address-card/AddressCard";
 import styles from "./Address.module.css";
 import { insertAddressService } from "../../../../services/user.service";
+import axios from "axios";
 
 export default function Address() {
     // [STATES]
@@ -16,6 +17,7 @@ export default function Address() {
     const dispatch = useDispatch();
 
     const [addressData, setAddressData] = useState({});
+    const [addressAPI, setAddressAPI] = useState({ country: ["Vietnam"] });
     const multistepRef = useRef();
 
     // [HANDLER FUNCTIONS]
@@ -34,7 +36,47 @@ export default function Address() {
         }
     }
     function handleSelectOnStep(key) {
-        return function (value) {
+        return async function (value) {
+            switch (key) {
+                case "country": {
+                    const res = await axios.get(
+                        "https://api.mysupership.vn/v1/partner/areas/province",
+                    );
+                    setAddressAPI((prev) => ({
+                        ...prev,
+                        city: res.data.results,
+                    }));
+                    break;
+                }
+                case "city": {
+                    const currentCity = addressAPI.city.find(
+                        (city) => city.name === value,
+                    );
+                    const res = await axios.get(
+                        `https://api.mysupership.vn/v1/partner/areas/district?province=${currentCity.code}`,
+                    );
+                    setAddressAPI((prev) => ({
+                        ...prev,
+                        district: res.data.results,
+                    }));
+                    break;
+                }
+                case "district": {
+                    const currentDistrict = addressAPI.district.find(
+                        (district) => district.name === value,
+                    );
+                    const res = await axios.get(
+                        `https://api.mysupership.vn/v1/partner/areas/commune?district=${currentDistrict.code}`,
+                    );
+                    setAddressAPI((prev) => ({
+                        ...prev,
+                        town: res.data.results,
+                    }));
+                    break;
+                }
+                default:
+                    break;
+            }
             setAddressData((prev) => ({
                 ...prev,
                 [key]: value,
@@ -70,25 +112,28 @@ export default function Address() {
                         ref={multistepRef}
                     >
                         <Select
-                            renderData={["Vietnam", "Japan"]}
+                            renderData={["Vietnam"]}
                             defaultValue={addressData.country}
                             onSelect={handleSelectOnStep("country")}
-                            data-index="1"
                         />
                         <Select
-                            renderData={["Ho Chi Minh", "Tokyo"]}
+                            renderData={addressAPI.city?.map(
+                                (item) => item.name,
+                            )}
                             defaultValue={addressData.city}
                             onSelect={handleSelectOnStep("city")}
-                            data-index="2"
                         />
                         <Select
-                            renderData={["Thu Duc", "Haido"]}
+                            renderData={addressAPI.district?.map(
+                                (item) => item.name,
+                            )}
                             defaultValue={addressData.district}
                             onSelect={handleSelectOnStep("district")}
-                            data-index="3"
                         />
                         <Select
-                            renderData={["Linh Trung", "Beika"]}
+                            renderData={addressAPI.town?.map(
+                                (item) => item.name,
+                            )}
                             defaultValue={addressData.town}
                             onSelect={handleSelectOnStep("town")}
                         />
@@ -140,8 +185,8 @@ function DeliveryAddress({ address }) {
             <p className={styles.deliverLabel}>Deliver to:</p>
             {address ? (
                 <span className={styles.deliverAddress}>
-                    {address.country}, {address.city}, {address.district},{" "}
-                    {address.town}, {address.street}
+                    {address.street}, {address.town}, {address.district},{" "}
+                    {address.city}, {address.country}
                 </span>
             ) : (
                 <span className={styles.emptyAddress}>
