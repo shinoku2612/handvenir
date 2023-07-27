@@ -6,7 +6,11 @@ import { getUser, getUserId } from "../../../../redux/selectors";
 import AddressCard from "./address-card/AddressCard";
 import styles from "./Address.module.css";
 import { insertAddressService } from "../../../../services/user.service";
-import axios from "axios";
+import {
+    getCommune,
+    getDistrict,
+    getProvince,
+} from "../../../../services/location.service";
 
 export default function Address() {
     // [STATES]
@@ -39,12 +43,10 @@ export default function Address() {
         return async function (value) {
             switch (key) {
                 case "country": {
-                    const res = await axios.get(
-                        "https://api.mysupership.vn/v1/partner/areas/province",
-                    );
+                    const res = await getProvince(value);
                     setAddressAPI((prev) => ({
                         ...prev,
-                        city: res.data.results,
+                        city: res,
                     }));
                     break;
                 }
@@ -52,12 +54,13 @@ export default function Address() {
                     const currentCity = addressAPI.city.find(
                         (city) => city.name === value,
                     );
-                    const res = await axios.get(
-                        `https://api.mysupership.vn/v1/partner/areas/district?province=${currentCity.code}`,
+                    const res = await getDistrict(
+                        addressData.country,
+                        currentCity.code,
                     );
                     setAddressAPI((prev) => ({
                         ...prev,
-                        district: res.data.results,
+                        district: res.self,
                     }));
                     break;
                 }
@@ -65,12 +68,13 @@ export default function Address() {
                     const currentDistrict = addressAPI.district.find(
                         (district) => district.name === value,
                     );
-                    const res = await axios.get(
-                        `https://api.mysupership.vn/v1/partner/areas/commune?district=${currentDistrict.code}`,
+                    const res = await getCommune(
+                        addressData.country,
+                        currentDistrict.code,
                     );
                     setAddressAPI((prev) => ({
                         ...prev,
-                        town: res.data.results,
+                        town: res.self,
                     }));
                     break;
                 }

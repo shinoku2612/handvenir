@@ -3,11 +3,13 @@
     flex-direction: column;
     position: relative;
 }
+
 .label {
     font-family: 'Poppins';
     font-size: inherit;
     font-weight: 500;
 }
+
 .value {
     display: flex;
     justify-content: space-between;
@@ -20,6 +22,7 @@
     border-radius: 0.25rem;
     border: 1px solid var(--text-secondary);
 }
+
 .optionContainer {
     padding: 0 0.5rem;
     cursor: pointer;
@@ -39,10 +42,13 @@
     transform: scaleY(0);
     opacity: 0;
     visibility: hidden;
+    overscroll-behavior: contain;
 }
+
 .optionContainer.expand {
     animation: fadedExpand 200ms ease-in-out forwards;
 }
+
 .option {
     user-select: none;
     padding: 0.5em 1rem;
@@ -58,6 +64,7 @@
     transition-timing-function: ease-in-out;
     transition-property: background-color, color;
 }
+
 .option:hover,
 .option.selected {
     background-color: var(--primary-clr);
@@ -75,10 +82,12 @@
         transform: scaleY(1);
     }
 }
+
 @keyframes rotateUp {
     from {
         transform: rotate(0);
     }
+
     to {
         transform: rotate(-180deg);
     }
