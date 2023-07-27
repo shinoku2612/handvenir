@@ -29,6 +29,7 @@ const productRoute = require("./routes/product.route.js");
 const reviewRoute = require("./routes/review.route.js");
 const userRoute = require("./routes/user.route.js");
 const wishListRoute = require("./routes/wish-list.route.js");
+const locationRoute = require("./routes/location.route.js");
 
 // use middlewares - routers
 app.use("/api/auth", authRoute);
@@ -39,6 +40,7 @@ app.use("/api/product", productRoute);
 app.use("/api/review", reviewRoute);
 app.use("/api/user", userRoute);
 app.use("/api/wish-list", wishListRoute);
+app.use("/api/location", locationRoute);
 
 // app listening
 const runningPort = process.env.NODE_PORT || 3032;

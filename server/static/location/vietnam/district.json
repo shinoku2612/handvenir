@@ -1,0 +1,3169 @@
+[
+    {
+        "parent_code": "92",
+        "self": [
+            {
+                "code": "916",
+                "name": "Ninh Kieu"
+            },
+            {
+                "code": "925",
+                "name": "Co Do"
+            },
+            {
+                "code": "926",
+                "name": "Phong Dien"
+            },
+            {
+                "code": "927",
+                "name": "Thoi Lai"
+            },
+            {
+                "code": "924",
+                "name": "Vinh Thanh"
+            },
+            {
+                "code": "917",
+                "name": "O Mon"
+            },
+            {
+                "code": "923",
+                "name": "Thot Not"
+            },
+            {
+                "code": "918",
+                "name": "Binh Thuy"
+            },
+            {
+                "code": "919",
+                "name": "Cai Rang"
+            }
+        ]
+    },
+    {
+        "parent_code": "48",
+        "self": [
+            {
+                "code": "497",
+                "name": "Hoa Vang"
+            },
+            {
+                "code": "498",
+                "name": "Hoang Sa"
+            },
+            {
+                "code": "495",
+                "name": "Cam Le"
+            },
+            {
+                "code": "492",
+                "name": "Hai Chau"
+            },
+            {
+                "code": "490",
+                "name": "Lien Chieu"
+            },
+            {
+                "code": "494",
+                "name": "Ngu Hanh Son"
+            },
+            {
+                "code": "493",
+                "name": "Son Tra"
+            },
+            {
+                "code": "491",
+                "name": "Thanh Khe"
+            }
+        ]
+    },
+    {
+        "parent_code": "01",
+        "self": [
+            {
+                "code": "001",
+                "name": "Ba Dinh"
+            },
+            {
+                "code": "005",
+                "name": "Cau Giay"
+            },
+            {
+                "code": "006",
+                "name": "Dong Da"
+            },
+            {
+                "code": "007",
+                "name": "Hai Ba Trung"
+            },
+            {
+                "code": "002",
+                "name": "Hoan Kiem"
+            },
+            {
+                "code": "008",
+                "name": "Hoang Mai"
+            },
+            {
+                "code": "003",
+                "name": "Tay Ho"
+            },
+            {
+                "code": "009",
+                "name": "Thanh Xuan"
+            },
+            {
+                "code": "273",
+                "name": "Dan Phuong"
+            },
+            {
+                "code": "017",
+                "name": "Dong Anh"
+            },
+            {
+                "code": "250",
+                "name": "Me Linh"
+            },
+            {
+                "code": "272",
+                "name": "Phuc Tho"
+            },
+            {
+                "code": "275",
+                "name": "Quoc Oai"
+            },
+            {
+                "code": "276",
+                "name": "Thach That"
+            },
+            {
+                "code": "279",
+                "name": "Thuong Tin"
+            },
+            {
+                "code": "271",
+                "name": "Ba Vi"
+            },
+            {
+                "code": "277",
+                "name": "Chuong My"
+            },
+            {
+                "code": "018",
+                "name": "Gia Lam"
+            },
+            {
+                "code": "274",
+                "name": "Hoai Duc"
+            },
+            {
+                "code": "282",
+                "name": "My Duc"
+            },
+            {
+                "code": "280",
+                "name": "Phu Xuyen"
+            },
+            {
+                "code": "016",
+                "name": "Soc Son"
+            },
+            {
+                "code": "278",
+                "name": "Thanh Oai"
+            },
+            {
+                "code": "020",
+                "name": "Thanh Tri"
+            },
+            {
+                "code": "281",
+                "name": "Ung Hoa"
+            },
+            {
+                "code": "269",
+                "name": "Son Tay"
+            },
+            {
+                "code": "021",
+                "name": "Bac Tu Liem"
+            },
+            {
+                "code": "268",
+                "name": "Ha Dong"
+            },
+            {
+                "code": "004",
+                "name": "Long Bien"
+            },
+            {
+                "code": "019",
+                "name": "Nam Tu Liem"
+            }
+        ]
+    },
+    {
+        "parent_code": "31",
+        "self": [
+            {
+                "code": "306",
+                "name": "Hai An"
+            },
+            {
+                "code": "303",
+                "name": "Hong Bang"
+            },
+            {
+                "code": "305",
+                "name": "Le Chan"
+            },
+            {
+                "code": "304",
+                "name": "Ngo Quyen"
+            },
+            {
+                "code": "312",
+                "name": "An Duong"
+            },
+            {
+                "code": "313",
+                "name": "An Lao"
+            },
+            {
+                "code": "318",
+                "name": "Bach Long Vi"
+            },
+            {
+                "code": "317",
+                "name": "Cat Hai"
+            },
+            {
+                "code": "314",
+                "name": "Kien Thuy"
+            },
+            {
+                "code": "311",
+                "name": "Thuy Nguyen"
+            },
+            {
+                "code": "315",
+                "name": "Tien Lang"
+            },
+            {
+                "code": "316",
+                "name": "Vinh Bao"
+            },
+            {
+                "code": "309",
+                "name": "Duong Kinh"
+            },
+            {
+                "code": "308",
+                "name": "Do Son"
+            },
+            {
+                "code": "307",
+                "name": "Kien An"
+            }
+        ]
+    },
+    {
+        "parent_code": "79",
+        "self": [
+            {
+                "code": "760",
+                "name": "District 1"
+            },
+            {
+                "code": "771",
+                "name": "District 10"
+            },
+            {
+                "code": "772",
+                "name": "District 11"
+            },
+            {
+                "code": "769",
+                "name": "District 2"
+            },
+            {
+                "code": "770",
+                "name": "District 3"
+            },
+            {
+                "code": "773",
+                "name": "District 4"
+            },
+            {
+                "code": "774",
+                "name": "District 5"
+            },
+            {
+                "code": "775",
+                "name": "District 6"
+            },
+            {
+                "code": "778",
+                "name": "District 7"
+            },
+            {
+                "code": "776",
+                "name": "District 8"
+            },
+            {
+                "code": "765",
+                "name": "Binh Thanh"
+            },
+            {
+                "code": "764",
+                "name": "Go Vap"
+            },
+            {
+                "code": "768",
+                "name": "Phu Nhuan"
+            },
+            {
+                "code": "766",
+                "name": "Tan Binh"
+            },
+            {
+                "code": "767",
+                "name": "Tan Phu"
+            },
+            {
+                "code": "761",
+                "name": "District 12"
+            },
+            {
+                "code": "763",
+                "name": "District 9"
+            },
+            {
+                "code": "777",
+                "name": "Binh Tan"
+            },
+            {
+                "code": "762",
+                "name": "Thu Duc"
+            },
+            {
+                "code": "785",
+                "name": "Binh Chanh"
+            },
+            {
+                "code": "787",
+                "name": "Can Gio"
+            },
+            {
+                "code": "783",
+                "name": "Cu Chi"
+            },
+            {
+                "code": "784",
+                "name": "Hoc Mon"
+            },
+            {
+                "code": "786",
+                "name": "Nha Be"
+            }
+        ]
+    },
+    {
+        "parent_code": "89",
+        "self": [
+            {
+                "code": "883",
+                "name": "Long Xuyen"
+            },
+            {
+                "code": "886",
+                "name": "An Phu"
+            },
+            {
+                "code": "889",
+                "name": "Chau Phu"
+            },
+            {
+                "code": "892",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "893",
+                "name": "Cho Moi"
+            },
+            {
+                "code": "888",
+                "name": "Phu Tan"
+            },
+            {
+                "code": "894",
+                "name": "Thoai Son"
+            },
+            {
+                "code": "890",
+                "name": "Tinh Bien"
+            },
+            {
+                "code": "891",
+                "name": "Tri Ton"
+            },
+            {
+                "code": "884",
+                "name": "Chau Doc"
+            },
+            {
+                "code": "887",
+                "name": "Tan Chau"
+            }
+        ]
+    },
+    {
+        "parent_code": "77",
+        "self": [
+            {
+                "code": "747",
+                "name": "Vung Tau"
+            },
+            {
+                "code": "750",
+                "name": "Chau Duc"
+            },
+            {
+                "code": "755",
+                "name": "Con Dao"
+            },
+            {
+                "code": "753",
+                "name": "Dat Do"
+            },
+            {
+                "code": "752",
+                "name": "Long Dien"
+            },
+            {
+                "code": "751",
+                "name": "Xuyen Moc"
+            },
+            {
+                "code": "754",
+                "name": "Phu My"
+            },
+            {
+                "code": "748",
+                "name": "Ba Ria"
+            }
+        ]
+    },
+    {
+        "parent_code": "24",
+        "self": [
+            {
+                "code": "213",
+                "name": "Bac Giang"
+            },
+            {
+                "code": "223",
+                "name": "Hiep Hoa"
+            },
+            {
+                "code": "217",
+                "name": "Lang Giang"
+            },
+            {
+                "code": "218",
+                "name": "Luc Nam"
+            },
+            {
+                "code": "219",
+                "name": "Luc Ngan"
+            },
+            {
+                "code": "220",
+                "name": "Son Dong"
+            },
+            {
+                "code": "216",
+                "name": "Tan Yen"
+            },
+            {
+                "code": "222",
+                "name": "Viet Yen"
+            },
+            {
+                "code": "221",
+                "name": "Yen Dung"
+            },
+            {
+                "code": "215",
+                "name": "Yen The"
+            }
+        ]
+    },
+    {
+        "parent_code": "06",
+        "self": [
+            {
+                "code": "058",
+                "name": "Bac Kan"
+            },
+            {
+                "code": "061",
+                "name": "Ba Be"
+            },
+            {
+                "code": "063",
+                "name": "Bach Thong"
+            },
+            {
+                "code": "064",
+                "name": "Cho Don"
+            },
+            {
+                "code": "065",
+                "name": "Cho Moi"
+            },
+            {
+                "code": "066",
+                "name": "Na Ri"
+            },
+            {
+                "code": "062",
+                "name": "Ngan Son"
+            },
+            {
+                "code": "060",
+                "name": "Pac Nam"
+            }
+        ]
+    },
+    {
+        "parent_code": "95",
+        "self": [
+            {
+                "code": "954",
+                "name": "Bac Lieu"
+            },
+            {
+                "code": "960",
+                "name": "Dong Hai"
+            },
+            {
+                "code": "961",
+                "name": "Hoa Binh"
+            },
+            {
+                "code": "956",
+                "name": "Hong Dan"
+            },
+            {
+                "code": "957",
+                "name": "Phuoc Long"
+            },
+            {
+                "code": "958",
+                "name": "Vinh Loi"
+            },
+            {
+                "code": "959",
+                "name": "Gia Rai"
+            }
+        ]
+    },
+    {
+        "parent_code": "27",
+        "self": [
+            {
+                "code": "256",
+                "name": "Bac Ninh"
+            },
+            {
+                "code": "263",
+                "name": "Gia Binh"
+            },
+            {
+                "code": "264",
+                "name": "Luong Tai"
+            },
+            {
+                "code": "259",
+                "name": "Que Vo"
+            },
+            {
+                "code": "262",
+                "name": "Thuan Thanh"
+            },
+            {
+                "code": "260",
+                "name": "Tien Du"
+            },
+            {
+                "code": "258",
+                "name": "Yen Phong"
+            },
+            {
+                "code": "261",
+                "name": "Tu Son"
+            }
+        ]
+    },
+    {
+        "parent_code": "83",
+        "self": [
+            {
+                "code": "829",
+                "name": "Ben Tre"
+            },
+            {
+                "code": "836",
+                "name": "Ba Tri"
+            },
+            {
+                "code": "835",
+                "name": "Binh Dai"
+            },
+            {
+                "code": "831",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "832",
+                "name": "Cho Lach"
+            },
+            {
+                "code": "834",
+                "name": "Giong Trom"
+            },
+            {
+                "code": "838",
+                "name": "Mo Cay Bac"
+            },
+            {
+                "code": "833",
+                "name": "Mo Cay Nam"
+            },
+            {
+                "code": "837",
+                "name": "Thanh Phu"
+            }
+        ]
+    },
+    {
+        "parent_code": "74",
+        "self": [
+            {
+                "code": "726",
+                "name": "Bac Tan Uyen"
+            },
+            {
+                "code": "719",
+                "name": "Bau Bang"
+            },
+            {
+                "code": "720",
+                "name": "Dau Tieng"
+            },
+            {
+                "code": "722",
+                "name": "Phu Giao"
+            },
+            {
+                "code": "724",
+                "name": "Di An"
+            },
+            {
+                "code": "725",
+                "name": "Thuan An"
+            },
+            {
+                "code": "721",
+                "name": "Ben Cat"
+            },
+            {
+                "code": "723",
+                "name": "Tan Uyen"
+            },
+            {
+                "code": "718",
+                "name": "Thu Dau Mot"
+            }
+        ]
+    },
+    {
+        "parent_code": "52",
+        "self": [
+            {
+                "code": "540",
+                "name": "Quy Nhon"
+            },
+            {
+                "code": "542",
+                "name": "An Lao"
+            },
+            {
+                "code": "544",
+                "name": "Hoai An"
+            },
+            {
+                "code": "548",
+                "name": "Phu Cat"
+            },
+            {
+                "code": "545",
+                "name": "Phu My"
+            },
+            {
+                "code": "547",
+                "name": "Tay Son"
+            },
+            {
+                "code": "550",
+                "name": "Tuy Phuoc"
+            },
+            {
+                "code": "551",
+                "name": "Van Canh"
+            },
+            {
+                "code": "546",
+                "name": "Vinh Thanh"
+            },
+            {
+                "code": "549",
+                "name": "An Nhon"
+            },
+            {
+                "code": "543",
+                "name": "Hoai Nhon"
+            }
+        ]
+    },
+    {
+        "parent_code": "70",
+        "self": [
+            {
+                "code": "689",
+                "name": "Dong Xoai"
+            },
+            {
+                "code": "696",
+                "name": "Bu Dang"
+            },
+            {
+                "code": "693",
+                "name": "Bu Dop"
+            },
+            {
+                "code": "691",
+                "name": "Bu Gia Map"
+            },
+            {
+                "code": "695",
+                "name": "Dong Phu"
+            },
+            {
+                "code": "694",
+                "name": "Hon Quan"
+            },
+            {
+                "code": "692",
+                "name": "Loc Ninh"
+            },
+            {
+                "code": "698",
+                "name": "Phu Rieng"
+            },
+            {
+                "code": "690",
+                "name": "Binh Long"
+            },
+            {
+                "code": "697",
+                "name": "Chon Thanh"
+            },
+            {
+                "code": "688",
+                "name": "Phuoc Long"
+            }
+        ]
+    },
+    {
+        "parent_code": "60",
+        "self": [
+            {
+                "code": "593",
+                "name": "Phan Thiet"
+            },
+            {
+                "code": "596",
+                "name": "Bac Binh"
+            },
+            {
+                "code": "600",
+                "name": "Duc Linh"
+            },
+            {
+                "code": "601",
+                "name": "Ham Tan"
+            },
+            {
+                "code": "597",
+                "name": "Ham Thuan Bac"
+            },
+            {
+                "code": "598",
+                "name": "Ham Thuan Nam"
+            },
+            {
+                "code": "602",
+                "name": "Phu Qui"
+            },
+            {
+                "code": "599",
+                "name": "Tanh Linh"
+            },
+            {
+                "code": "595",
+                "name": "Tuy Phong"
+            },
+            {
+                "code": "594",
+                "name": "La Gi"
+            }
+        ]
+    },
+    {
+        "parent_code": "96",
+        "self": [
+            {
+                "code": "964",
+                "name": "Ca Mau"
+            },
+            {
+                "code": "969",
+                "name": "Cai Nuoc"
+            },
+            {
+                "code": "970",
+                "name": "Dam Doi"
+            },
+            {
+                "code": "971",
+                "name": "Nam Can"
+            },
+            {
+                "code": "973",
+                "name": "Ngoc Hien"
+            },
+            {
+                "code": "972",
+                "name": "Phu Tan"
+            },
+            {
+                "code": "967",
+                "name": "Thoi Binh"
+            },
+            {
+                "code": "968",
+                "name": "Tran Van Thoi"
+            },
+            {
+                "code": "966",
+                "name": "U Minh"
+            }
+        ]
+    },
+    {
+        "parent_code": "04",
+        "self": [
+            {
+                "code": "040",
+                "name": "Cao Bang"
+            },
+            {
+                "code": "043",
+                "name": "Bao Lac"
+            },
+            {
+                "code": "042",
+                "name": "Bao Lam"
+            },
+            {
+                "code": "048",
+                "name": "Ha Lang"
+            },
+            {
+                "code": "045",
+                "name": "Ha Quang"
+            },
+            {
+                "code": "051",
+                "name": "Hoa An"
+            },
+            {
+                "code": "052",
+                "name": "Nguyen Binh"
+            },
+            {
+                "code": "050",
+                "name": "Phuc Hoa"
+            },
+            {
+                "code": "049",
+                "name": "Quang Hoa"
+            },
+            {
+                "code": "053",
+                "name": "Thach An"
+            },
+            {
+                "code": "044",
+                "name": "Thong Nong"
+            },
+            {
+                "code": "046",
+                "name": "Tra Linh"
+            },
+            {
+                "code": "047",
+                "name": "Trung Khanh"
+            }
+        ]
+    },
+    {
+        "parent_code": "66",
+        "self": [
+            {
+                "code": "643",
+                "name": "Buon Ma Thuot"
+            },
+            {
+                "code": "647",
+                "name": "Buon Don"
+            },
+            {
+                "code": "657",
+                "name": "Cu Kuin"
+            },
+            {
+                "code": "648",
+                "name": "Cu M'gar"
+            },
+            {
+                "code": "645",
+                "name": "Ea H'leo"
+            },
+            {
+                "code": "651",
+                "name": "Ea Kar"
+            },
+            {
+                "code": "646",
+                "name": "Ea Sup"
+            },
+            {
+                "code": "655",
+                "name": "Krong A Na"
+            },
+            {
+                "code": "653",
+                "name": "Krong Bong"
+            },
+            {
+                "code": "649",
+                "name": "Krong Buk"
+            },
+            {
+                "code": "650",
+                "name": "Krong Nang"
+            },
+            {
+                "code": "654",
+                "name": "Krong Pac"
+            },
+            {
+                "code": "656",
+                "name": "Lak"
+            },
+            {
+                "code": "652",
+                "name": "M'Drak"
+            },
+            {
+                "code": "644",
+                "name": "Buon Ho"
+            }
+        ]
+    },
+    {
+        "parent_code": "67",
+        "self": [
+            {
+                "code": "660",
+                "name": "Gia Nghia"
+            },
+            {
+                "code": "662",
+                "name": "Cu Jut"
+            },
+            {
+                "code": "661",
+                "name": "Dak Glong"
+            },
+            {
+                "code": "663",
+                "name": "Dak Mil"
+            },
+            {
+                "code": "666",
+                "name": "Dak R'Lap"
+            },
+            {
+                "code": "665",
+                "name": "Dak Song"
+            },
+            {
+                "code": "664",
+                "name": "Krong No"
+            },
+            {
+                "code": "667",
+                "name": "Tuy Duc"
+            }
+        ]
+    },
+    {
+        "parent_code": "11",
+        "self": [
+            {
+                "code": "094",
+                "name": "Dien Bien Phu"
+            },
+            {
+                "code": "100",
+                "name": "Dien Bien"
+            },
+            {
+                "code": "101",
+                "name": "Dien Bien Dong"
+            },
+            {
+                "code": "102",
+                "name": "Muong Ang"
+            },
+            {
+                "code": "097",
+                "name": "Muong Cha"
+            },
+            {
+                "code": "096",
+                "name": "Muong Nhe"
+            },
+            {
+                "code": "103",
+                "name": "Nam Po"
+            },
+            {
+                "code": "098",
+                "name": "Tua Chua"
+            },
+            {
+                "code": "099",
+                "name": "Tuan Giao"
+            },
+            {
+                "code": "095",
+                "name": "Muong Lay"
+            }
+        ]
+    },
+    {
+        "parent_code": "75",
+        "self": [
+            {
+                "code": "731",
+                "name": "Bien Hoa"
+            },
+            {
+                "code": "739",
+                "name": "Cam My"
+            },
+            {
+                "code": "736",
+                "name": "Dinh Quan"
+            },
+            {
+                "code": "740",
+                "name": "Long Thanh"
+            },
+            {
+                "code": "742",
+                "name": "Nhon Trach"
+            },
+            {
+                "code": "734",
+                "name": "Tan Phu"
+            },
+            {
+                "code": "738",
+                "name": "Thong Nhat"
+            },
+            {
+                "code": "737",
+                "name": "Trang Bom"
+            },
+            {
+                "code": "735",
+                "name": "Vinh Cuu"
+            },
+            {
+                "code": "741",
+                "name": "Xuan Loc"
+            },
+            {
+                "code": "732",
+                "name": "Long Khanh"
+            }
+        ]
+    },
+    {
+        "parent_code": "87",
+        "self": [
+            {
+                "code": "867",
+                "name": "Sa Dec"
+            },
+            {
+                "code": "873",
+                "name": "Cao Lanh"
+            },
+            {
+                "code": "870",
+                "name": "Hong Ngu"
+            },
+            {
+                "code": "871",
+                "name": "Tam Nong"
+            },
+            {
+                "code": "869",
+                "name": "Tan Hong"
+            },
+            {
+                "code": "874",
+                "name": "Thanh Binh"
+            },
+            {
+                "code": "872",
+                "name": "Thap Muoi"
+            },
+            {
+                "code": "868",
+                "name": "Hong Ngu"
+            },
+            {
+                "code": "877",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "876",
+                "name": "Lai Vung"
+            },
+            {
+                "code": "875",
+                "name": "Lap Vo"
+            },
+            {
+                "code": "866",
+                "name": "Cao Lanh"
+            }
+        ]
+    },
+    {
+        "parent_code": "64",
+        "self": [
+            {
+                "code": "622",
+                "name": "Pleiku"
+            },
+            {
+                "code": "627",
+                "name": "Chu Pah"
+            },
+            {
+                "code": "632",
+                "name": "Chu Prong"
+            },
+            {
+                "code": "639",
+                "name": "Chu Puh"
+            },
+            {
+                "code": "633",
+                "name": "Chu Se"
+            },
+            {
+                "code": "626",
+                "name": "Dak Doa"
+            },
+            {
+                "code": "634",
+                "name": "Dak Po"
+            },
+            {
+                "code": "631",
+                "name": "Duc Co"
+            },
+            {
+                "code": "628",
+                "name": "Ia Grai"
+            },
+            {
+                "code": "635",
+                "name": "Ia Pa"
+            },
+            {
+                "code": "625",
+                "name": "KBang"
+            },
+            {
+                "code": "630",
+                "name": "Kong Chro"
+            },
+            {
+                "code": "637",
+                "name": "Krong Pa"
+            },
+            {
+                "code": "629",
+                "name": "Mang Yang"
+            },
+            {
+                "code": "638",
+                "name": "Phu Thien"
+            },
+            {
+                "code": "623",
+                "name": "An Khe"
+            },
+            {
+                "code": "624",
+                "name": "Ayun Pa"
+            }
+        ]
+    },
+    {
+        "parent_code": "02",
+        "self": [
+            {
+                "code": "024",
+                "name": "Ha Giang"
+            },
+            {
+                "code": "031",
+                "name": "Bac Me"
+            },
+            {
+                "code": "034",
+                "name": "Bac Quang"
+            },
+            {
+                "code": "026",
+                "name": "Dong Van"
+            },
+            {
+                "code": "032",
+                "name": "Hoang Su Phi"
+            },
+            {
+                "code": "027",
+                "name": "Meo Vac"
+            },
+            {
+                "code": "029",
+                "name": "Quan Ba"
+            },
+            {
+                "code": "035",
+                "name": "Quang Binh"
+            },
+            {
+                "code": "030",
+                "name": "Vi Xuyen"
+            },
+            {
+                "code": "033",
+                "name": "Xin Man"
+            },
+            {
+                "code": "028",
+                "name": "Yen Minh"
+            }
+        ]
+    },
+    {
+        "parent_code": "35",
+        "self": [
+            {
+                "code": "347",
+                "name": "Phu Ly"
+            },
+            {
+                "code": "352",
+                "name": "Binh Luc"
+            },
+            {
+                "code": "350",
+                "name": "Kim Bang"
+            },
+            {
+                "code": "353",
+                "name": "Ly Nhan"
+            },
+            {
+                "code": "351",
+                "name": "Thanh Liem"
+            },
+            {
+                "code": "349",
+                "name": "Duy Tien"
+            }
+        ]
+    },
+    {
+        "parent_code": "42",
+        "self": [
+            {
+                "code": "436",
+                "name": "Ha Tinh"
+            },
+            {
+                "code": "446",
+                "name": "Cam Xuyen"
+            },
+            {
+                "code": "443",
+                "name": "Can Loc"
+            },
+            {
+                "code": "440",
+                "name": "Duc Tho"
+            },
+            {
+                "code": "444",
+                "name": "Huong Khe"
+            },
+            {
+                "code": "439",
+                "name": "Huong Son"
+            },
+            {
+                "code": "447",
+                "name": "Ky Anh"
+            },
+            {
+                "code": "448",
+                "name": "Loc Ha"
+            },
+            {
+                "code": "442",
+                "name": "Nghi Xuan"
+            },
+            {
+                "code": "445",
+                "name": "Thach Ha"
+            },
+            {
+                "code": "441",
+                "name": "Vu Quang"
+            },
+            {
+                "code": "437",
+                "name": "Hong Linh"
+            },
+            {
+                "code": "449",
+                "name": "Ky Anh"
+            }
+        ]
+    },
+    {
+        "parent_code": "30",
+        "self": [
+            {
+                "code": "288",
+                "name": "Hai Duong"
+            },
+            {
+                "code": "296",
+                "name": "Binh Giang"
+            },
+            {
+                "code": "295",
+                "name": "Cam Giang"
+            },
+            {
+                "code": "297",
+                "name": "Gia Loc"
+            },
+            {
+                "code": "293",
+                "name": "Kim Thanh"
+            },
+            {
+                "code": "291",
+                "name": "Nam Sach"
+            },
+            {
+                "code": "299",
+                "name": "Ninh Giang"
+            },
+            {
+                "code": "294",
+                "name": "Thanh Ha"
+            },
+            {
+                "code": "300",
+                "name": "Thanh Mien"
+            },
+            {
+                "code": "298",
+                "name": "Tu Ky"
+            },
+            {
+                "code": "290",
+                "name": "Chi Linh"
+            },
+            {
+                "code": "292",
+                "name": "Kinh Mon"
+            }
+        ]
+    },
+    {
+        "parent_code": "93",
+        "self": [
+            {
+                "code": "930",
+                "name": "Vi Thanh"
+            },
+            {
+                "code": "933",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "932",
+                "name": "Chau Thanh A"
+            },
+            {
+                "code": "936",
+                "name": "Long My"
+            },
+            {
+                "code": "934",
+                "name": "Phung Hiep"
+            },
+            {
+                "code": "935",
+                "name": "Vi Thuy"
+            },
+            {
+                "code": "931",
+                "name": "Nga Bay"
+            },
+            {
+                "code": "937",
+                "name": "Long My"
+            }
+        ]
+    },
+    {
+        "parent_code": "17",
+        "self": [
+            {
+                "code": "148",
+                "name": "Hoa Binh"
+            },
+            {
+                "code": "154",
+                "name": "Cao Phong"
+            },
+            {
+                "code": "150",
+                "name": "Da Bac"
+            },
+            {
+                "code": "153",
+                "name": "Kim Boi"
+            },
+            {
+                "code": "151",
+                "name": "Ky Son"
+            },
+            {
+                "code": "157",
+                "name": "Lac Son"
+            },
+            {
+                "code": "159",
+                "name": "Lac Thuy"
+            },
+            {
+                "code": "152",
+                "name": "Luong Son"
+            },
+            {
+                "code": "156",
+                "name": "Mai Chau"
+            },
+            {
+                "code": "155",
+                "name": "Tan Lac"
+            },
+            {
+                "code": "158",
+                "name": "Yen Thuy"
+            }
+        ]
+    },
+    {
+        "parent_code": "33",
+        "self": [
+            {
+                "code": "331",
+                "name": "Kim Dong"
+            },
+            {
+                "code": "329",
+                "name": "An Thi"
+            },
+            {
+                "code": "330",
+                "name": "Khoai Chau"
+            },
+            {
+                "code": "333",
+                "name": "Phu Cu"
+            },
+            {
+                "code": "332",
+                "name": "Tien Lu"
+            },
+            {
+                "code": "326",
+                "name": "Van Giang"
+            },
+            {
+                "code": "325",
+                "name": "Van Lam"
+            },
+            {
+                "code": "327",
+                "name": "Yen My"
+            },
+            {
+                "code": "323",
+                "name": "Hung Yen"
+            },
+            {
+                "code": "328",
+                "name": "My Hao"
+            }
+        ]
+    },
+    {
+        "parent_code": "56",
+        "self": [
+            {
+                "code": "568",
+                "name": "Nha Trang"
+            },
+            {
+                "code": "575",
+                "name": "Khanh Son"
+            },
+            {
+                "code": "573",
+                "name": "Khanh Vinh"
+            },
+            {
+                "code": "576",
+                "name": "Truong Sa"
+            },
+            {
+                "code": "571",
+                "name": "Van Ninh"
+            },
+            {
+                "code": "570",
+                "name": "Cam Lam"
+            },
+            {
+                "code": "574",
+                "name": "Dien Khanh"
+            },
+            {
+                "code": "569",
+                "name": "Cam Ranh"
+            },
+            {
+                "code": "572",
+                "name": "Ninh Hoa"
+            }
+        ]
+    },
+    {
+        "parent_code": "91",
+        "self": [
+            {
+                "code": "899",
+                "name": "Rach Gia"
+            },
+            {
+                "code": "908",
+                "name": "An Bien"
+            },
+            {
+                "code": "909",
+                "name": "An Minh"
+            },
+            {
+                "code": "905",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "914",
+                "name": "Giang Thanh"
+            },
+            {
+                "code": "906",
+                "name": "Giong Rieng"
+            },
+            {
+                "code": "907",
+                "name": "Go Quao"
+            },
+            {
+                "code": "903",
+                "name": "Hon Dat"
+            },
+            {
+                "code": "912",
+                "name": "Kien Hai"
+            },
+            {
+                "code": "902",
+                "name": "Kien Luong"
+            },
+            {
+                "code": "904",
+                "name": "Tan Hiep"
+            },
+            {
+                "code": "913",
+                "name": "U Minh Thuong"
+            },
+            {
+                "code": "910",
+                "name": "Vinh Thuan"
+            },
+            {
+                "code": "900",
+                "name": "Ha Tien"
+            },
+            {
+                "code": "911",
+                "name": "Phu Quoc"
+            }
+        ]
+    },
+    {
+        "parent_code": "62",
+        "self": [
+            {
+                "code": "608",
+                "name": "Kon Tum"
+            },
+            {
+                "code": "610",
+                "name": "Dak Glei"
+            },
+            {
+                "code": "615",
+                "name": "Dak Ha"
+            },
+            {
+                "code": "612",
+                "name": "Dak To"
+            },
+            {
+                "code": "618",
+                "name": "Ia H' Drai"
+            },
+            {
+                "code": "613",
+                "name": "Kon Plong"
+            },
+            {
+                "code": "614",
+                "name": "Kon Ray"
+            },
+            {
+                "code": "611",
+                "name": "Ngoc Hoi"
+            },
+            {
+                "code": "616",
+                "name": "Sa Thay"
+            },
+            {
+                "code": "617",
+                "name": "Tu Mo Rong"
+            }
+        ]
+    },
+    {
+        "parent_code": "12",
+        "self": [
+            {
+                "code": "105",
+                "name": "Lai Chau"
+            },
+            {
+                "code": "107",
+                "name": "Muong Te"
+            },
+            {
+                "code": "112",
+                "name": "Nam Nhun"
+            },
+            {
+                "code": "109",
+                "name": "Phong Tho"
+            },
+            {
+                "code": "108",
+                "name": "Sin Ho"
+            },
+            {
+                "code": "106",
+                "name": "Tam Duong"
+            },
+            {
+                "code": "111",
+                "name": "Tan Uyen"
+            },
+            {
+                "code": "110",
+                "name": "Than Uyen"
+            }
+        ]
+    },
+    {
+        "parent_code": "68",
+        "self": [
+            {
+                "code": "680",
+                "name": "Bao Lam"
+            },
+            {
+                "code": "683",
+                "name": "Cat Tien"
+            },
+            {
+                "code": "679",
+                "name": "Di Linh"
+            },
+            {
+                "code": "681",
+                "name": "Da Huoai"
+            },
+            {
+                "code": "682",
+                "name": "Da Teh"
+            },
+            {
+                "code": "674",
+                "name": "Dam Rong"
+            },
+            {
+                "code": "677",
+                "name": "Don Duong"
+            },
+            {
+                "code": "675",
+                "name": "Lac Duong"
+            },
+            {
+                "code": "676",
+                "name": "Lam Ha"
+            },
+            {
+                "code": "673",
+                "name": "Bao Loc"
+            },
+            {
+                "code": "678",
+                "name": "Duc Trong"
+            },
+            {
+                "code": "672",
+                "name": "Da Lat"
+            }
+        ]
+    },
+    {
+        "parent_code": "20",
+        "self": [
+            {
+                "code": "178",
+                "name": "Lang Son"
+            },
+            {
+                "code": "185",
+                "name": "Bac Son"
+            },
+            {
+                "code": "181",
+                "name": "Binh Gia"
+            },
+            {
+                "code": "183",
+                "name": "Cao Loc"
+            },
+            {
+                "code": "187",
+                "name": "Chi Lang"
+            },
+            {
+                "code": "189",
+                "name": "Dinh Lap"
+            },
+            {
+                "code": "186",
+                "name": "Huu Lung"
+            },
+            {
+                "code": "188",
+                "name": "Loc Binh"
+            },
+            {
+                "code": "180",
+                "name": "Trang Dinh"
+            },
+            {
+                "code": "182",
+                "name": "Van Lang"
+            },
+            {
+                "code": "184",
+                "name": "Van Quan"
+            }
+        ]
+    },
+    {
+        "parent_code": "10",
+        "self": [
+            {
+                "code": "080",
+                "name": "Lao Cai"
+            },
+            {
+                "code": "085",
+                "name": "Bac Ha"
+            },
+            {
+                "code": "086",
+                "name": "Bao Thang"
+            },
+            {
+                "code": "087",
+                "name": "Bao Yen"
+            },
+            {
+                "code": "082",
+                "name": "Bat Xat"
+            },
+            {
+                "code": "083",
+                "name": "Muong Khuong"
+            },
+            {
+                "code": "084",
+                "name": "Si Ma Cai"
+            },
+            {
+                "code": "089",
+                "name": "Van Ban"
+            },
+            {
+                "code": "088",
+                "name": "Sa Pa"
+            }
+        ]
+    },
+    {
+        "parent_code": "80",
+        "self": [
+            {
+                "code": "794",
+                "name": "Tan An"
+            },
+            {
+                "code": "807",
+                "name": "Can Giuoc"
+            },
+            {
+                "code": "808",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "802",
+                "name": "Duc Hoa"
+            },
+            {
+                "code": "801",
+                "name": "Duc Hue"
+            },
+            {
+                "code": "798",
+                "name": "Moc Hoa"
+            },
+            {
+                "code": "796",
+                "name": "Tan Hung"
+            },
+            {
+                "code": "799",
+                "name": "Tan Thanh"
+            },
+            {
+                "code": "805",
+                "name": "Tan Tru"
+            },
+            {
+                "code": "797",
+                "name": "Vinh Hung"
+            },
+            {
+                "code": "795",
+                "name": "Kien Tuong"
+            },
+            {
+                "code": "803",
+                "name": "Ben Luc"
+            },
+            {
+                "code": "806",
+                "name": "Can Duoc"
+            },
+            {
+                "code": "800",
+                "name": "Thanh Hoa"
+            },
+            {
+                "code": "804",
+                "name": "Thu Thua"
+            }
+        ]
+    },
+    {
+        "parent_code": "36",
+        "self": [
+            {
+                "code": "356",
+                "name": "Nam Dinh"
+            },
+            {
+                "code": "365",
+                "name": "Giao Thuy"
+            },
+            {
+                "code": "366",
+                "name": "Hai Hau"
+            },
+            {
+                "code": "358",
+                "name": "My Loc"
+            },
+            {
+                "code": "362",
+                "name": "Nam Truc"
+            },
+            {
+                "code": "361",
+                "name": "Nghia Hung"
+            },
+            {
+                "code": "363",
+                "name": "Truc Ninh"
+            },
+            {
+                "code": "359",
+                "name": "Vu Ban"
+            },
+            {
+                "code": "364",
+                "name": "Xuan Truong"
+            },
+            {
+                "code": "360",
+                "name": "Y Yen"
+            }
+        ]
+    },
+    {
+        "parent_code": "40",
+        "self": [
+            {
+                "code": "412",
+                "name": "Vinh"
+            },
+            {
+                "code": "424",
+                "name": "Anh Son"
+            },
+            {
+                "code": "422",
+                "name": "Con Cuong"
+            },
+            {
+                "code": "425",
+                "name": "Dien Chau"
+            },
+            {
+                "code": "427",
+                "name": "Do Luong"
+            },
+            {
+                "code": "431",
+                "name": "Hung Nguyen"
+            },
+            {
+                "code": "417",
+                "name": "Ky Son"
+            },
+            {
+                "code": "430",
+                "name": "Nam Dan"
+            },
+            {
+                "code": "429",
+                "name": "Nghi Loc"
+            },
+            {
+                "code": "419",
+                "name": "Nghia Dan"
+            },
+            {
+                "code": "415",
+                "name": "Que Phong"
+            },
+            {
+                "code": "416",
+                "name": "Quy Chau"
+            },
+            {
+                "code": "420",
+                "name": "Quy Hop"
+            },
+            {
+                "code": "421",
+                "name": "Quynh Luu"
+            },
+            {
+                "code": "423",
+                "name": "Tan Ky"
+            },
+            {
+                "code": "428",
+                "name": "Thanh Chuong"
+            },
+            {
+                "code": "418",
+                "name": "Tuong Duong"
+            },
+            {
+                "code": "426",
+                "name": "Yen Thanh"
+            },
+            {
+                "code": "413",
+                "name": "Cua Lo"
+            },
+            {
+                "code": "432",
+                "name": "Hoang Mai"
+            },
+            {
+                "code": "414",
+                "name": "Thai Hoa"
+            }
+        ]
+    },
+    {
+        "parent_code": "37",
+        "self": [
+            {
+                "code": "369",
+                "name": "Ninh Binh"
+            },
+            {
+                "code": "373",
+                "name": "Gia Vien"
+            },
+            {
+                "code": "374",
+                "name": "Hoa Lu"
+            },
+            {
+                "code": "376",
+                "name": "Kim Son"
+            },
+            {
+                "code": "372",
+                "name": "Nho Quan"
+            },
+            {
+                "code": "375",
+                "name": "Yen Khanh"
+            },
+            {
+                "code": "377",
+                "name": "Yen Mo"
+            },
+            {
+                "code": "370",
+                "name": "Tam Diep"
+            }
+        ]
+    },
+    {
+        "parent_code": "58",
+        "self": [
+            {
+                "code": "582",
+                "name": "Phan Rang-Thap Cham"
+            },
+            {
+                "code": "584",
+                "name": "Bac Ai"
+            },
+            {
+                "code": "586",
+                "name": "Ninh Hai"
+            },
+            {
+                "code": "587",
+                "name": "Ninh Phuoc"
+            },
+            {
+                "code": "585",
+                "name": "Ninh Son"
+            },
+            {
+                "code": "588",
+                "name": "Thuan Bac"
+            },
+            {
+                "code": "589",
+                "name": "Thuan Nam"
+            }
+        ]
+    },
+    {
+        "parent_code": "25",
+        "self": [
+            {
+                "code": "227",
+                "name": "Viet Tri"
+            },
+            {
+                "code": "235",
+                "name": "Cam Khe"
+            },
+            {
+                "code": "230",
+                "name": "Doan Hung"
+            },
+            {
+                "code": "231",
+                "name": "Ha Hoa"
+            },
+            {
+                "code": "237",
+                "name": "Lam Thao"
+            },
+            {
+                "code": "233",
+                "name": "Phu Ninh"
+            },
+            {
+                "code": "236",
+                "name": "Tam Nong"
+            },
+            {
+                "code": "240",
+                "name": "Tan Son"
+            },
+            {
+                "code": "232",
+                "name": "Thanh Ba"
+            },
+            {
+                "code": "238",
+                "name": "Thanh Son"
+            },
+            {
+                "code": "239",
+                "name": "Thanh Thuy"
+            },
+            {
+                "code": "234",
+                "name": "Yen Lap"
+            },
+            {
+                "code": "228",
+                "name": "Phu Tho"
+            }
+        ]
+    },
+    {
+        "parent_code": "54",
+        "self": [
+            {
+                "code": "555",
+                "name": "Tuy Hoa"
+            },
+            {
+                "code": "558",
+                "name": "Dong Xuan"
+            },
+            {
+                "code": "563",
+                "name": "Phu Hoa"
+            },
+            {
+                "code": "560",
+                "name": "Son Hoa"
+            },
+            {
+                "code": "561",
+                "name": "Song Hinh"
+            },
+            {
+                "code": "562",
+                "name": "Tay Hoa"
+            },
+            {
+                "code": "559",
+                "name": "Tuy An"
+            },
+            {
+                "code": "564",
+                "name": "Dong Hoa"
+            },
+            {
+                "code": "557",
+                "name": "Song Cau"
+            }
+        ]
+    },
+    {
+        "parent_code": "44",
+        "self": [
+            {
+                "code": "450",
+                "name": "Dong Hoi"
+            },
+            {
+                "code": "455",
+                "name": "Bo Trach"
+            },
+            {
+                "code": "457",
+                "name": "Le Thuy"
+            },
+            {
+                "code": "452",
+                "name": "Minh Hoa"
+            },
+            {
+                "code": "456",
+                "name": "Quang Ninh"
+            },
+            {
+                "code": "454",
+                "name": "Quang Trach"
+            },
+            {
+                "code": "453",
+                "name": "Tuyen Hoa"
+            },
+            {
+                "code": "458",
+                "name": "Ba Don"
+            }
+        ]
+    },
+    {
+        "parent_code": "49",
+        "self": [
+            {
+                "code": "502",
+                "name": "Tam Ky"
+            },
+            {
+                "code": "515",
+                "name": "Bac Tra My"
+            },
+            {
+                "code": "508",
+                "name": "Duy Xuyen"
+            },
+            {
+                "code": "506",
+                "name": "Dai Loc"
+            },
+            {
+                "code": "505",
+                "name": "Dong Giang"
+            },
+            {
+                "code": "512",
+                "name": "Hiep Duc"
+            },
+            {
+                "code": "510",
+                "name": "Nam Giang"
+            },
+            {
+                "code": "516",
+                "name": "Nam Tra My"
+            },
+            {
+                "code": "519",
+                "name": "Nong Son"
+            },
+            {
+                "code": "517",
+                "name": "Nui Thanh"
+            },
+            {
+                "code": "518",
+                "name": "Phu Ninh"
+            },
+            {
+                "code": "511",
+                "name": "Phuoc Son"
+            },
+            {
+                "code": "509",
+                "name": "Que Son"
+            },
+            {
+                "code": "504",
+                "name": "Tay Giang"
+            },
+            {
+                "code": "513",
+                "name": "Thang Binh"
+            },
+            {
+                "code": "514",
+                "name": "Tien Phuoc"
+            },
+            {
+                "code": "503",
+                "name": "Hoi An"
+            },
+            {
+                "code": "507",
+                "name": "Dien Ban"
+            }
+        ]
+    },
+    {
+        "parent_code": "51",
+        "self": [
+            {
+                "code": "522",
+                "name": "Quang Ngai"
+            },
+            {
+                "code": "535",
+                "name": "Ba To"
+            },
+            {
+                "code": "524",
+                "name": "Binh Son"
+            },
+            {
+                "code": "536",
+                "name": "Ly Son"
+            },
+            {
+                "code": "531",
+                "name": "Minh Long"
+            },
+            {
+                "code": "533",
+                "name": "Mo Duc"
+            },
+            {
+                "code": "532",
+                "name": "Nghia Hanh"
+            },
+            {
+                "code": "529",
+                "name": "Son Ha"
+            },
+            {
+                "code": "530",
+                "name": "Son Tay"
+            },
+            {
+                "code": "527",
+                "name": "Son Tinh"
+            },
+            {
+                "code": "526",
+                "name": "Tay Tra"
+            },
+            {
+                "code": "525",
+                "name": "Tra Bong"
+            },
+            {
+                "code": "528",
+                "name": "Tu Nghia"
+            },
+            {
+                "code": "534",
+                "name": "Duc Pho"
+            }
+        ]
+    },
+    {
+        "parent_code": "22",
+        "self": [
+            {
+                "code": "202",
+                "name": "Ba Che"
+            },
+            {
+                "code": "198",
+                "name": "Binh Lieu"
+            },
+            {
+                "code": "207",
+                "name": "Co To"
+            },
+            {
+                "code": "200",
+                "name": "Dam Ha"
+            },
+            {
+                "code": "201",
+                "name": "Hai Ha"
+            },
+            {
+                "code": "204",
+                "name": "Hoanh Bo"
+            },
+            {
+                "code": "199",
+                "name": "Tien Yen"
+            },
+            {
+                "code": "203",
+                "name": "Van Don"
+            },
+            {
+                "code": "195",
+                "name": "Cam Pha"
+            },
+            {
+                "code": "193",
+                "name": "Ha Long"
+            },
+            {
+                "code": "194",
+                "name": "Mong Cai"
+            },
+            {
+                "code": "196",
+                "name": "Uong Bi"
+            },
+            {
+                "code": "205",
+                "name": "Dong Trieu"
+            },
+            {
+                "code": "206",
+                "name": "Quang Yen"
+            }
+        ]
+    },
+    {
+        "parent_code": "45",
+        "self": [
+            {
+                "code": "461",
+                "name": "Dong Ha"
+            },
+            {
+                "code": "468",
+                "name": "Cam Lo"
+            },
+            {
+                "code": "471",
+                "name": "Con Co"
+            },
+            {
+                "code": "467",
+                "name": "Da Krong"
+            },
+            {
+                "code": "466",
+                "name": "Gio Linh"
+            },
+            {
+                "code": "470",
+                "name": "Hai Lang"
+            },
+            {
+                "code": "465",
+                "name": "Huong Hoa"
+            },
+            {
+                "code": "469",
+                "name": "Trieu Phong"
+            },
+            {
+                "code": "464",
+                "name": "Vinh Linh"
+            },
+            {
+                "code": "462",
+                "name": "Quang Tri"
+            }
+        ]
+    },
+    {
+        "parent_code": "94",
+        "self": [
+            {
+                "code": "941",
+                "name": "Soc Trang"
+            },
+            {
+                "code": "942",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "945",
+                "name": "Cu Lao Dung"
+            },
+            {
+                "code": "943",
+                "name": "Ke Sach"
+            },
+            {
+                "code": "946",
+                "name": "Long Phu"
+            },
+            {
+                "code": "944",
+                "name": "My Tu"
+            },
+            {
+                "code": "947",
+                "name": "My Xuyen"
+            },
+            {
+                "code": "949",
+                "name": "Thanh Tri"
+            },
+            {
+                "code": "951",
+                "name": "Tran De"
+            },
+            {
+                "code": "948",
+                "name": "Nga Nam"
+            },
+            {
+                "code": "950",
+                "name": "Vinh Chau"
+            }
+        ]
+    },
+    {
+        "parent_code": "14",
+        "self": [
+            {
+                "code": "116",
+                "name": "Son La"
+            },
+            {
+                "code": "121",
+                "name": "Bac Yen"
+            },
+            {
+                "code": "125",
+                "name": "Mai Son"
+            },
+            {
+                "code": "123",
+                "name": "Moc Chau"
+            },
+            {
+                "code": "120",
+                "name": "Muong La"
+            },
+            {
+                "code": "122",
+                "name": "Phu Yen"
+            },
+            {
+                "code": "118",
+                "name": "Quynh Nhai"
+            },
+            {
+                "code": "126",
+                "name": "Song Ma"
+            },
+            {
+                "code": "127",
+                "name": "Sop Cop"
+            },
+            {
+                "code": "119",
+                "name": "Thuan Chau"
+            },
+            {
+                "code": "128",
+                "name": "Van Ho"
+            },
+            {
+                "code": "124",
+                "name": "Yen Chau"
+            }
+        ]
+    },
+    {
+        "parent_code": "72",
+        "self": [
+            {
+                "code": "703",
+                "name": "Tay Ninh"
+            },
+            {
+                "code": "711",
+                "name": "Ben Cau"
+            },
+            {
+                "code": "708",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "707",
+                "name": "Duong Minh Chau"
+            },
+            {
+                "code": "710",
+                "name": "Go Dau"
+            },
+            {
+                "code": "705",
+                "name": "Tan Bien"
+            },
+            {
+                "code": "706",
+                "name": "Tan Chau"
+            },
+            {
+                "code": "712",
+                "name": "Trang Bang"
+            },
+            {
+                "code": "709",
+                "name": "Hoa Thanh"
+            }
+        ]
+    },
+    {
+        "parent_code": "34",
+        "self": [
+            {
+                "code": "336",
+                "name": "Thai Binh"
+            },
+            {
+                "code": "340",
+                "name": "Dong Hung"
+            },
+            {
+                "code": "339",
+                "name": "Hung Ha"
+            },
+            {
+                "code": "343",
+                "name": "Kien Xuong"
+            },
+            {
+                "code": "338",
+                "name": "Quynh Phu"
+            },
+            {
+                "code": "341",
+                "name": "Thai Thuy"
+            },
+            {
+                "code": "342",
+                "name": "Tien Hai"
+            },
+            {
+                "code": "344",
+                "name": "Vu Thu"
+            }
+        ]
+    },
+    {
+        "parent_code": "19",
+        "self": [
+            {
+                "code": "164",
+                "name": "Thai Nguyen"
+            },
+            {
+                "code": "171",
+                "name": "Dai Tu"
+            },
+            {
+                "code": "167",
+                "name": "Dinh Hoa"
+            },
+            {
+                "code": "169",
+                "name": "Dong Hy"
+            },
+            {
+                "code": "173",
+                "name": "Phu Binh"
+            },
+            {
+                "code": "168",
+                "name": "Phu Luong"
+            },
+            {
+                "code": "170",
+                "name": "Vo Nhai"
+            },
+            {
+                "code": "165",
+                "name": "Song Cong"
+            },
+            {
+                "code": "172",
+                "name": "Pho Yen"
+            }
+        ]
+    },
+    {
+        "parent_code": "38",
+        "self": [
+            {
+                "code": "380",
+                "name": "Thanh Hoa"
+            },
+            {
+                "code": "386",
+                "name": "Ba Thuoc"
+            },
+            {
+                "code": "390",
+                "name": "Cam Thuy"
+            },
+            {
+                "code": "405",
+                "name": "Dong Son"
+            },
+            {
+                "code": "392",
+                "name": "Ha Trung"
+            },
+            {
+                "code": "400",
+                "name": "Hau Loc"
+            },
+            {
+                "code": "399",
+                "name": "Hoang Hoa"
+            },
+            {
+                "code": "388",
+                "name": "Lang Chanh"
+            },
+            {
+                "code": "384",
+                "name": "Muong Lat"
+            },
+            {
+                "code": "401",
+                "name": "Nga Son"
+            },
+            {
+                "code": "389",
+                "name": "Ngoc Lac"
+            },
+            {
+                "code": "403",
+                "name": "Nhu Thanh"
+            },
+            {
+                "code": "402",
+                "name": "Nhu Xuan"
+            },
+            {
+                "code": "404",
+                "name": "Nong Cong"
+            },
+            {
+                "code": "385",
+                "name": "Quan Hoa"
+            },
+            {
+                "code": "387",
+                "name": "Quan Son"
+            },
+            {
+                "code": "406",
+                "name": "Quang Xuong"
+            },
+            {
+                "code": "391",
+                "name": "Thach Thanh"
+            },
+            {
+                "code": "398",
+                "name": "Thieu Hoa"
+            },
+            {
+                "code": "395",
+                "name": "Tho Xuan"
+            },
+            {
+                "code": "396",
+                "name": "Thuong Xuan"
+            },
+            {
+                "code": "397",
+                "name": "Trieu Son"
+            },
+            {
+                "code": "393",
+                "name": "Vinh Loc"
+            },
+            {
+                "code": "394",
+                "name": "Yen Dinh"
+            },
+            {
+                "code": "382",
+                "name": "Sam Son"
+            },
+            {
+                "code": "381",
+                "name": "Bim Son"
+            },
+            {
+                "code": "407",
+                "name": "Nghi Son"
+            }
+        ]
+    },
+    {
+        "parent_code": "46",
+        "self": [
+            {
+                "code": "474",
+                "name": "Hue"
+            },
+            {
+                "code": "476",
+                "name": "Phong Dien"
+            },
+            {
+                "code": "482",
+                "name": "Phu Loc"
+            },
+            {
+                "code": "478",
+                "name": "Phu Vang"
+            },
+            {
+                "code": "477",
+                "name": "Quang Dien"
+            },
+            {
+                "code": "479",
+                "name": "Huong Thuy"
+            },
+            {
+                "code": "480",
+                "name": "Huong Tra"
+            },
+            {
+                "code": "481",
+                "name": "A Luoi"
+            },
+            {
+                "code": "483",
+                "name": "Nam Dong"
+            }
+        ]
+    },
+    {
+        "parent_code": "82",
+        "self": [
+            {
+                "code": "815",
+                "name": "My Tho"
+            },
+            {
+                "code": "819",
+                "name": "Cai Be"
+            },
+            {
+                "code": "820",
+                "name": "Cai Lay"
+            },
+            {
+                "code": "821",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "822",
+                "name": "Cho Gao"
+            },
+            {
+                "code": "824",
+                "name": "Go Cong Dong"
+            },
+            {
+                "code": "823",
+                "name": "Go Cong Tay"
+            },
+            {
+                "code": "825",
+                "name": "Tan Phu Dong"
+            },
+            {
+                "code": "818",
+                "name": "Tan Phuoc"
+            },
+            {
+                "code": "817",
+                "name": "Cai Lay"
+            },
+            {
+                "code": "816",
+                "name": "Go Cong"
+            }
+        ]
+    },
+    {
+        "parent_code": "84",
+        "self": [
+            {
+                "code": "842",
+                "name": "Tra Vinh"
+            },
+            {
+                "code": "844",
+                "name": "Cang Long"
+            },
+            {
+                "code": "845",
+                "name": "Cau Ke"
+            },
+            {
+                "code": "848",
+                "name": "Cau Ngang"
+            },
+            {
+                "code": "847",
+                "name": "Chau Thanh"
+            },
+            {
+                "code": "850",
+                "name": "Duyen Hai"
+            },
+            {
+                "code": "846",
+                "name": "Tieu Can"
+            },
+            {
+                "code": "849",
+                "name": "Tra Cu"
+            },
+            {
+                "code": "851",
+                "name": "Duyen Hai"
+            }
+        ]
+    },
+    {
+        "parent_code": "08",
+        "self": [
+            {
+                "code": "070",
+                "name": "Tuyen Quang"
+            },
+            {
+                "code": "073",
+                "name": "Chiem Hoa"
+            },
+            {
+                "code": "074",
+                "name": "Ham Yen"
+            },
+            {
+                "code": "071",
+                "name": "Lam Binh"
+            },
+            {
+                "code": "072",
+                "name": "Na Hang"
+            },
+            {
+                "code": "076",
+                "name": "Son Duong"
+            },
+            {
+                "code": "075",
+                "name": "Yen Son"
+            }
+        ]
+    },
+    {
+        "parent_code": "86",
+        "self": [
+            {
+                "code": "855",
+                "name": "Vinh Long"
+            },
+            {
+                "code": "863",
+                "name": "Binh Tan"
+            },
+            {
+                "code": "857",
+                "name": "Long Ho"
+            },
+            {
+                "code": "858",
+                "name": "Mang Thit"
+            },
+            {
+                "code": "860",
+                "name": "Tam Binh"
+            },
+            {
+                "code": "862",
+                "name": "Tra On"
+            },
+            {
+                "code": "859",
+                "name": "Vung Liem"
+            },
+            {
+                "code": "861",
+                "name": "Binh Minh"
+            }
+        ]
+    },
+    {
+        "parent_code": "26",
+        "self": [
+            {
+                "code": "243",
+                "name": "Vinh Yen"
+            },
+            {
+                "code": "249",
+                "name": "Binh Xuyen"
+            },
+            {
+                "code": "246",
+                "name": "Lap Thach"
+            },
+            {
+                "code": "253",
+                "name": "Song Lo"
+            },
+            {
+                "code": "247",
+                "name": "Tam Duong"
+            },
+            {
+                "code": "248",
+                "name": "Tam Dao"
+            },
+            {
+                "code": "252",
+                "name": "Vinh Tuong"
+            },
+            {
+                "code": "251",
+                "name": "Yen Lac"
+            },
+            {
+                "code": "244",
+                "name": "Phuc Yen"
+            }
+        ]
+    },
+    {
+        "parent_code": "15",
+        "self": [
+            {
+                "code": "132",
+                "name": "Yen Bai"
+            },
+            {
+                "code": "135",
+                "name": "Luc Yen"
+            },
+            {
+                "code": "137",
+                "name": "Mu Cang Chai"
+            },
+            {
+                "code": "139",
+                "name": "Tram Tau"
+            },
+            {
+                "code": "138",
+                "name": "Tran Yen"
+            },
+            {
+                "code": "140",
+                "name": "Van Chan"
+            },
+            {
+                "code": "136",
+                "name": "Van Yen"
+            },
+            {
+                "code": "141",
+                "name": "Yen Binh"
+            },
+            {
+                "code": "133",
+                "name": "Nghia Lo"
+            }
+        ]
+    }
+]
