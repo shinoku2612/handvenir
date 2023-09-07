@@ -10,12 +10,20 @@ import Loader from "../../components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserId } from "../../redux/selectors";
 import { addToCartService } from "../../services/cart.service";
+import { getProductReviewService } from "../../services/review.service";
+import { formatDDMMYYYYHHMM } from "../../utils/helper";
 
 export default function ProductDetail() {
     // [API QUERIES]
     const { slug } = useParams();
-    const { data: product } = useQuery(["single-product", slug], () =>
-        getProductBySlugService(slug),
+    const { isLoading: productLoading, data: product } = useQuery(
+        ["single-product", slug],
+        () => getProductBySlugService(slug),
+    );
+    const { isLoading: commentLoading, data: commentList } = useQuery(
+        ["product-review", product?._id],
+        () => getProductReviewService(product?._id),
+        { enabled: !!product },
     );
 
     // [STATES]
@@ -39,7 +47,7 @@ export default function ProductDetail() {
     }
 
     // [RENDER]
-    if (product === undefined) return <Loader variant="overlay" />;
+    if (productLoading || commentLoading) return <Loader variant="overlay" />;
     return (
         <div className={styles.productDetail}>
             <div className="container">
@@ -163,45 +171,22 @@ export default function ProductDetail() {
                         </span>
                     </h3>
                     <div className={styles.reviewContainer}>
-                        <Comment
-                            author={{
-                                name: "Shin Nohara",
-                                image: "https://file.hstatic.net/200000122283/article/shin-cau-be-but-chi_4017a723e5df4b7d91524dc0bf656c27_1024x1024.jpg",
-                            }}
-                            comment={{
-                                rating: 4.6,
-                                createdAt: "2023-02-11 11:24",
-                                content:
-                                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis unde totam, rem dolorem temporibus nulla itaque reprehenderit, nisi similique, ratione praesentium possimus in magnam ducimus assumenda molestias ipsum debitis laudantium.",
-                                reaction: 123,
-                            }}
-                        />
-                        <Comment
-                            author={{
-                                name: "Ai Haibara",
-                                image: "https://i.pinimg.com/736x/c1/32/9f/c1329fe1416f3388175adf56c763d0a3.jpg",
-                            }}
-                            comment={{
-                                rating: 4.4,
-                                createdAt: "2023-02-09 13:56",
-                                content:
-                                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis unde totam, rem dolorem temporibus nulla itaque reprehenderit, nisi similique, ratione praesentium possimus in magnam ducimus assumenda molestias ipsum debitis laudantium.",
-                                reaction: 13,
-                            }}
-                        />
-                        <Comment
-                            author={{
-                                name: "Nobita Nobi",
-                                image: "https://numeralpaints.com/wp-content/uploads/2021/07/nobita-and-doraemon-paint-by-numbers.jpg",
-                            }}
-                            comment={{
-                                rating: 4.5,
-                                createdAt: "2022-12-24 18:15",
-                                content:
-                                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis unde totam, rem dolorem temporibus nulla itaque reprehenderit, nisi similique, ratione praesentium possimus in magnam ducimus assumenda molestias ipsum debitis laudantium.",
-                                reaction: 133,
-                            }}
-                        />
+                        {commentList.map((comment) => (
+                            <Comment
+                                author={{
+                                    name: comment.user.name,
+                                    avatar: comment.user.avatar,
+                                }}
+                                comment={{
+                                    rating: 4.6,
+                                    createdAt: formatDDMMYYYYHHMM(
+                                        comment.createdAt,
+                                    ),
+                                    content: comment.comment,
+                                    reaction: comment.like,
+                                }}
+                            />
+                        ))}
                     </div>
                 </section>
             </div>

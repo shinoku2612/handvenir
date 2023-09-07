@@ -20,6 +20,7 @@ export const PATH = {
         index: "order",
         result: "payment-result",
     },
+    orderDetail: "order/:orderId",
 };
 
 export const STATUS = {

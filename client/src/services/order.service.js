@@ -8,3 +8,14 @@ export async function getOrderService(userId) {
         return null;
     }
 }
+export async function getOrderDetailService(userId, orderId) {
+    try {
+        const res = await privateRequest.get(
+            `/order/${userId}/detail/${orderId}`,
+        );
+        return res.data;
+    } catch (error) {
+        console.log(error.message);
+        return null;
+    }
+}

@@ -11,6 +11,7 @@ const OrderSchema = new mongoose.Schema(
                     ref: "Product",
                 },
                 quantity: { type: Number },
+                price: { type: String },
                 _id: false,
             },
         ],
@@ -35,14 +36,15 @@ OrderSchema.pre("save", async function (next) {
         const products = await ProductModel.find({
             _id: { $in: this.product_list.map((item) => item.product) },
         });
-        this.total = this.product_list.reduce(
-            (total, item) =>
-                total +
-                products.find((product) => product._id.equals(item.product))
-                    .price *
-                    item.quantity,
-            0,
-        );
+        this.total = this.product_list.reduce((total, item, index) => {
+            const product = products.find((product) =>
+                product._id.equals(item.product),
+            );
+            if (product) {
+                this.product_list[index].price = product.price;
+            }
+            return total + item.price * item.quantity;
+        }, 0);
         next();
     } catch (error) {
         next(error);

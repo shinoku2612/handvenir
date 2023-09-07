@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import styles from "./Header.module.css";
 import DefaultMenu from "./default/DefaultMenu";
 import ResponsiveMenu from "./responsive/ResponsiveMenu";
-import SearchBar from "./search-bar/SearchBar";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../redux/selectors";
 
@@ -48,7 +47,24 @@ export default function Header() {
                         </NavLink>
                     </div>
                     <div className={styles.headerCenter}>
-                        <SearchBar />
+                        <NavLink
+                            to="/products"
+                            className={styles.centerMenu}
+                        >
+                            <span>Các sản phẩm gây quỹ</span>
+                        </NavLink>
+                        <NavLink
+                            to="/volunteer-campaigns"
+                            className={styles.centerMenu}
+                        >
+                            <span>Các chương trình tình nguyện</span>
+                        </NavLink>
+                        <NavLink
+                            to="/about"
+                            className={styles.centerMenu}
+                        >
+                            <span>Giới thiệu</span>
+                        </NavLink>
                     </div>
                     <div className={styles.headerRight}>
                         {isResponsive ? (
@@ -57,9 +73,6 @@ export default function Header() {
                             <DefaultMenu userId={userId} />
                         )}
                     </div>
-                </div>
-                <div className={styles.subHeader}>
-                    <SearchBar />
                 </div>
             </div>
         </header>

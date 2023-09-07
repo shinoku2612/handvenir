@@ -1,7 +1,6 @@
 :root {
     /* COMPONENT SIZES */
-    --header-height: 3.75rem;
-    --subheader-height: 3.75rem;
+    --header-height: 4.5rem;
 
     --loader-index: 1000;
     --header-index: 999;

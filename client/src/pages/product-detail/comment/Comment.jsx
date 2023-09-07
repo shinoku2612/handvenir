@@ -1,14 +1,14 @@
-import React from 'react';
-import styles from './Comment.module.css';
-import { Rating } from '@mui/material';
-import { ThumbUp } from '@mui/icons-material';
+import React from "react";
+import styles from "./Comment.module.css";
+import { Rating } from "@mui/material";
+import { ThumbUp } from "@mui/icons-material";
 
 export default function Comment({ author = {}, comment = {} }) {
     return (
         <div className={styles.commentContainer}>
             <div className={styles.userImage}>
                 <img
-                    src={author.image}
+                    src={author.avatar}
                     alt={author.name}
                     className={styles.image}
                 />

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 // import Carousel from "../../components/Carousel/Carousel";
-import Category from "./categories/Category";
 import HomeSection from "./home-section/HomeSection";
 // import styles from "./Home.module.css";
 import { getLatestProductService } from "../../services/product.service";
@@ -42,7 +41,6 @@ export default function Home() {
                 ))}
             </Carousel> */}
             <div className="container">
-                <Category />
                 <HomeSection
                     data={latestProductList}
                     isLoading={latestProductLoading}

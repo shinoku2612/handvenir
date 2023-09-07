@@ -127,6 +127,7 @@ function ProductRow({ item }) {
         ["single-product", item.productId],
         () => getProductByIdService(item.productId),
     );
+    console.log(product)
     const queryClient = useQueryClient();
 
     // [STATES]

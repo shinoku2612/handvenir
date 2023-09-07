@@ -41,6 +41,7 @@ function HeaderMenu({ userId }) {
             to={menu.path}
             className={styles.menuItem}
             onClick={handleLogout(menu.id)}
+            title={menu.title}
         >
             {menu.id === "user" ? (
                 <img

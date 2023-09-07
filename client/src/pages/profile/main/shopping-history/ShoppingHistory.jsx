@@ -8,7 +8,7 @@ import { getOrderService } from "../../../../services/order.service";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../../../redux/selectors";
 import Loader from "../../../../components/Loader/Loader";
-import { formatDMY } from "../../../../utils/helper";
+import { formatDDMMYYYY } from "../../../../utils/helper";
 
 export default function ShoppingHistory() {
     // [STATES]
@@ -76,7 +76,7 @@ export default function ShoppingHistory() {
 function Order({ item }) {
     return (
         <tr>
-            <td>{formatDMY(item.createdAt)}</td>
+            <td>{formatDDMMYYYY(item.createdAt)}</td>
             <td>
                 <span className={`status ${item.status}`}>{item.status}</span>
             </td>
@@ -85,7 +85,7 @@ function Order({ item }) {
             <td>${item.total}</td>
             <td>
                 <NavLink
-                    to="#"
+                    to={`/order/${item._id}`}
                     className="btn btn-primary btn-rounded text-small"
                 >
                     Details

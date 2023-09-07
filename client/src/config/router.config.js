@@ -45,6 +45,8 @@ const ProductDetail = lazy(() =>
 const Cart = lazy(() => import("../pages/cart/Cart"));
 // Wish list page
 const WishList = lazy(() => import("../pages/wish-list/WishList"));
+// Order Detail page
+const OrderDetail = lazy(() => import("../pages/order-detail/OrderDetail"));
 
 export default function Router() {
     const userId = useSelector(getUserId);
@@ -124,6 +126,10 @@ export default function Router() {
                 {
                     path: PATH.wishList,
                     element: <WishList />,
+                },
+                {
+                    path: PATH.orderDetail,
+                    element: <OrderDetail />,
                 },
             ],
         },

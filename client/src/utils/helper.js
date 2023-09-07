@@ -27,10 +27,22 @@ export function checkType(data) {
 export function hideEmail(email) {
     return email.replace(/(\w{2})[\w.-]+@[\w]+[\w]/, "$1***@****");
 }
-export function formatDMY(date) {
+export function formatDDMMYYYY(date) {
     const dateTime = new Date(date);
-    const formater = new Intl.DateTimeFormat("en-GB");
-    return formater.format(dateTime);
+    const formatter = new Intl.DateTimeFormat("en-GB");
+    return formatter.format(dateTime);
+}
+export function formatDDMMYYYYHHMM(date) {
+    const dateTime = new Date(date);
+    const formatter = new Intl.DateTimeFormat("en-US", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+    });
+    return formatter.format(dateTime);
 }
 export function validateInput(input) {
     if (input.value === "")

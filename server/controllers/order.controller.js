@@ -12,10 +12,29 @@ class OrderController {
             return res.status(500).json(error.message);
         }
     }
-    static async getOrder(req, res) {
+    static async getUserOrder(req, res) {
         try {
             const { userId } = req.params;
-            const order = await OrderModel.find({ userId });
+            const orderList = await OrderModel.find({ userId });
+            return res.status(200).json(orderList);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
+    static async getOrderDetail(req, res) {
+        try {
+            const { userId, orderId } = req.params;
+            const order = await OrderModel.findOne(
+                {
+                    userId: userId,
+                    _id: orderId,
+                },
+                { price: 0 },
+            ).populate({
+                path: "product_list.product",
+                model: "Product",
+                select: "title image description slug",
+            });
             return res.status(200).json(order);
         } catch (error) {
             return res.status(500).json(error.message);
