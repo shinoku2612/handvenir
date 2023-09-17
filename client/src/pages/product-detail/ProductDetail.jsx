@@ -8,7 +8,7 @@ import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
 import Comment from "./comment/Comment";
 import Loader from "../../components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserId } from "../../redux/selectors";
+import { getUser, getUserId } from "../../redux/selectors";
 import { addToCartService } from "../../services/cart.service";
 import { getProductReviewService } from "../../services/review.service";
 import { formatDDMMYYYYHHMM } from "../../utils/helper";
@@ -29,7 +29,9 @@ export default function ProductDetail() {
     // [STATES]
     const [quantity, setQuantity] = useState(1);
     const userId = useSelector(getUserId);
+    const user = useSelector(getUser);
     const dispatch = useDispatch();
+    const [comment, setComment] = useState("");
 
     // [HANDLER FUNCTIONS]
     async function handleAddToCart(e) {
@@ -44,6 +46,11 @@ export default function ProductDetail() {
         } catch (error) {
             console.log("Add to current device");
         }
+    }
+    function handleInputComment(e) {
+        setComment(e.target.value);
+        e.target.style.height = "auto";
+        e.target.style.height = e.target.scrollHeight + "px";
     }
 
     // [RENDER]
@@ -171,6 +178,19 @@ export default function ProductDetail() {
                         </span>
                     </h3>
                     <div className={styles.reviewContainer}>
+                        <div className={styles.reviewWriter}>
+                            <img
+                                src={user.avatar}
+                                alt={user.name}
+                                className={styles.owner}
+                            />
+                            <textarea
+                                name="commentBox"
+                                id="comment"
+                                className={styles.reviewBox}
+                                onChange={handleInputComment}
+                            ></textarea>
+                        </div>
                         {commentList.map((comment) => (
                             <Comment
                                 author={{
@@ -178,7 +198,7 @@ export default function ProductDetail() {
                                     avatar: comment.user.avatar,
                                 }}
                                 comment={{
-                                    rating: 4.6,
+                                    rating: 4.5,
                                     createdAt: formatDDMMYYYYHHMM(
                                         comment.createdAt,
                                     ),

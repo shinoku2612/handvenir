@@ -4,6 +4,9 @@ import {
     Logout,
     Person,
     ShoppingCart,
+    VolunteerActivism,
+    Info,
+    FacebookOutlined,
 } from "@mui/icons-material";
 import { PATH } from "./constant.config";
 import userPNG from "../assets/images/user.png";
@@ -95,6 +98,27 @@ const MENU = {
             title: "My shop",
             path: `./${shop}`,
             image: shopPNG,
+        },
+    ],
+    extendedHeader: [
+        {
+            id: "information",
+            path: "/information",
+            title: "About us",
+            icon: <Info />,
+        },
+        {
+            id: "donate",
+            path: "/donate",
+            title: "Donate",
+            icon: <VolunteerActivism />,
+        },
+        {
+            id: "fanpage",
+            path: "https://www.facebook.com/kynangspk",
+            title: "Fanpage",
+            source: "external",
+            icon: <FacebookOutlined />,
         },
     ],
 };

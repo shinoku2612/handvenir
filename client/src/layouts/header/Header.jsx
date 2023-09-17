@@ -5,6 +5,9 @@ import DefaultMenu from "./default/DefaultMenu";
 import ResponsiveMenu from "./responsive/ResponsiveMenu";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../redux/selectors";
+import { ArrowDropDown } from "@mui/icons-material";
+import cx from "../../utils/class-name";
+import MENU from "../../config/menu.config";
 
 export default function Header() {
     // [STATES]
@@ -51,20 +54,51 @@ export default function Header() {
                             to="/products"
                             className={styles.centerMenu}
                         >
-                            <span>Các sản phẩm gây quỹ</span>
+                            <span>Products</span>
                         </NavLink>
                         <NavLink
                             to="/volunteer-campaigns"
                             className={styles.centerMenu}
                         >
-                            <span>Các chương trình tình nguyện</span>
+                            <span>Volunteer campaigns</span>
                         </NavLink>
-                        <NavLink
-                            to="/about"
-                            className={styles.centerMenu}
-                        >
-                            <span>Giới thiệu</span>
-                        </NavLink>
+                        <div className={cx(styles.centerMenu, styles.dropdown)}>
+                            <span>More</span>
+                            <ArrowDropDown />
+                            <nav className={styles.dropdownContainer}>
+                                {MENU.extendedHeader.map((menu) =>
+                                    menu.source === "external" ? (
+                                        <a
+                                            key={menu.id}
+                                            href={menu.path}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className={styles.dropdownItem}
+                                        >
+                                            {menu.icon}
+                                            <span
+                                                className={styles.dropdownTitle}
+                                            >
+                                                {menu.title}
+                                            </span>
+                                        </a>
+                                    ) : (
+                                        <NavLink
+                                            key={menu.id}
+                                            to={menu.path}
+                                            className={styles.dropdownItem}
+                                        >
+                                            {menu.icon}
+                                            <span
+                                                className={styles.dropdownTitle}
+                                            >
+                                                {menu.title}
+                                            </span>
+                                        </NavLink>
+                                    ),
+                                )}
+                            </nav>
+                        </div>
                     </div>
                     <div className={styles.headerRight}>
                         {isResponsive ? (

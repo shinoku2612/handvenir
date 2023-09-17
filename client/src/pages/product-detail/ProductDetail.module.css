@@ -4,6 +4,7 @@
     min-height: 100vh;
     background-color: #ffffff;
 }
+
 .productInfoContainer {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -11,42 +12,51 @@
     background-color: #fbfbfb;
     border-radius: 0.5em;
 }
+
 .productImage {
     grid-column: 1 / 3;
     padding: 1rem;
 }
+
 .image {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: contain;
     object-position: center;
 }
+
 .productInfo {
     grid-column: 3 / -1;
     padding: 1rem 2rem;
 }
+
 .productName {
     font-size: 1.25rem;
     font-weight: 600;
 }
+
 .productRating {
     display: flex;
     align-items: center;
     margin-top: 1rem;
 }
+
 .ratingPoint,
 .ratingBar,
 .ratingCount {
     padding: 0 0.5rem;
 }
+
 .ratingPoint {
     color: var(--danger-clr);
     text-decoration: underline currentColor;
 }
+
 .ratingCount {
     text-decoration: underline currentColor;
     border-left: 1px solid var(--dark-clr);
 }
+
 .ratingCount::after {
     content: 'ratings';
     padding-left: 0.5rem;
@@ -55,6 +65,7 @@
     display: inline-block;
     text-decoration: none;
 }
+
 .productPrice {
     background-color: #ffffff;
     padding: 1rem;
@@ -63,26 +74,31 @@
     font-weight: 500;
     color: var(--danger-clr);
 }
+
 .productInfoGroup {
     display: grid;
     align-items: center;
     grid-template-columns: 1fr 4fr;
     margin-top: 2rem;
 }
+
 .infoLabel {
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--dark-clr);
 }
+
 .infoValue {
     display: flex;
     align-items: center;
 }
+
 .shippingAddress,
 .productAvailable {
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
+
 .productAvailable {
     margin-left: 1rem;
 }
@@ -95,28 +111,35 @@
     border-radius: 0.5em;
     padding: 0.5rem 1.5rem;
 }
+
 .productSpecification {
     padding: 0.5rem 0;
 }
-.productSpecification + .productSpecification {
+
+.productSpecification+.productSpecification {
     border-top: 1px solid #eeeeee;
 }
+
 .sectionHeader {
     font-size: 1rem;
     font-weight: 500;
 }
+
 .detailGroup {
     margin-top: 1rem;
 }
+
 .specification {
     padding: 0.5rem;
     display: grid;
     grid-template-columns: 1fr 5fr;
 }
+
 .specificationLabel {
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
+
 .specificationValue,
 .description {
     font-size: 0.875rem;
@@ -130,13 +153,35 @@
     color: var(--danger-clr);
     user-select: none;
 }
+
 .productReviewHeader::after {
     content: 'out of 5';
     font-size: 1rem;
     font-weight: 400;
     margin-left: 0.25em;
 }
+
 .reviewContainer {
     margin-top: 1rem;
     padding: 0 1rem;
+}
+
+.reviewWriter {
+    display: flex;
+    /* align-items: center; */
+}
+
+.owner {
+    --size: 2.5rem;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    margin-right: 0.625rem;
+}
+
+.reviewBox {
+    width: 50%;
+    padding: 0.625rem;
+    resize: none;
+    overflow: hidden;
 }
