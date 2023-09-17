@@ -10,7 +10,10 @@ class LocationController {
                 `../static/location/${country}/province.json`,
             );
             const data = fs.readFileSync(filePath);
-            return res.status(200).json(JSON.parse(data));
+            // Support Ho Chi Minh City only
+            const hcmCity = JSON.parse(data).filter((p) => p.code === "79");
+            return res.status(200).json(hcmCity);
+            // return res.status(200).json(JSON.parse(data));
         } catch (error) {
             return res.status(500).json(error.message);
         }
@@ -27,7 +30,12 @@ class LocationController {
             const list = districtList.find(
                 (district) => district.parent_code === province,
             );
-            return res.status(200).json(list);
+            // Support Thu Duc District only
+            const thuDuc = list.self.find((d) => d.code === "762");
+            return res
+                .status(200)
+                .json({ parent_code: province, self: [thuDuc] });
+            // return res.status(200).json(list);
         } catch (error) {
             return res.status(500).json(error.message);
         }
