@@ -7,10 +7,7 @@ export const PATH = {
     profile: {
         index: "me",
         address: "address",
-        credit: "credit-card",
         history: "order",
-        shopRegister: "shop-register",
-        shop: "my-shop",
     },
     products: "products",
     productDetail: "product/:slug",

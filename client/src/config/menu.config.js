@@ -11,12 +11,9 @@ import {
 import { PATH } from "./constant.config";
 import userPNG from "../assets/images/user.png";
 import addressPNG from "../assets/images/address.png";
-import creditPNG from "../assets/images/credit.png";
 import shoppingHistoryPNG from "../assets/images/shopping.png";
-import shopRegisterPNG from "../assets/images/shop-register.png";
-import shopPNG from "../assets/images/shop.png";
 
-const { index, address, credit, history, shopRegister, shop } = PATH.profile;
+const { index, address, history } = PATH.profile;
 
 const MENU = {
     header: [
@@ -76,28 +73,10 @@ const MENU = {
             image: addressPNG,
         },
         {
-            id: "credit-card",
-            title: "Credit cards",
-            path: `./${credit}`,
-            image: creditPNG,
-        },
-        {
             id: "shopping-history",
             title: "Shopping history",
             path: `./${history}`,
             image: shoppingHistoryPNG,
-        },
-        {
-            id: "shop-register",
-            title: "Shop register",
-            path: `./${shopRegister}`,
-            image: shopRegisterPNG,
-        },
-        {
-            id: "my-shop",
-            title: "My shop",
-            path: `./${shop}`,
-            image: shopPNG,
         },
     ],
     extendedHeader: [

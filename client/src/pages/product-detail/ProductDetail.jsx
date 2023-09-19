@@ -178,19 +178,22 @@ export default function ProductDetail() {
                         </span>
                     </h3>
                     <div className={styles.reviewContainer}>
-                        <div className={styles.reviewWriter}>
-                            <img
-                                src={user.avatar}
-                                alt={user.name}
-                                className={styles.owner}
-                            />
-                            <textarea
-                                name="commentBox"
-                                id="comment"
-                                className={styles.reviewBox}
-                                onChange={handleInputComment}
-                            ></textarea>
-                        </div>
+                        {user && (
+                            <div className={styles.reviewWriter}>
+                                <img
+                                    src={user.avatar}
+                                    alt={user.name}
+                                    className={styles.owner}
+                                />
+                                <textarea
+                                    name="commentBox"
+                                    id="comment"
+                                    className={styles.reviewBox}
+                                    value={comment}
+                                    onChange={handleInputComment}
+                                ></textarea>
+                            </div>
+                        )}
                         {commentList.map((comment) => (
                             <Comment
                                 author={{
