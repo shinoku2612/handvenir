@@ -23,7 +23,7 @@ class LocationController {
             const { country, province } = req.query;
             const filePath = path.join(
                 __dirname,
-                `../static/location/${country}/district.json`,
+                `../static/location/${country.toLowerCase()}/district.json`,
             );
             const data = fs.readFileSync(filePath);
             const districtList = JSON.parse(data);
@@ -45,7 +45,7 @@ class LocationController {
             const { country, district } = req.query;
             const filePath = path.join(
                 __dirname,
-                `../static/location/${country}/commune.json`,
+                `../static/location/${country.toLowerCase()}/commune.json`,
             );
             const data = fs.readFileSync(filePath);
             const communeList = JSON.parse(data);
