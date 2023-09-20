@@ -7,7 +7,7 @@ class LocationController {
             const { country } = req.query;
             const filePath = path.join(
                 __dirname,
-                `../static/location/${country}/province.json`,
+                `../static/location/${country.toLowerCase()}/province.json`,
             );
             const data = fs.readFileSync(filePath);
             // Support Ho Chi Minh City only
