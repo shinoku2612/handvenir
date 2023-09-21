@@ -10,21 +10,6 @@ class ProductController {
         slug: 1,
         createdAt: 1,
         updatedAt: 1,
-        ratingPoint: {
-            $cond: {
-                if: { $gt: ["$rating.count", 0] },
-                then: {
-                    $round: [
-                        {
-                            $divide: ["$rating.point", "$rating.count"],
-                        },
-                        1,
-                    ],
-                },
-                else: "$rating.point",
-            },
-        },
-        ratingCount: "$rating.count",
     };
     static async addProduct(req, res) {
         try {
@@ -50,11 +35,25 @@ class ProductController {
     static async getProductBySlug(req, res) {
         try {
             const { slug } = req.params;
-            const product = await ProductModel.findOne(
-                { slug: slug },
-                ProductController.aggregation,
-            );
-            return res.status(200).json(product);
+            const product = await ProductModel.aggregate([
+                { $match: { slug: slug } },
+                {
+                    $lookup: {
+                        from: "reviews",
+                        localField: "_id",
+                        foreignField: "product",
+                        as: "reviews",
+                    },
+                },
+                {
+                    $project: {
+                        ...ProductController.aggregation,
+                        rating_point: { $avg: "$reviews.rating" },
+                        rating_count: { $size: "$reviews" },
+                    },
+                },
+            ]);
+            return res.status(200).json(product[0]);
         } catch (error) {
             return res.status(500).json(error.message);
         }

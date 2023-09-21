@@ -4,9 +4,10 @@ class ReviewController {
     static async postReview(req, res) {
         try {
             const { userId, productId } = req.params;
-            const { comment } = req.body;
+            const { comment, rating } = req.body;
             const review = new ReviewModel({
                 comment,
+                rating,
                 user: userId,
                 product: productId,
             });

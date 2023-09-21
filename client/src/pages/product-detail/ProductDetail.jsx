@@ -70,17 +70,17 @@ export default function ProductDetail() {
                         <h3 className={styles.productName}>{product.title}</h3>
                         <div className={styles.productRating}>
                             <span className={styles.ratingPoint}>
-                                {product.ratingPoint}
+                                {product.rating_point}
                             </span>
                             <Rating
                                 size="small"
                                 readOnly
-                                value={product.ratingPoint}
+                                value={product.rating_point}
                                 precision={0.1}
                                 className={styles.ratingBar}
                             />
                             <span className={styles.ratingCount}>
-                                {product.ratingCount}
+                                {product.rating_count}
                             </span>
                         </div>
                         <div className={styles.productPrice}>
@@ -174,7 +174,7 @@ export default function ProductDetail() {
                     <h3 className={styles.sectionHeader}>
                         <span>Product Ratings</span>
                         <span className={styles.productReviewHeader}>
-                            {product.ratingPoint}
+                            {product.rating_point}
                         </span>
                     </h3>
                     <div className={styles.reviewContainer}>
@@ -196,17 +196,18 @@ export default function ProductDetail() {
                         )}
                         {commentList.map((comment) => (
                             <Comment
+                                key={comment._id}
                                 author={{
                                     name: comment.user.name,
                                     avatar: comment.user.avatar,
                                 }}
                                 comment={{
-                                    rating: 4.5,
+                                    rating: comment.rating,
+                                    like: comment.like,
                                     createdAt: formatDDMMYYYYHHMM(
                                         comment.createdAt,
                                     ),
                                     content: comment.comment,
-                                    reaction: comment.like,
                                 }}
                             />
                         ))}

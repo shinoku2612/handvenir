@@ -25,9 +25,7 @@ export default function Comment({ author = {}, comment = {} }) {
                 <p className={styles.commentContent}>{comment.content}</p>
                 <div className={styles.commentReaction}>
                     <ThumbUp className={styles.reactionIcon} />
-                    <span className={styles.reactionCount}>
-                        {comment.reaction}
-                    </span>
+                    <span className={styles.reactionCount}>{comment.like}</span>
                 </div>
             </div>
         </div>

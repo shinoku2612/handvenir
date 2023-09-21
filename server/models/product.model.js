@@ -9,10 +9,6 @@ const ProductSchema = new mongoose.Schema(
         image: { type: String, required: true },
         price: { type: Number, required: true },
         description: { type: String, required: true },
-        rating: {
-            count: { type: Number, default: 0 },
-            point: { type: Number, default: 0 },
-        },
         slug: { type: String, slug: "title", unique: true },
         categories: { type: Array, default: [] },
     },
