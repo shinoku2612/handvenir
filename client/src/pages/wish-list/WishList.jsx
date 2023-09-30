@@ -123,7 +123,6 @@ export default function WishList() {
 // [CUSTOM RENDERED ELEMENTS]
 function ProductRow({ item }) {
     // [QUERIES]
-    console.log(item);
     const { isLoading, data: product } = useQuery(
         ["single-product", item.product],
         () => getProductByIdService(item.product),

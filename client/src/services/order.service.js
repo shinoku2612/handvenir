@@ -3,7 +3,6 @@ import { checkType } from "../utils/helper";
 
 export async function makeOrderService(userId, payload) {
     try {
-        console.log(payload.address);
         const res = await privateRequest.post(`order/check-out/${userId}`, {
             product_list: payload.product_list,
             address: payload.address,
@@ -27,7 +26,6 @@ export async function getOrderService(userId, sortQuery) {
                 .slice(0, -1);
             url += queryString;
         }
-        console.log(url);
         const res = await privateRequest.get(url);
         return res.data;
     } catch (error) {

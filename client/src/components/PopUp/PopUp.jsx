@@ -30,18 +30,18 @@ export default function PopUp({ title, message, handler, children }) {
                       </div>
                       <div className="btn-groups">
                           <button
-                              className="btn btn-secondary btn-outlined m-inline-1"
+                              className="btn btn-primary m-inline-1"
+                              onClick={handleConfirm}
+                          >
+                              Confirm
+                          </button>
+                          <button
+                              className="btn btn-primary btn-outlined m-inline-1"
                               onClick={() => {
                                   setIsShown(false);
                               }}
                           >
                               Cancel
-                          </button>
-                          <button
-                              className="btn btn-secondary m-inline-1"
-                              onClick={handleConfirm}
-                          >
-                              Confirm
                           </button>
                       </div>
                   </div>

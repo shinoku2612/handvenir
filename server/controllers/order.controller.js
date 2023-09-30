@@ -18,25 +18,42 @@ class OrderController {
     static async getUserOrder(req, res) {
         try {
             const { userId } = req.params;
-            const { total } = req.query;
-            let totalOrder = 0;
+            const { total, page, limit } = req.query;
             let orderList = [];
-            if (total.toLowerCase() === "increase") {
-                totalOrder = 1; // Ascending order
-            } else if (total.toLowerCase() === "decrease") {
-                totalOrder = -1; // Descending order
-            }
+            let sortOrder = 0;
 
-            if (totalOrder === 1 || totalOrder === -1) {
-                orderList = await OrderModel.find({
-                    user: userId,
-                }).sort({ total: totalOrder });
-            } else {
-                orderList = await OrderModel.find({
-                    user: userId,
-                });
+            if (total) {
+                if (total.toLowerCase() === "increase") sortOrder = 1;
+                if (total.toLowerCase() === "decrease") sortOrder = -1;
             }
-            return res.status(200).json(orderList);
+            if (!total || (sortOrder !== 1 && sortOrder !== -1)) {
+                if (page && limit) {
+                    const pageNumber = parseInt(page);
+                    const limitNumber = parseInt(limit);
+                    orderList = await OrderModel.find({ user: userId })
+                        .skip((pageNumber - 1) * limitNumber)
+                        .limit(limitNumber);
+                } else {
+                    orderList = await OrderModel.find({ user: userId });
+                }
+            }
+            if (sortOrder === 1 || sortOrder === -1) {
+                if (page && limit) {
+                    const pageNumber = parseInt(page);
+                    const limitNumber = parseInt(limit);
+                    orderList = await OrderModel.find({ user: userId })
+                        .sort({ total: sortOrder })
+                        .skip((pageNumber - 1) * limitNumber)
+                        .limit(limitNumber);
+                } else {
+                    orderList = await OrderModel.find({ user: userId }).sort({
+                        total: sortOrder,
+                    });
+                }
+            }
+            const orderSize = await OrderModel.count();
+
+            return res.status(200).json({ data: orderList, size: orderSize });
         } catch (error) {
             return res.status(500).json(error.message);
         }

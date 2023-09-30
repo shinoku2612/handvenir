@@ -71,10 +71,13 @@ export default function ShoppingHistory() {
                         "Total",
                         "",
                     ]}
-                    pagination
-                    data={data}
+                    data={data.data}
                     renderItem={Order}
                     keyExtractor={(item) => item.date}
+                    pagination
+                    pageCount={Math.ceil(data.size / 3)}
+                    rowPerPage={3}
+                    onPaginate={refetch}
                 />
             </div>
         </div>

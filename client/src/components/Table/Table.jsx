@@ -1,14 +1,17 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import styles from "./Table.module.css";
 import { Pagination } from "@mui/material";
+import { checkType } from "../../utils/helper";
 
 export default function Table({
     headers,
     pagination = false,
     rowPerPage = 5,
+    pageCount,
     data,
-    renderItem: Item,
+    renderItem: Row,
     keyExtractor,
+    onPaginate,
     ...props
 }) {
     // [STATES]
@@ -23,6 +26,11 @@ export default function Table({
     function handleChangePage(event, value) {
         setPage(value);
     }
+    useEffect(() => {
+        if (checkType(onPaginate) === "function") {
+            onPaginate();
+        }
+    }, [page, onPaginate]);
 
     // [RENDER]
     return (
@@ -45,7 +53,7 @@ export default function Table({
                         <React.Fragment
                             key={keyExtractor(item, index) || index}
                         >
-                            <Item
+                            <Row
                                 item={item}
                                 index={index}
                                 {...props}
@@ -59,9 +67,13 @@ export default function Table({
                             <td colSpan={headers.length}>
                                 <div className={styles.paginationContainer}>
                                     <Pagination
-                                        count={Math.ceil(
-                                            data.length / rowPerPage,
-                                        )}
+                                        count={
+                                            pageCount
+                                                ? pageCount
+                                                : Math.ceil(
+                                                      data.length / rowPerPage,
+                                                  )
+                                        }
                                         page={page}
                                         onChange={handleChangePage}
                                     />
