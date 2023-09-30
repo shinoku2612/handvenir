@@ -8,6 +8,7 @@
     text-decoration: none;
     border: 1px solid #acacac;
 }
+
 .imageContainer {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -19,9 +20,11 @@
     position: relative;
     overflow: hidden;
 }
+
 .imageContainer:hover .productImage {
     transform: scale(1.1);
 }
+
 .productImage {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -30,6 +33,7 @@
     object-position: center;
     transition: transform 300ms ease-in-out;
 }
+
 .addWishList {
     background-color: #ffffff;
     --btn-size: 2.5rem;
@@ -47,13 +51,16 @@
     box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.25);
     transition: transform 100ms ease-in-out;
 }
+
 .addWishList:hover {
     transform: scale(1.1);
 }
+
 .addWishList .icon {
     color: var(--dark-clr);
     transform: scale(0.8);
 }
+
 .productInfo {
     width: 100%;
     padding: 0.875rem;
@@ -62,6 +69,7 @@
     align-items: center;
     justify-content: space-between;
 }
+
 .productName,
 .productPrice {
     flex-basis: 60%;
@@ -74,6 +82,7 @@
     overflow: hidden;
     display: -webkit-box;
 }
+
 .productPrice {
     font-weight: 600;
     flex-basis: 40%;
@@ -82,6 +91,7 @@
     align-items: center;
     justify-content: flex-end;
 }
+
 .productPrice::before {
     content: '$';
     top: 0;
@@ -89,6 +99,7 @@
     font-size: 90%;
     transform: translate(0, -25%);
 }
+
 .productDescription {
     width: 100%;
     padding: 0 0.875rem;
@@ -100,19 +111,19 @@
     overflow: hidden;
     display: -webkit-box;
 }
+
 .productRating {
     width: 100%;
     padding: 0.25rem 0.875rem;
     display: flex;
     align-items: center;
 }
-.ratingBar {
-    color: var(--primary-clr);
-}
+
 .ratingCount {
     font-size: 0.75rem;
     color: var(--text-secondary);
 }
+
 .actionContainer {
     width: 100%;
     padding: 0 0.875rem;
@@ -120,31 +131,38 @@
     align-items: center;
     margin-bottom: 0.875rem;
 }
+
 .actionContainer .addCartBtn {
     color: var(--primary-clr);
     background-color: #ffffff;
     border: 1px solid var(--primary-clr);
     font-size: 0.875rem;
 }
+
 .actionContainer .addCartBtn:hover {
     color: #ffffff;
     background-color: var(--primary-clr);
 }
+
 @media (max-width: 30rem) {
     .addWishList {
         --btn-size: 2rem;
         --space: 0.75rem;
     }
+
     .addWishList .icon {
         transform: scale(0.7);
     }
+
     .productName,
     .productPrice {
         font-size: 0.75rem;
     }
+
     .productDescription {
         font-size: 0.65rem;
     }
+
     .actionContainer .addCartBtn {
         font-size: 0.65rem;
     }

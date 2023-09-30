@@ -4,7 +4,7 @@ const { ShinPayConnector } = require("../databases/mongo.connect");
 
 const TokenSchema = new mongoose.Schema(
     {
-        userId: { type: String, ref: "User" },
+        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         refresh_token: { type: String, required: true },
         saved_time: {
             type: Date,

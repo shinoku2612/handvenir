@@ -3,10 +3,13 @@ const { ShinPayConnector } = require("../databases/mongo.connect");
 
 const CartSchema = new mongoose.Schema(
     {
-        userId: { type: String, ref: "User" },
+        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         product_list: [
             {
-                productId: { type: String, ref: "Product" },
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Product",
+                },
                 quantity: { type: Number },
                 _id: false,
             },

@@ -184,6 +184,10 @@ button.disabled {
     font-size: 0.75rem;
 }
 
+.text-left {
+    text-align: left;
+}
+
 .text-secondary {
     color: var(--text-secondary);
 }
@@ -210,7 +214,7 @@ button.disabled {
     background-color: #343a401a;
 }
 
-.status.paid {
+.status.completed {
     color: #28a745;
     background-color: #28a7451a;
 }

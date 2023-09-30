@@ -66,12 +66,11 @@ export default function ProductItem({ product, buttonSize }) {
                 <Rating
                     size="small"
                     readOnly
-                    value={product.ratingPoint}
+                    value={product.rating_point || 0}
                     precision={0.1}
-                    className={styles.ratingBar}
                 />
                 <span className={styles.ratingCount}>
-                    ({product.ratingCount})
+                    ({product.rating_count || 0})
                 </span>
             </div>
             <div className={styles.actionContainer}>

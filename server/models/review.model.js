@@ -29,7 +29,7 @@ ReviewSchema.pre("save", async function (next) {
         const order = await OrderModel.findOne({
             user: this.user,
             "product_list.product": this.product,
-            status: "paid",
+            status: "completed",
         });
         if (!order) {
             const error = new Error(

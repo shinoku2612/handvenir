@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const { ShinPayConnector } = require('../databases/mongo.connect');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const { ShinPayConnector } = require("../databases/mongo.connect");
 
 const OTPSchema = new mongoose.Schema(
     {
         code: { type: String },
-        userId: { type: String, ref: 'User' },
+        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         send_time: {
             type: Date,
             default: Date.now,
@@ -15,7 +15,7 @@ const OTPSchema = new mongoose.Schema(
     { timestamps: true },
 );
 
-OTPSchema.pre('save', async function (next) {
+OTPSchema.pre("save", async function (next) {
     try {
         const salt = await bcrypt.genSalt(10);
         const hashCode = await bcrypt.hash(this.code, salt);
@@ -35,4 +35,4 @@ OTPSchema.methods.verify = async function (code) {
     }
 };
 
-module.exports = ShinPayConnector.model('OTP', OTPSchema);
+module.exports = ShinPayConnector.model("OTP", OTPSchema);

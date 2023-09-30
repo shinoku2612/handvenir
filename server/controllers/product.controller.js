@@ -1,16 +1,28 @@
 const ProductModel = require("../models/product.model");
 
 class ProductController {
-    static aggregation = {
-        title: 1,
-        image: 1,
-        price: 1,
-        description: 1,
-        categories: 1,
-        slug: 1,
-        createdAt: 1,
-        updatedAt: 1,
-    };
+    static aggregation = [
+        {
+            $lookup: {
+                from: "reviews",
+                localField: "_id",
+                foreignField: "product",
+                as: "reviews",
+            },
+        },
+        {
+            $project: {
+                title: 1,
+                image: 1,
+                price: 1,
+                description: 1,
+                categories: 1,
+                slug: 1,
+                rating_point: { $avg: "$reviews.rating" },
+                rating_count: { $size: "$reviews" },
+            },
+        },
+    ];
     static async addProduct(req, res) {
         try {
             const requestProduct = { ...req.body };
@@ -23,8 +35,7 @@ class ProductController {
     }
     static async getAllProduct(req, res) {
         try {
-            const productList = await ProductModel.find(
-                {},
+            const productList = await ProductModel.aggregate(
                 ProductController.aggregation,
             );
             return res.status(200).json(productList);
@@ -35,24 +46,11 @@ class ProductController {
     static async getProductBySlug(req, res) {
         try {
             const { slug } = req.params;
-            const product = await ProductModel.aggregate([
+            const aggregationPipeline = [
                 { $match: { slug: slug } },
-                {
-                    $lookup: {
-                        from: "reviews",
-                        localField: "_id",
-                        foreignField: "product",
-                        as: "reviews",
-                    },
-                },
-                {
-                    $project: {
-                        ...ProductController.aggregation,
-                        rating_point: { $avg: "$reviews.rating" },
-                        rating_count: { $size: "$reviews" },
-                    },
-                },
-            ]);
+                ...ProductController.aggregation,
+            ];
+            const product = await ProductModel.aggregate(aggregationPipeline);
             return res.status(200).json(product[0]);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -61,10 +59,7 @@ class ProductController {
     static async getProductById(req, res) {
         try {
             const { productId } = req.params;
-            const product = await ProductModel.findById(
-                productId,
-                ProductController.aggregation,
-            );
+            const product = await ProductModel.findById(productId);
             return res.status(200).json(product);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -74,14 +69,19 @@ class ProductController {
         try {
             const { s: search } = req.query;
             if (!search) return res.status(200).json([]);
-            const productList = await ProductModel.find(
+            const aggregationPipeline = [
                 {
-                    title: {
-                        $regex: search,
-                        $options: "i",
+                    $match: {
+                        title: {
+                            $regex: search,
+                            $options: "i",
+                        },
                     },
                 },
-                ProductController.aggregation,
+                ...ProductController.aggregation,
+            ];
+            const productList = await ProductModel.aggregate(
+                aggregationPipeline,
             );
             return res.status(200).json(productList);
         } catch (error) {
@@ -92,11 +92,14 @@ class ProductController {
         try {
             const categories = req.query.c?.split(",");
             if (!categories) return res.status(200).json([]);
-            const productList = await ProductModel.find(
+            const aggregationPipeline = [
                 {
-                    categories: { $in: categories },
+                    $match: { categories: { $in: categories } },
                 },
-                ProductController.aggregation,
+                ...ProductController.aggregation,
+            ];
+            const productList = await ProductModel.aggregate(
+                aggregationPipeline,
             );
             return res.status(200).json(productList);
         } catch (error) {
@@ -124,12 +127,14 @@ class ProductController {
     static async getLatestProducts(req, res) {
         try {
             const { limit } = req.params;
-            const latestProductList = await ProductModel.find(
-                {},
-                ProductController.aggregation,
-            )
-                .sort({ createdAt: -1 })
-                .limit(limit);
+            const aggregationPipeline = [
+                ...ProductController.aggregation,
+                { $sort: { createdAt: -1 } },
+                { $limit: Number(limit) },
+            ];
+            const latestProductList = await ProductModel.aggregate(
+                aggregationPipeline,
+            );
             return res.status(200).json(latestProductList);
         } catch (error) {
             return res.status(500).json(error.message);

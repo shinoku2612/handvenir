@@ -37,10 +37,12 @@ export async function addToCartService(
     } catch (error) {
         const product = await CartDB.getOne(productId);
         let data = null;
-        if (!product) data = await CartDB.insertOne({ productId, quantity });
-        else
+        if (!product) {
+            data = await CartDB.insertOne({ product: productId, quantity });
+            console.log(data)
+        } else
             data = await CartDB.updateOne({
-                productId,
+                product: productId,
                 quantity: product.quantity + quantity,
             });
         if (data) dispatch(setCart({ product_list: data }));
@@ -113,7 +115,7 @@ export async function updateCartService(
         dispatch(setCart(res.data));
     } catch (error) {
         const data = await CartDB.updateOne({
-            productId,
+            product: productId,
             quantity: quantity,
         });
         dispatch(setCart({ product_list: data }));

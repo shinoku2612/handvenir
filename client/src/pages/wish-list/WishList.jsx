@@ -17,7 +17,6 @@ import {
 } from "../../services/wish-list.service";
 import emptyWishListSVG from "../../assets/images/wish-list.svg";
 import { NavLink } from "react-router-dom";
-import { PATH } from "../../config/constant.config";
 import PopUp from "../../components/PopUp/PopUp";
 // Error page
 const Error = lazy(() => import("../error/Error"));
@@ -34,6 +33,7 @@ export default function WishList() {
             getLocalWishList(),
         ]).then(([wishList, localWishList]) => ({ wishList, localWishList })),
     );
+    const queryClient = useQueryClient();
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--
@@ -44,7 +44,7 @@ export default function WishList() {
     // [HANDLER FUNCTIONS]
     const handleSyncWishList = async () => {
         await syncLocalWishListService(userId);
-        window.location.replace(PATH.wishList);
+        queryClient.invalidateQueries("wish-list");
     };
 
     // [RENDER]
@@ -97,7 +97,7 @@ export default function WishList() {
                             pagination
                             rowPerPage={4}
                             renderItem={ProductRow}
-                            keyExtractor={(item) => item.productId}
+                            keyExtractor={(item) => item.product}
                         />
                     </div>
                 </div>
@@ -123,11 +123,11 @@ export default function WishList() {
 // [CUSTOM RENDERED ELEMENTS]
 function ProductRow({ item }) {
     // [QUERIES]
+    console.log(item);
     const { isLoading, data: product } = useQuery(
-        ["single-product", item.productId],
-        () => getProductByIdService(item.productId),
+        ["single-product", item.product],
+        () => getProductByIdService(item.product),
     );
-    console.log(product)
     const queryClient = useQueryClient();
 
     // [STATES]
@@ -137,7 +137,7 @@ function ProductRow({ item }) {
     // [HANDLER FUNCTIONS]
     async function handleRemoveProduct() {
         try {
-            await removeFromWishListService(userId, dispatch, item.productId);
+            await removeFromWishListService(userId, dispatch, item.product);
             queryClient.invalidateQueries("wish-list");
         } catch (error) {
             console.log(error.message);

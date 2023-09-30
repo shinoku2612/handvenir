@@ -1,5 +1,18 @@
 import { privateRequest } from "../config/axios.config";
 
+export async function makeOrderService(userId, payload) {
+    try {
+        console.log(payload.address)
+        const res = await privateRequest.post(`order/check-out/${userId}`, {
+            product_list: payload.product_list,
+            address: payload.address,
+        });
+        return res.data;
+    } catch (error) {
+        return null;
+    }
+}
+
 export async function getOrderService(userId) {
     try {
         const res = await privateRequest.get(`/order/${userId}`);

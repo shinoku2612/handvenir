@@ -1,9 +1,9 @@
-import React, { lazy, useEffect, useState } from "react";
+import React, { lazy, useCallback, useEffect, useState, useRef } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Cart.module.css";
-import { Checkbox, Skeleton } from "@mui/material";
-import { DeleteForever, Done, Upload } from "@mui/icons-material";
+import { Skeleton } from "@mui/material";
+import { DeleteForever, Upload } from "@mui/icons-material";
 import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
 import Table from "../../components/Table/Table";
 import {
@@ -26,7 +26,7 @@ import cx from "../../utils/class-name";
 import emptyCartSVG from "../../assets/images/empty-cart.svg";
 import { NavLink } from "react-router-dom";
 import PopUp from "../../components/PopUp/PopUp";
-import { PATH } from "../../config/constant.config";
+import { makeOrderService } from "../../services/order.service";
 // Error page
 const Error = lazy(() => import("../error/Error"));
 
@@ -34,7 +34,7 @@ export default function Cart() {
     // [STATES]
     const userId = useSelector(getUserId);
     const user = useSelector(getUser);
-    const [mainAddress, setMainAddress] = useState("");
+    const [mainAddress, setMainAddress] = useState();
     const cart = useSelector(getCart);
     const cartTotal = useSelector(getCartTotal);
     const dispatch = useDispatch();
@@ -66,8 +66,35 @@ export default function Cart() {
     // [HANDLER FUNCTIONS]
     const handleSyncCart = async () => {
         await syncLocalCartService(userId, dispatch, data.localCart);
-        window.location.replace(PATH.cart);
+        // window.location.replace(PATH.cart);
     };
+    const handleCheckout = async () => {
+        const deliveryAddress = `${mainAddress.street}, ${mainAddress.town}, ${mainAddress.district}, ${mainAddress.city}, ${mainAddress.country}`;
+        await makeOrderService(userId, {
+            product_list: cart.product_list,
+            address: deliveryAddress,
+        });
+    };
+    const handleRemoveProduct = async (productId) => {
+        try {
+            await removeFromCartService(userId, dispatch, productId);
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+    const handleUpdateCart = useCallback(
+        async (productId, quantity) => {
+            try {
+                await updateCartService(userId, dispatch, {
+                    productId,
+                    quantity,
+                });
+            } catch (error) {
+                console.log(error.message);
+            }
+        },
+        [dispatch, userId],
+    );
 
     // [RENDER]
     if (isLoading) return <Loader variant="overlay" />;
@@ -112,10 +139,6 @@ export default function Cart() {
                         <h3 className={styles.cartHeader}>My cart</h3>
                         <Table
                             headers={[
-                                <Checkbox
-                                    defaultChecked
-                                    title="Select all"
-                                />,
                                 "Product",
                                 "Quantity",
                                 "Price",
@@ -126,7 +149,9 @@ export default function Cart() {
                             pagination
                             rowPerPage={3}
                             renderItem={ProductRow}
-                            keyExtractor={(item) => item.productId}
+                            keyExtractor={(item) => item.product}
+                            onRemoveProduct={handleRemoveProduct}
+                            onUpdateProduct={handleUpdateCart}
                         />
                     </div>
                     <div className={styles.orderSummary}>
@@ -137,7 +162,7 @@ export default function Cart() {
                                     Subtotal
                                 </span>
                                 <span className={styles.summaryValue}>
-                                    ${cartTotal}
+                                    ${cartTotal.toFixed(2)}
                                 </span>
                             </div>
                             {/* <div className={styles.summaryInfo}>
@@ -165,10 +190,13 @@ export default function Cart() {
                             <div className={styles.totalInfo}>
                                 <span className={styles.totalLabel}>Total</span>
                                 <span className={styles.totalValue}>
-                                    ${cartTotal}
+                                    ${cartTotal.toFixed(2)}
                                 </span>
                             </div>
-                            <div className="btn btn-dark width-full">
+                            <div
+                                className="btn btn-dark width-full"
+                                onClick={handleCheckout}
+                            >
                                 Place order
                             </div>
                         </div>
@@ -194,126 +222,117 @@ export default function Cart() {
 }
 
 // [CUSTOM RENDERED ELEMENTS]
-const ProductRow = React.memo(({ item }) => {
-    // [QUERIES]
-    const { isLoading, data: product } = useQuery(
-        ["single-product", item.productId],
-        () => getProductByIdService(item.productId),
-    );
+const ProductRow = React.memo(
+    ({ item, debouncedTimer = 500, onRemoveProduct, onUpdateProduct }) => {
+        // [QUERIES]
+        const { isLoading, data: product } = useQuery(
+            ["single-product", item.product],
+            () => getProductByIdService(item.product),
+        );
 
-    // [STATES]
-    const [quantity, setQuantity] = useState(item.quantity);
-    const userId = useSelector(getUserId);
-    const dispatch = useDispatch();
+        // [STATES]
+        const [quantity, setQuantity] = useState(item.quantity);
+        const isFirstRender = useRef(true);
+        const previousQuantity = useRef(quantity);
 
-    // [HANDLER FUNCTIONS]
-    const handleRemoveProduct = async () => {
-        try {
-            await removeFromCartService(userId, dispatch, item.productId);
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
-    const handleUpdateProduct = async () => {
-        try {
-            await updateCartService(userId, dispatch, {
-                productId: item.productId,
-                quantity,
-            });
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
+        // [SIDE EFFECTS]
+        useEffect(() => {
+            setQuantity(item.quantity);
+        }, [item.quantity]);
+        useEffect(() => {
+            if (isFirstRender.current) {
+                isFirstRender.current = false;
+                return;
+            }
+            if (previousQuantity.current !== quantity) {
+                const timerId = setTimeout(() => {
+                    onUpdateProduct(item.product, quantity);
+                    previousQuantity.current = quantity;
+                }, debouncedTimer);
 
-    // [RENDER]
-    if (isLoading)
-        return (
-            <tr>
-                <td></td>
-                <td>
-                    <div className={styles.productInfo}>
-                        <Skeleton
-                            width={100}
-                            height={80}
-                        />
+                return () => {
+                    clearTimeout(timerId);
+                };
+            }
+        }, [quantity, debouncedTimer, onUpdateProduct, item.product]);
+
+        // [RENDER]
+        if (isLoading)
+            return (
+                <tr>
+                    <td>
+                        <div className={styles.productInfo}>
+                            <Skeleton
+                                width={100}
+                                height={80}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={200}
+                                sx={{
+                                    fontSize: "1rem",
+                                    marginLeft: "1rem",
+                                }}
+                            />
+                        </div>
+                    </td>
+                    <td>
+                        <Skeleton height={50} />
+                    </td>
+                    <td>
                         <Skeleton
                             variant="text"
-                            width={200}
-                            sx={{
-                                fontSize: "1rem",
-                                marginLeft: "1rem",
-                            }}
+                            sx={{ fontSize: "1rem" }}
                         />
-                    </div>
+                    </td>
+                    <td>
+                        <Skeleton
+                            variant="text"
+                            sx={{ fontSize: "1rem" }}
+                        />
+                    </td>
+                    <td></td>
+                </tr>
+            );
+        return (
+            <tr>
+                <td>
+                    <NavLink
+                        to={`/product/${product.slug}`}
+                        className={styles.productInfo}
+                    >
+                        <img
+                            src={product.image}
+                            alt={product.name}
+                            className={styles.image}
+                        />
+                        <span className={styles.info}>{product.title}</span>
+                    </NavLink>
                 </td>
                 <td>
-                    <Skeleton height={50} />
-                </td>
-                <td>
-                    <Skeleton
-                        variant="text"
-                        sx={{ fontSize: "1rem" }}
+                    <QuantityGroup
+                        quantity={quantity}
+                        onChange={setQuantity}
                     />
                 </td>
                 <td>
-                    <Skeleton
-                        variant="text"
-                        sx={{ fontSize: "1rem" }}
-                    />
+                    <span className={styles.info}>${product.price}</span>
                 </td>
-                <td></td>
-            </tr>
-        );
-    return (
-        <tr>
-            <td>
-                <Checkbox defaultChecked />
-            </td>
-            <td>
-                <NavLink
-                    to={`/product/${product.slug}`}
-                    className={styles.productInfo}
-                >
-                    <img
-                        src={product.image}
-                        alt={product.name}
-                        className={styles.image}
-                    />
-                    <span className={styles.info}>{product.title}</span>
-                </NavLink>
-            </td>
-            <td>
-                <QuantityGroup
-                    quantity={quantity}
-                    onChange={setQuantity}
-                />
-            </td>
-            <td>
-                <span className={styles.info}>${product.price}</span>
-            </td>
-            <td>
-                <strong className={styles.info}>
-                    ${quantity * product.price}
-                </strong>
-            </td>
-            <td>
-                <DeleteForever
-                    className={cx(styles.action, styles.delete)}
-                    sx={{
-                        transition: "transform 200ms ease-in-out;",
-                    }}
-                    onClick={handleRemoveProduct}
-                />
-                {item.quantity !== quantity ? (
-                    <Done
-                        className={cx(styles.action, styles.save)}
+                <td>
+                    <strong className={styles.info}>
+                        ${(quantity * product.price).toFixed(2)}
+                    </strong>
+                </td>
+                <td>
+                    <DeleteForever
+                        className={cx(styles.action, styles.delete)}
                         sx={{
                             transition: "transform 200ms ease-in-out;",
                         }}
-                        onClick={handleUpdateProduct}
+                        onClick={() => onRemoveProduct(item.product)}
                     />
-                ) : null}
-            </td>
-        </tr>
-    );
-});
+                </td>
+            </tr>
+        );
+    },
+);

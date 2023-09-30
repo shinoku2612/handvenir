@@ -150,8 +150,8 @@ class IndexedDB {
 }
 
 const stores = [
-    { name: "cart", keyPath: "productId" },
-    { name: "wish_list", keyPath: "productId" },
+    { name: "cart", keyPath: "product" },
+    { name: "wish_list", keyPath: "product" },
 ];
 export const CartDB = new IndexedDB("ShinPay", stores, "cart");
 export const WishListDB = new IndexedDB("ShinPay", stores, "wish_list");

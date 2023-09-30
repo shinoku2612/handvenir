@@ -15,16 +15,16 @@ const OrderSchema = new mongoose.Schema(
                 _id: false,
             },
         ],
-        userId: {
+        user: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: "User",
         },
-        method: { type: String, default: "COD" },
+        method: { type: String, enum: ["COD", "online"], default: "COD" },
         total: { type: Number },
         status: {
             type: String,
-            enum: ["pending", "shipping", "paid", "canceled"],
+            enum: ["pending", "shipping", "completed", "canceled"],
             default: "pending",
         },
         address: { type: String, required: true },

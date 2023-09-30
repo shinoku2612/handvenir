@@ -99,7 +99,7 @@ class AuthController {
                 "7d",
             );
             const newRefreshToken = new TokenModel({
-                userId: user._id,
+                user: user._id,
                 refresh_token: refreshToken,
             });
             await newRefreshToken.save();
@@ -121,7 +121,7 @@ class AuthController {
         try {
             const { userId } = req.params;
 
-            const [existToken] = await TokenModel.find({ userId: userId })
+            const [existToken] = await TokenModel.find({ user: userId })
                 .sort({ createdAt: -1 })
                 .limit(1);
             if (!existToken) return res.status(401).json("Unauthorized 2");
@@ -173,7 +173,7 @@ class AuthController {
     static async logout(req, res) {
         try {
             const { userId } = req.params;
-            await TokenModel.deleteMany({ userId: userId });
+            await TokenModel.deleteMany({ user: userId });
             return res
                 .clearCookie("refreshToken")
                 .clearCookie("accessToken")

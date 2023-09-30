@@ -8,10 +8,11 @@ import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
 import Comment from "./comment/Comment";
 import Loader from "../../components/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, getUserId } from "../../redux/selectors";
+import { getUserId } from "../../redux/selectors";
 import { addToCartService } from "../../services/cart.service";
 import { getProductReviewService } from "../../services/review.service";
 import { formatDDMMYYYYHHMM } from "../../utils/helper";
+import { addToWishListService } from "../../services/wish-list.service";
 
 export default function ProductDetail() {
     // [API QUERIES]
@@ -29,9 +30,7 @@ export default function ProductDetail() {
     // [STATES]
     const [quantity, setQuantity] = useState(1);
     const userId = useSelector(getUserId);
-    const user = useSelector(getUser);
     const dispatch = useDispatch();
-    const [comment, setComment] = useState("");
 
     // [HANDLER FUNCTIONS]
     async function handleAddToCart(e) {
@@ -47,10 +46,14 @@ export default function ProductDetail() {
             console.log("Add to current device");
         }
     }
-    function handleInputComment(e) {
-        setComment(e.target.value);
-        e.target.style.height = "auto";
-        e.target.style.height = e.target.scrollHeight + "px";
+    async function handleAddToWishList(e) {
+        try {
+            e.preventDefault();
+            e.stopPropagation();
+            await addToWishListService(userId, dispatch, product._id);
+        } catch (error) {
+            console.log("Add to current device");
+        }
     }
 
     // [RENDER]
@@ -70,7 +73,7 @@ export default function ProductDetail() {
                         <h3 className={styles.productName}>{product.title}</h3>
                         <div className={styles.productRating}>
                             <span className={styles.ratingPoint}>
-                                {product.rating_point}
+                                {product.rating_point || 0}
                             </span>
                             <Rating
                                 size="small"
@@ -108,12 +111,15 @@ export default function ProductDetail() {
                         </div>
                         <div className="btn-groups">
                             <button
-                                className="btn btn-danger"
+                                className="btn btn-primary"
                                 onClick={handleAddToCart}
                             >
                                 Add to cart
                             </button>
-                            <button className="btn btn-danger btn-outlined m-inline-1">
+                            <button
+                                className="btn btn-primary btn-outlined m-inline-1"
+                                onClick={handleAddToWishList}
+                            >
                                 Add to wish lish
                             </button>
                         </div>
@@ -164,9 +170,16 @@ export default function ProductDetail() {
                             Product Descriptions
                         </h3>
                         <div className={styles.detailGroup}>
-                            <span className={styles.description}>
-                                {product.description}
-                            </span>
+                            {product.description
+                                .split("\n")
+                                .map((text, index) => (
+                                    <p
+                                        key={index}
+                                        className={styles.description}
+                                    >
+                                        {text}
+                                    </p>
+                                ))}
                         </div>
                     </div>
                 </section>
@@ -174,44 +187,26 @@ export default function ProductDetail() {
                     <h3 className={styles.sectionHeader}>
                         <span>Product Ratings</span>
                         <span className={styles.productReviewHeader}>
-                            {product.rating_point}
+                            {product.rating_point || 0}
                         </span>
                     </h3>
-                    <div className={styles.reviewContainer}>
-                        {user && (
-                            <div className={styles.reviewWriter}>
-                                <img
-                                    src={user.avatar}
-                                    alt={user.name}
-                                    className={styles.owner}
-                                />
-                                <textarea
-                                    name="commentBox"
-                                    id="comment"
-                                    className={styles.reviewBox}
-                                    value={comment}
-                                    onChange={handleInputComment}
-                                ></textarea>
-                            </div>
-                        )}
-                        {commentList.map((comment) => (
-                            <Comment
-                                key={comment._id}
-                                author={{
-                                    name: comment.user.name,
-                                    avatar: comment.user.avatar,
-                                }}
-                                comment={{
-                                    rating: comment.rating,
-                                    like: comment.like,
-                                    createdAt: formatDDMMYYYYHHMM(
-                                        comment.createdAt,
-                                    ),
-                                    content: comment.comment,
-                                }}
-                            />
-                        ))}
-                    </div>
+                    {commentList.map((comment) => (
+                        <Comment
+                            key={comment._id}
+                            author={{
+                                name: comment.user.name,
+                                avatar: comment.user.avatar,
+                            }}
+                            comment={{
+                                rating: comment.rating,
+                                like: comment.like,
+                                createdAt: formatDDMMYYYYHHMM(
+                                    comment.createdAt,
+                                ),
+                                content: comment.comment,
+                            }}
+                        />
+                    ))}
                 </section>
             </div>
         </div>

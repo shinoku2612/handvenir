@@ -27,7 +27,7 @@ export async function addToWishListService(userId, dispatch, productId) {
         });
         data = res.data;
     } catch (error) {
-        const productList = await WishListDB.insertOne({ productId });
+        const productList = await WishListDB.insertOne({ product: productId });
         data = { product_list: productList };
     }
     dispatch(

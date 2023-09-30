@@ -28,14 +28,9 @@ const Information = lazy(() =>
     import("../pages/profile/main/information/Information"),
 );
 const Address = lazy(() => import("../pages/profile/main/address/Address"));
-const Credit = lazy(() => import("../pages/profile/main/credit/Credit"));
 const ShoppingHistory = lazy(() =>
     import("../pages/profile/main/shopping-history/ShoppingHistory"),
 );
-const ShopRegister = lazy(() =>
-    import("../pages/profile/main/shop-register/ShopRegister"),
-);
-const ShopList = lazy(() => import("../pages/profile/main/shop-list/ShopList"));
 // Product pages
 const Products = lazy(() => import("../pages/products/Products"));
 const ProductDetail = lazy(() =>
@@ -78,6 +73,18 @@ export default function Router() {
         {
             path: "/",
             element: <Layout />,
+            errorElement: (
+                <Error
+                    title="Not found"
+                    image={{ src: pageNotFoundSVG }}
+                    message={{
+                        header: "Whoops! Lost in space?",
+                        info: "The page you're looking for isn't found.",
+                        suggest: "We suggest you back to home",
+                    }}
+                    navigator={{ target: "/", title: "Back to home" }}
+                />
+            ),
             children: [
                 { index: true, element: <Home /> },
                 {
@@ -94,20 +101,8 @@ export default function Router() {
                             element: <Address />,
                         },
                         {
-                            path: PATH.profile.credit,
-                            element: <Credit />,
-                        },
-                        {
                             path: PATH.profile.history,
                             element: <ShoppingHistory />,
-                        },
-                        {
-                            path: PATH.profile.shop,
-                            element: <ShopList />,
-                        },
-                        {
-                            path: PATH.profile.shopRegister,
-                            element: <ShopRegister />,
                         },
                     ],
                 },
@@ -178,7 +173,8 @@ export default function Router() {
     });
     return (
         <Suspense fallback={<Loader />}>
-            <RouterProvider router={isOnline ? router : offlineRouter} />
+            <RouterProvider router={router} />
+            {/* <RouterProvider router={isOnline ? router : offlineRouter} /> */}
         </Suspense>
     );
 }

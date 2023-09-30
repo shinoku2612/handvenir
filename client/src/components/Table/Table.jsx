@@ -9,6 +9,7 @@ export default function Table({
     data,
     renderItem: Item,
     keyExtractor,
+    ...props
 }) {
     // [STATES]
     const [page, setPage] = useState(1);
@@ -47,6 +48,7 @@ export default function Table({
                             <Item
                                 item={item}
                                 index={index}
+                                {...props}
                             />
                         </React.Fragment>
                     ))}

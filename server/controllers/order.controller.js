@@ -4,7 +4,10 @@ class OrderController {
     static async makeOrder(req, res) {
         try {
             const { userId } = req.params;
-            const { status, total, ...orderDetail } = { ...req.body, userId };
+            const { status, total, ...orderDetail } = {
+                ...req.body,
+                user: userId,
+            };
             const order = new OrderModel(orderDetail);
             await order.save();
             return res.status(201).json(order);
@@ -15,7 +18,7 @@ class OrderController {
     static async getUserOrder(req, res) {
         try {
             const { userId } = req.params;
-            const orderList = await OrderModel.find({ userId });
+            const orderList = await OrderModel.find({ user: userId });
             return res.status(200).json(orderList);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -26,7 +29,7 @@ class OrderController {
             const { userId, orderId } = req.params;
             const order = await OrderModel.findOne(
                 {
-                    userId: userId,
+                    user: userId,
                     _id: orderId,
                 },
                 { price: 0 },

@@ -80,9 +80,13 @@ function Order({ item }) {
             <td>
                 <span className={`status ${item.status}`}>{item.status}</span>
             </td>
-            <td>{item.method}</td>
+            <td>
+                <strong>{item.method}</strong>
+            </td>
             <td>{item.address}</td>
-            <td>${item.total}</td>
+            <td>
+                <strong>${item.total}</strong>
+            </td>
             <td>
                 <NavLink
                     to={`/order/${item._id}`}

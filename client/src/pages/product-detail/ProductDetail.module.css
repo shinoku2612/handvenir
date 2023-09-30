@@ -160,28 +160,3 @@
     font-weight: 400;
     margin-left: 0.25em;
 }
-
-.reviewContainer {
-    margin-top: 1rem;
-    padding: 0 1rem;
-}
-
-.reviewWriter {
-    display: flex;
-    /* align-items: center; */
-}
-
-.owner {
-    --size: 2.5rem;
-    width: var(--size);
-    height: var(--size);
-    border-radius: 50%;
-    margin-right: 0.625rem;
-}
-
-.reviewBox {
-    width: 50%;
-    padding: 0.625rem;
-    resize: none;
-    overflow: hidden;
-}

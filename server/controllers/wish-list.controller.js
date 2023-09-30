@@ -4,7 +4,7 @@ class WishListController {
     static async getWishList(req, res) {
         try {
             const { userId } = req.params;
-            const wishList = await WishListModel.findOne({ userId: userId });
+            const wishList = await WishListModel.findOne({ user: userId });
             return res.status(200).json(wishList);
         } catch (error) {
             return res.status(500).json(error.message);
@@ -16,8 +16,8 @@ class WishListController {
             const { productId } = req.body;
 
             const wishList = await WishListModel.findOneAndUpdate(
-                { userId },
-                { $addToSet: { product_list: { productId } } },
+                { user: userId },
+                { $addToSet: { product_list: { product: productId } } },
                 { new: true, upsert: true },
             );
 
@@ -30,14 +30,14 @@ class WishListController {
         try {
             const { userId, productId } = req.params;
             const wishList = await WishListModel.findOneAndUpdate(
-                { userId: userId },
-                { $pull: { product_list: { productId: productId } } },
+                { user: userId },
+                { $pull: { product_list: { product: productId } } },
                 { new: true },
             );
             if (!wishList) return res.status(200).json(null);
 
             if (wishList.product_list.length === 0) {
-                await WishListModel.findOneAndRemove({ userId: userId });
+                await WishListModel.findOneAndRemove({ user: userId });
                 return res.status(200).json(null);
             }
             return res.status(200).json(wishList);
@@ -50,7 +50,7 @@ class WishListController {
             const { userId } = req.params;
             const { productList } = req.body;
             const wishList = await WishListModel.findOneAndUpdate(
-                { userId },
+                { user: userId },
                 { $addToSet: { product_list: { $each: productList } } },
                 { new: true, upsert: true },
             );
