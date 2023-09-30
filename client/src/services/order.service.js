@@ -1,8 +1,9 @@
 import { privateRequest } from "../config/axios.config";
+import { checkType } from "../utils/helper";
 
 export async function makeOrderService(userId, payload) {
     try {
-        console.log(payload.address)
+        console.log(payload.address);
         const res = await privateRequest.post(`order/check-out/${userId}`, {
             product_list: payload.product_list,
             address: payload.address,
@@ -13,9 +14,21 @@ export async function makeOrderService(userId, payload) {
     }
 }
 
-export async function getOrderService(userId) {
+export async function getOrderService(userId, sortQuery) {
     try {
-        const res = await privateRequest.get(`/order/${userId}`);
+        let url = `/order/${userId}`;
+        if (checkType(sortQuery) === "object") {
+            const queryString = Object.keys(sortQuery)
+                .reduce(
+                    (urlString, query) =>
+                        urlString + `${query}=${sortQuery[query]}&`,
+                    "?",
+                )
+                .slice(0, -1);
+            url += queryString;
+        }
+        console.log(url);
+        const res = await privateRequest.get(url);
         return res.data;
     } catch (error) {
         return null;

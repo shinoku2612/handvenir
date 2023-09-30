@@ -18,7 +18,24 @@ class OrderController {
     static async getUserOrder(req, res) {
         try {
             const { userId } = req.params;
-            const orderList = await OrderModel.find({ user: userId });
+            const { total } = req.query;
+            let totalOrder = 0;
+            let orderList = [];
+            if (total.toLowerCase() === "increase") {
+                totalOrder = 1; // Ascending order
+            } else if (total.toLowerCase() === "decrease") {
+                totalOrder = -1; // Descending order
+            }
+
+            if (totalOrder === 1 || totalOrder === -1) {
+                orderList = await OrderModel.find({
+                    user: userId,
+                }).sort({ total: totalOrder });
+            } else {
+                orderList = await OrderModel.find({
+                    user: userId,
+                });
+            }
             return res.status(200).json(orderList);
         } catch (error) {
             return res.status(500).json(error.message);

@@ -210,8 +210,8 @@ button.disabled {
 }
 
 .status.shipping {
-    color: #343a40;
-    background-color: #343a401a;
+    color: #ffc107;
+    background-color: #ffc1071a;
 }
 
 .status.completed {

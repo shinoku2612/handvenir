@@ -1,9 +1,8 @@
-import { client } from '../utils/sanity-client';
+import { publicRequest } from "../config/axios.config";
 export async function getCategories() {
     try {
-        const query = '*[_type == "category"]';
-        const resData = await client.fetch(query);
-        return resData;
+        const res = await publicRequest.get("/category");
+        return res.data;
     } catch (error) {
         return error.message;
     }

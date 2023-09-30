@@ -23,6 +23,7 @@ require("./databases/mongo.connect.js");
 // import routers / middlewares
 const authRoute = require("./routes/auth.route.js");
 const cartRoute = require("./routes/cart.route.js");
+const categoryRoute = require("./routes/category.route.js");
 const orderRoute = require("./routes/order.route.js");
 const otpRoute = require("./routes/otp.route.js");
 const productRoute = require("./routes/product.route.js");
@@ -34,6 +35,7 @@ const locationRoute = require("./routes/location.route.js");
 // use middlewares - routers
 app.use("/api/auth", authRoute);
 app.use("/api/cart", cartRoute);
+app.use("/api/category", categoryRoute);
 app.use("/api/order", orderRoute);
 // app.use('/api/otp', otpRoute);
 app.use("/api/product", productRoute);

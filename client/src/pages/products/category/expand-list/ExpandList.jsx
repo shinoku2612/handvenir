@@ -40,13 +40,13 @@ export default function ExpandList({
                         onClick={() =>
                             onSetCriteria({
                                 name: category.name,
-                                slug: category.slug.current,
+                                slug: category.slug,
                             })
                         }
                     >
                         <Checkbox
                             checked={criteria.some(
-                                (c) => c.slug === category.slug.current,
+                                (c) => c.slug === category.slug,
                             )}
                         />
                         <p>{category.name}</p>

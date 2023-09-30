@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Select from "../../../../components/Select/Select";
 import Table from "../../../../components/Table/Table";
@@ -13,14 +13,17 @@ import { formatDDMMYYYY } from "../../../../utils/helper";
 export default function ShoppingHistory() {
     // [STATES]
     const userId = useSelector(getUserId);
-    const [sortFilter, setSortFilter] = useState("None");
+    const [totalSort, setTotalSort] = useState("None");
     const [statusFilter, setStatusFilter] = useState("All");
     const [paymentMethod, setPaymentMethod] = useState("All");
 
     // [QUERIES]
-    const { isLoading, data } = useQuery("order", () =>
-        getOrderService(userId),
+    const { isLoading, data, refetch } = useQuery("order", () =>
+        getOrderService(userId, { total: totalSort }),
     );
+    useEffect(() => {
+        refetch();
+    }, [totalSort, refetch]);
 
     // [RENDER]
     if (isLoading) return <Loader variant="overlay" />;
@@ -33,22 +36,28 @@ export default function ShoppingHistory() {
                         <Select
                             classNames={styles.filterSelect}
                             label="Total"
-                            defaultValue={sortFilter}
+                            defaultValue={totalSort}
                             renderData={["None", "Increase", "Decrease"]}
-                            onSelect={setSortFilter}
+                            onSelect={setTotalSort}
                         />
                         <Select
                             classNames={styles.filterSelect}
                             label="Payment method"
                             defaultValue={statusFilter}
-                            renderData={["All", "Credits", "Cash on delivery"]}
+                            renderData={["All", "Cash on delivery"]}
                             onSelect={setStatusFilter}
                         />
                         <Select
                             classNames={styles.filterSelect}
                             label="Status"
                             defaultValue={paymentMethod}
-                            renderData={["All", "Paid", "Pending", "Denied"]}
+                            renderData={[
+                                "All",
+                                "Completed",
+                                "Pending",
+                                "Shipping",
+                                "Canceled",
+                            ]}
                             onSelect={setPaymentMethod}
                         />
                     </div>
