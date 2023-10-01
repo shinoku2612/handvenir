@@ -18,7 +18,16 @@ class OrderController {
     static async getUserOrder(req, res) {
         try {
             const { userId } = req.params;
-            const { total, page, limit } = req.query;
+            const { total, page, limit, method, status } = req.query;
+
+            const queryCondition = { user: userId };
+            if (method.toLowerCase() !== "all") {
+                queryCondition.method = method.toLowerCase();
+            }
+            if (status.toLowerCase() !== "all") {
+                queryCondition.status = status.toLowerCase();
+            }
+
             let orderList = [];
             let sortOrder = 0;
 
@@ -30,28 +39,28 @@ class OrderController {
                 if (page && limit) {
                     const pageNumber = parseInt(page);
                     const limitNumber = parseInt(limit);
-                    orderList = await OrderModel.find({ user: userId })
+                    orderList = await OrderModel.find(queryCondition)
                         .skip((pageNumber - 1) * limitNumber)
                         .limit(limitNumber);
                 } else {
-                    orderList = await OrderModel.find({ user: userId });
+                    orderList = await OrderModel.find(queryCondition);
                 }
             }
             if (sortOrder === 1 || sortOrder === -1) {
                 if (page && limit) {
                     const pageNumber = parseInt(page);
                     const limitNumber = parseInt(limit);
-                    orderList = await OrderModel.find({ user: userId })
+                    orderList = await OrderModel.find(queryCondition)
                         .sort({ total: sortOrder })
                         .skip((pageNumber - 1) * limitNumber)
                         .limit(limitNumber);
                 } else {
-                    orderList = await OrderModel.find({ user: userId }).sort({
+                    orderList = await OrderModel.find(queryCondition).sort({
                         total: sortOrder,
                     });
                 }
             }
-            const orderSize = await OrderModel.count();
+            const orderSize = await OrderModel.count(queryCondition);
 
             return res.status(200).json({ data: orderList, size: orderSize });
         } catch (error) {

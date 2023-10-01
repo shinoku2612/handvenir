@@ -13,6 +13,7 @@ class LocationController {
             // Support Ho Chi Minh City only
             const hcmCity = JSON.parse(data).filter((p) => p.code === "79");
             return res.status(200).json(hcmCity);
+            // All cites in Vietnam are available
             // return res.status(200).json(JSON.parse(data));
         } catch (error) {
             return res.status(500).json(error.message);
@@ -35,6 +36,7 @@ class LocationController {
             return res
                 .status(200)
                 .json({ parent_code: province, self: [thuDuc] });
+            // All districts related to province are available
             // return res.status(200).json(list);
         } catch (error) {
             return res.status(500).json(error.message);

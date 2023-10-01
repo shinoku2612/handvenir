@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import styles from './Select.module.css';
-import { Check, ExpandMore } from '@mui/icons-material';
-import cx from '../../utils/class-name';
+import React, { useEffect, useState } from "react";
+import styles from "./Select.module.css";
+import { Check, ExpandMore } from "@mui/icons-material";
+import cx from "../../utils/class-name";
 
 export default function Select({
     editable = true,
     label,
     defaultValue,
-    placeholder = 'Choose',
+    placeholder = "Choose",
     renderData = [],
     onSelect,
     classNames,
@@ -35,13 +35,23 @@ export default function Select({
 
     // [RENDER]
     return (
-        <div className={cx(styles.select, classNames)} {...props}>
+        <div
+            className={cx(styles.select, classNames)}
+            {...props}
+        >
             <span className={styles.label}>{label}</span>
-            <div className={styles.value} onClick={handleToggleExpand}>
+            <div
+                className={styles.value}
+                onClick={handleToggleExpand}
+            >
                 <p>{defaultValue?.toString() || placeholder}</p>
-                <ExpandMore
-                    className={cx({ [styles.rotateUp]: expand && editable })}
-                />
+                {editable ? (
+                    <ExpandMore
+                        className={cx({
+                            [styles.rotateUp]: expand && editable,
+                        })}
+                    />
+                ) : null}
             </div>
             <div
                 className={cx(styles.optionContainer, {

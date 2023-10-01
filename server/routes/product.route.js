@@ -6,8 +6,6 @@ router.post("/add", ProductController.addProduct);
 router.get("/all", ProductController.getAllProduct);
 router.get("/get/:productId", ProductController.getProductById);
 router.get("/single/:slug", ProductController.getProductBySlug);
-router.get("/search", ProductController.searchProduct);
-router.get("/filter", ProductController.filterProduct);
 router.put("/rating/:productId", ProductController.rateProduct);
 router.get("/latest/:limit", ProductController.getLatestProducts);
 

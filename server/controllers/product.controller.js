@@ -35,8 +35,32 @@ class ProductController {
     }
     static async getAllProduct(req, res) {
         try {
+            const { search, category, sort } = req.query;
+            const categories = category?.split(",");
+
+            const aggregationPipeline = [...ProductController.aggregation];
+            const matchAggregate = {};
+            if (search) {
+                matchAggregate.title = {
+                    $regex: search,
+                    $options: "i",
+                };
+            }
+            if (category) {
+                matchAggregate.categories = { $in: categories };
+            }
+            const sortAggregate = {};
+            if (sort === "price_asc") {
+                sortAggregate.price = 1;
+            } else if (sort === "price_desc") {
+                sortAggregate.price = -1;
+            }
+            if (Object.keys(matchAggregate).length !== 0)
+                aggregationPipeline.push({ $match: matchAggregate });
+            if (Object.keys(sortAggregate).length !== 0)
+                aggregationPipeline.push({ $sort: sortAggregate });
             const productList = await ProductModel.aggregate(
-                ProductController.aggregation,
+                aggregationPipeline,
             );
             return res.status(200).json(productList);
         } catch (error) {
@@ -61,47 +85,6 @@ class ProductController {
             const { productId } = req.params;
             const product = await ProductModel.findById(productId);
             return res.status(200).json(product);
-        } catch (error) {
-            return res.status(500).json(error.message);
-        }
-    }
-    static async searchProduct(req, res) {
-        try {
-            const { s: search } = req.query;
-            if (!search) return res.status(200).json([]);
-            const aggregationPipeline = [
-                {
-                    $match: {
-                        title: {
-                            $regex: search,
-                            $options: "i",
-                        },
-                    },
-                },
-                ...ProductController.aggregation,
-            ];
-            const productList = await ProductModel.aggregate(
-                aggregationPipeline,
-            );
-            return res.status(200).json(productList);
-        } catch (error) {
-            return res.status(500).json(error.message);
-        }
-    }
-    static async filterProduct(req, res) {
-        try {
-            const categories = req.query.c?.split(",");
-            if (!categories) return res.status(200).json([]);
-            const aggregationPipeline = [
-                {
-                    $match: { categories: { $in: categories } },
-                },
-                ...ProductController.aggregation,
-            ];
-            const productList = await ProductModel.aggregate(
-                aggregationPipeline,
-            );
-            return res.status(200).json(productList);
         } catch (error) {
             return res.status(500).json(error.message);
         }

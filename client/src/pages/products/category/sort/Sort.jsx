@@ -1,7 +1,7 @@
-import { Radio } from '@mui/material';
-import React from 'react';
-import { SORT } from '../../../../config/constant.config';
-import styles from './Sort.module.css';
+import { Radio } from "@mui/material";
+import React from "react";
+import { SORT } from "../../../../config/constant.config";
+import styles from "./Sort.module.css";
 
 export default function Sort({ sortCriteria, onSetSortCriteria }) {
     return (
@@ -11,9 +11,9 @@ export default function Sort({ sortCriteria, onSetSortCriteria }) {
                     <div
                         key={sort.label}
                         className={styles.sortItem}
-                        onClick={() => onSetSortCriteria(sort.label)}
+                        onClick={() => onSetSortCriteria(sort.value)}
                     >
-                        <Radio checked={sortCriteria === sort.label} />
+                        <Radio checked={sortCriteria === sort.value} />
                         <div className={styles.sortValue}>{sort.label}</div>
                     </div>
                 ))}

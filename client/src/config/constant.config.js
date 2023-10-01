@@ -37,7 +37,7 @@ export const STATUS = {
     },
 };
 export const SORT = [
-    { label: "Lowest price" },
-    { label: "Highest price" },
-    { label: "Newest" },
+    { label: "None", value: "none" },
+    { label: "Lowest price", value: "price_asc" },
+    { label: "Highest price", value: "price_desc" },
 ];

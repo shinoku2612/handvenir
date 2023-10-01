@@ -19,11 +19,15 @@ export default function ShoppingHistory() {
 
     // [QUERIES]
     const { isLoading, data, refetch } = useQuery("order", () =>
-        getOrderService(userId, { total: totalSort }),
+        getOrderService(userId, {
+            total: totalSort,
+            method: paymentMethod,
+            status: statusFilter,
+        }),
     );
     useEffect(() => {
         refetch();
-    }, [totalSort, refetch]);
+    }, [totalSort, paymentMethod, statusFilter, refetch]);
 
     // [RENDER]
     if (isLoading) return <Loader variant="overlay" />;
@@ -43,14 +47,14 @@ export default function ShoppingHistory() {
                         <Select
                             classNames={styles.filterSelect}
                             label="Payment method"
-                            defaultValue={statusFilter}
-                            renderData={["All", "Cash on delivery"]}
-                            onSelect={setStatusFilter}
+                            defaultValue={paymentMethod}
+                            renderData={["All", "COD", "Momo", "Bank"]}
+                            onSelect={setPaymentMethod}
                         />
                         <Select
                             classNames={styles.filterSelect}
                             label="Status"
-                            defaultValue={paymentMethod}
+                            defaultValue={statusFilter}
                             renderData={[
                                 "All",
                                 "Completed",
@@ -58,7 +62,7 @@ export default function ShoppingHistory() {
                                 "Shipping",
                                 "Canceled",
                             ]}
-                            onSelect={setPaymentMethod}
+                            onSelect={setStatusFilter}
                         />
                     </div>
                 </section>

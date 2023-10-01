@@ -95,7 +95,20 @@ export default function Address() {
             <h3 className={styles.header}>Shipping address</h3>
             <div className={styles.content}>
                 <section className={styles.addressSection}>
-                    <DeliveryAddress address={mainAddress} />
+                    <div className={styles.deliverAddressGroup}>
+                        <p className={styles.deliverLabel}>Deliver to:</p>
+                        {mainAddress ? (
+                            <span className={styles.deliverAddress}>
+                                {mainAddress.street}, {mainAddress.town},{" "}
+                                {mainAddress.district}, {mainAddress.city},{" "}
+                                {mainAddress.country}
+                            </span>
+                        ) : (
+                            <span className={styles.emptyAddress}>
+                                Please select a main address for delivery
+                            </span>
+                        )}
+                    </div>
                 </section>
                 <section className={styles.addressSection}>
                     <span className={styles.sectionHeader}>
@@ -178,25 +191,6 @@ export default function Address() {
                     )}
                 </section>
             </div>
-        </div>
-    );
-}
-
-// [CUSTOM RENDERED ELEMENTS]
-function DeliveryAddress({ address }) {
-    return (
-        <div className={styles.deliverAddressGroup}>
-            <p className={styles.deliverLabel}>Deliver to:</p>
-            {address ? (
-                <span className={styles.deliverAddress}>
-                    {address.street}, {address.town}, {address.district},{" "}
-                    {address.city}, {address.country}
-                </span>
-            ) : (
-                <span className={styles.emptyAddress}>
-                    Please select a main address for delivery
-                </span>
-            )}
         </div>
     );
 }

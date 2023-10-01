@@ -1,7 +1,22 @@
 import { publicRequest } from "../config/axios.config";
-export async function getAllProductService() {
+import { checkType } from "../utils/helper";
+export async function getAllProductService(query) {
     try {
-        const res = await publicRequest.get("/product/all");
+        let url = "/product/all";
+        if (checkType(query) === "object") {
+            const queryString = Object.keys(query)
+                .reduce(
+                    (urlString, key) =>
+                        query[key] !== undefined
+                            ? urlString + `${key}=${query[key]}&`
+                            : urlString,
+                    "?",
+                )
+                .slice(0, -1);
+            url += queryString;
+        }
+
+        const res = await publicRequest.get(url);
         return res.data;
     } catch (error) {
         console.log(error.message);
@@ -25,24 +40,6 @@ export async function getProductByIdService(productId) {
     } catch (error) {
         console.log(error.message);
         return {};
-    }
-}
-export async function findProductService(searchQuery) {
-    try {
-        const res = await publicRequest.get(`/product/search?s=${searchQuery}`);
-        return res.data;
-    } catch (error) {
-        console.log(error.message);
-        return [];
-    }
-}
-export async function filterProductService(filterQuery) {
-    try {
-        const res = await publicRequest.get(`/product/filter?c=${filterQuery}`);
-        return res.data;
-    } catch (error) {
-        console.log(error.message);
-        return [];
     }
 }
 export async function getLatestProductService(limit) {

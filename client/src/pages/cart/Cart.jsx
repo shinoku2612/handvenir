@@ -27,6 +27,7 @@ import emptyCartSVG from "../../assets/images/empty-cart.svg";
 import { NavLink } from "react-router-dom";
 import PopUp from "../../components/PopUp/PopUp";
 import { makeOrderService } from "../../services/order.service";
+import { PATH } from "../../config/constant.config";
 // Error page
 const Error = lazy(() => import("../error/Error"));
 
@@ -176,15 +177,16 @@ export default function Cart() {
                                     <span className={styles.summaryLabel}>
                                         Shipping to
                                     </span>
-                                    <span
+                                    <NavLink
                                         className="text-small text-secondary clickable-link"
                                         title="Click to change delivery address"
+                                        to={`/me/${PATH.profile.address}`}
                                     >
                                         {mainAddress.street}, {mainAddress.town}
                                         , {mainAddress.district},{" "}
                                         {mainAddress.city},{" "}
                                         {mainAddress.country}
-                                    </span>
+                                    </NavLink>
                                 </div>
                             ) : null}
                             <div className={styles.totalInfo}>

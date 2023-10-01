@@ -20,7 +20,7 @@ const OrderSchema = new mongoose.Schema(
             required: true,
             ref: "User",
         },
-        method: { type: String, enum: ["COD", "online"], default: "COD" },
+        method: { type: String, enum: ["cod", "bank", "momo"], default: "cod" },
         total: { type: Number },
         status: {
             type: String,

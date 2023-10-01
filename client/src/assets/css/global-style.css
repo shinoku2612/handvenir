@@ -192,6 +192,9 @@ button.disabled {
     color: var(--text-secondary);
 }
 
+.clickable-link {
+    text-decoration: none;
+}
 .clickable-link:hover {
     cursor: pointer;
     text-decoration: underline currentColor;
@@ -222,4 +225,9 @@ button.disabled {
 .status.canceled {
     color: #dc3545;
     background-color: #dc35451a;
+}
+
+.position-sticky {
+    position: sticky;
+    top: 0;
 }
