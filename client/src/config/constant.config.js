@@ -2,8 +2,8 @@ export const OTP_LIFE_TIME = 90;
 
 export const PATH = {
     auth: "auth",
-    register: "register",
     login: "login",
+    register: "register",
     profile: {
         index: "me",
         address: "address",
@@ -18,6 +18,7 @@ export const PATH = {
         result: "payment-result",
     },
     orderDetail: "order/:orderId",
+    checkout: "checkout",
 };
 
 export const STATUS = {
@@ -38,6 +39,6 @@ export const STATUS = {
 };
 export const SORT = [
     { label: "None", value: "none" },
-    { label: "Lowest price", value: "price_asc" },
-    { label: "Highest price", value: "price_desc" },
+    { label: "Price Low to High", value: "price_asc" },
+    { label: "Price High to Low", value: "price_desc" },
 ];

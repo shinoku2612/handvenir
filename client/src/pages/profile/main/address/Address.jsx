@@ -99,9 +99,7 @@ export default function Address() {
                         <p className={styles.deliverLabel}>Deliver to:</p>
                         {mainAddress ? (
                             <span className={styles.deliverAddress}>
-                                {mainAddress.street}, {mainAddress.town},{" "}
-                                {mainAddress.district}, {mainAddress.city},{" "}
-                                {mainAddress.country}
+                                {user.mainAddress}
                             </span>
                         ) : (
                             <span className={styles.emptyAddress}>

@@ -86,5 +86,24 @@ class OrderController {
             return res.status(500).json(error.message);
         }
     }
+    static async cancelOrder(req, res) {
+        try {
+            const { userId, orderId } = req.params;
+            const canceledOrder = await OrderModel.findOneAndUpdate(
+                {
+                    user: userId,
+                    _id: orderId,
+                    isCancelable: true,
+                    status: "pending",
+                },
+                { $set: { isCancelable: false, status: "canceled" } },
+                { new: true },
+            );
+
+            return res.status(201).json(canceledOrder);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
 }
 module.exports = OrderController;

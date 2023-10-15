@@ -4,8 +4,14 @@ class CartController {
     static async getCart(req, res) {
         try {
             const { userId } = req.params;
-            const cart = await CartModel.findOne({ user: userId });
-            return res.status(200).json(cart);
+            const cart = await CartModel.findOne({ user: userId }).lean();
+            if (!cart) {
+                return res.status(404).json({ message: "Cart not found" });
+            }
+            const total = await CartController.calculateTotal(cart.product_list);
+            if (total === -1)
+                return res.status(500).json("Failed to get total cart value");
+            return res.status(200).json({ ...cart, total });
         } catch (error) {
             return res.status(500).json(error.message);
         }
@@ -16,7 +22,7 @@ class CartController {
             const { productId, quantity } = req.body;
             if (quantity <= 0) return res.status(400).json("Invalid quantity");
 
-            const cart = await CartModel.findOneAndUpdate(
+            let cart = await CartModel.findOneAndUpdate(
                 {
                     user: userId,
                     product_list: { $elemMatch: { product: productId } },
@@ -24,27 +30,26 @@ class CartController {
                 {
                     $inc: { "product_list.$.quantity": quantity },
                 },
-                { new: true },
+                { new: true, lean: true },
             );
-
-            if (cart) {
-                return res.status(200).json(cart);
-            }
-
-            const newCart = await CartModel.findOneAndUpdate(
-                { user: userId },
-                {
-                    $push: {
-                        product_list: {
-                            product: productId,
-                            quantity,
+            if (!cart) {
+                cart = await CartModel.findOneAndUpdate(
+                    { user: userId },
+                    {
+                        $push: {
+                            product_list: {
+                                product: productId,
+                                quantity,
+                            },
                         },
                     },
-                },
-                { new: true, upsert: true },
-            );
-
-            return res.status(200).json(newCart);
+                    { new: true, upsert: true, lean: true },
+                );
+            }
+            const total = await CartController.calculateTotal(cart.product_list);
+            if (total === -1)
+                return res.status(500).json("Failed to get total cart value");
+            return res.status(200).json({ ...cart, total });
         } catch (error) {
             return res.status(500).json(error.message);
         }
@@ -55,15 +60,20 @@ class CartController {
             const cart = await CartModel.findOneAndUpdate(
                 { user: userId },
                 { $pull: { product_list: { product: productId } } },
-                { new: true },
+                { new: true, lean: true },
             );
-            if (!cart) return res.status(200).json(null);
+            if (!cart)
+                return res.status(404).json({ message: "Cart not found" });
 
             if (cart.product_list.length === 0) {
                 await CartModel.findOneAndRemove({ user: userId });
                 return res.status(200).json(null);
             }
-            return res.status(200).json(cart);
+
+            const total = await CartController.calculateTotal(cart.product_list);
+            if (total === -1)
+                return res.status(500).json("Failed to get total cart value");
+            return res.status(200).json({ ...cart, total });
         } catch (error) {
             return res.status(500).json(error.message);
         }
@@ -82,20 +92,22 @@ class CartController {
                 {
                     $set: { "product_list.$.quantity": quantity },
                 },
-                { new: true },
+                { new: true, lean: true },
             );
-
-            return res.status(200).json(cart);
+            const total = await CartController.calculateTotal(cart.product_list);
+            if (total === -1)
+                return res.status(500).json("Failed to get total cart value");
+            return res.status(200).json({ ...cart, total });
         } catch (error) {
             return res.status(500).json(error.message);
         }
     }
-    static async checkout(req, res) {}
     static async syncLocalCart(req, res) {
         try {
             const { userId } = req.params;
             const { productList } = req.body;
-            const cart = await CartModel.findOne({ user: userId });
+            let cart = await CartModel.findOne({ user: userId }).lean();
+
             if (cart) {
                 for (const { product, quantity } of productList) {
                     const existingProduct = cart.product_list.find(
@@ -104,23 +116,33 @@ class CartController {
                     if (existingProduct) existingProduct.quantity += quantity;
                     else cart.product_list.push({ product, quantity });
                 }
-                await cart.save();
-                return res.status(200).json(cart);
+                await CartModel.updateOne(
+                    { user: userId },
+                    { product_list: cart.product_list },
+                );
             } else {
-                const newCart = new CartModel({
+                cart = await CartModel.create({
                     user: userId,
                     product_list: productList,
                 });
-                await newCart.save();
-                return res.status(200).json(newCart);
             }
+
+            const total = await CartController.calculateTotal(
+                cart.product_list,
+            );
+            if (total === -1) {
+                return res
+                    .status(500)
+                    .json({ message: "Failed to calculate total cart value" });
+            }
+
+            return res.status(200).json({ ...cart, total });
         } catch (error) {
-            return res.status(500).json(error.message);
+            return res.status(500).json({ message: error.message });
         }
     }
-    static async getCartTotal(req, res) {
+    static async calculateTotal(productList) {
         try {
-            const { productList } = req.body;
             const cart = await new CartModel({
                 product_list: productList,
             }).populate({ path: "product_list.product", model: "Product" });
@@ -129,9 +151,9 @@ class CartController {
                 (total, item) => total + item.product.price * item.quantity,
                 0,
             );
-            res.status(200).json({ total });
+            return total;
         } catch (error) {
-            return res.status(500).json(error.message);
+            return -1;
         }
     }
 }

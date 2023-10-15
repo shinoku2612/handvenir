@@ -1,16 +1,15 @@
-import React from 'react';
-import styles from './Footer.module.css';
-import { NavLink } from 'react-router-dom';
-import visaSVG from '../../assets/images/visa.svg';
-import masterCardSVG from '../../assets/images/master-card.svg';
-import paypalSVG from '../../assets/images/paypal.svg';
+import React from "react";
+import styles from "./Footer.module.css";
+import { NavLink } from "react-router-dom";
+import paypalSVG from "../../assets/images/paypal.svg";
+import codSVG from "../../assets/images/cod.svg";
 import {
     FacebookOutlined,
     Instagram,
     Pinterest,
     Twitter,
     LinkedIn,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 
 export default function Footer() {
     return (
@@ -69,20 +68,20 @@ export default function Footer() {
                             <div className={styles.socialList}>
                                 <NavLink className={styles.socialIcon}>
                                     <FacebookOutlined
-                                        sx={{ fontSize: '1.8rem' }}
+                                        sx={{ fontSize: "1.8rem" }}
                                     />
                                 </NavLink>
                                 <NavLink className={styles.socialIcon}>
-                                    <Twitter sx={{ fontSize: '1.8rem' }} />
+                                    <Twitter sx={{ fontSize: "1.8rem" }} />
                                 </NavLink>
                                 <NavLink className={styles.socialIcon}>
-                                    <Instagram sx={{ fontSize: '1.8rem' }} />
+                                    <Instagram sx={{ fontSize: "1.8rem" }} />
                                 </NavLink>
                                 <NavLink className={styles.socialIcon}>
-                                    <LinkedIn sx={{ fontSize: '1.8rem' }} />
+                                    <LinkedIn sx={{ fontSize: "1.8rem" }} />
                                 </NavLink>
                                 <NavLink className={styles.socialIcon}>
-                                    <Pinterest sx={{ fontSize: '1.8rem' }} />
+                                    <Pinterest sx={{ fontSize: "1.8rem" }} />
                                 </NavLink>
                             </div>
                         </div>
@@ -104,21 +103,20 @@ export default function Footer() {
                         <div className={styles.rightMenu}>
                             <h5 className={styles.menuTitle}>We accept</h5>
                             <div className={styles.paymentList}>
-                                <div className={styles.paymentMethod}>
+                                <div
+                                    className={styles.paymentMethod}
+                                    title="Cash on delivery"
+                                >
                                     <img
-                                        src={visaSVG}
-                                        alt="Visa"
+                                        src={codSVG}
+                                        alt="Cash on delivery"
                                         className={styles.image}
                                     />
                                 </div>
-                                <div className={styles.paymentMethod}>
-                                    <img
-                                        src={masterCardSVG}
-                                        alt="MasterCard"
-                                        className={styles.image}
-                                    />
-                                </div>
-                                <div className={styles.paymentMethod}>
+                                <div
+                                    className={styles.paymentMethod}
+                                    title="PayPal"
+                                >
                                     <img
                                         src={paypalSVG}
                                         alt="PayPal"

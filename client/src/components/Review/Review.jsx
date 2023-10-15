@@ -46,18 +46,21 @@ function Review({ userId }, ref) {
     return ReactDOM.createPortal(
         <div className={cx(styles.reviewPopup, { [styles.hide]: !show })}>
             <div className={styles.popupContainer}>
-                <h3 className={styles.header}>Product review</h3>
+                <h3 className={styles.header}>Your opinion matters to us!</h3>
                 <div className={styles.body}>
+                    <span className={styles.question}>
+                        How did you feel about this product?
+                    </span>
                     <Rating
                         value={rating}
                         precision={1}
                         onChange={(e) => setRating(+e.target.value)}
                         className={styles.rating}
                     />
-                    <input
+                    <textarea
                         value={comment}
                         className={styles.reivewBox}
-                        placeholder="Write your comment for this product"
+                        placeholder="Leave a message that you want"
                         onChange={(e) => setComment(e.target.value)}
                     />
                 </div>

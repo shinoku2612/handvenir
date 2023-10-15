@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
 import {
     RouterProvider,
@@ -10,7 +10,8 @@ import Layout from "../layouts/Layout";
 import { getUserId } from "../redux/selectors";
 import { PATH } from "./constant.config";
 import pageNotFoundSVG from "../assets/images/page-not-found.svg";
-import offlineSVG from "../assets/images/disconnect.svg";
+import errorSVG from "../assets/images/error.svg";
+// import offlineSVG from "../assets/images/disconnect.svg";
 
 // Error page
 const Error = lazy(() => import("../pages/error/Error"));
@@ -42,6 +43,8 @@ const Cart = lazy(() => import("../pages/cart/Cart"));
 const WishList = lazy(() => import("../pages/wish-list/WishList"));
 // Order Detail page
 const OrderDetail = lazy(() => import("../pages/order-detail/OrderDetail"));
+// Checkout page
+const Checkout = lazy(() => import("../pages/checkout/Checkout"));
 
 export default function Router() {
     const userId = useSelector(getUserId);
@@ -75,12 +78,12 @@ export default function Router() {
             element: <Layout />,
             errorElement: (
                 <Error
-                    title="Not found"
-                    image={{ src: pageNotFoundSVG }}
+                    title="Some thing went wrong"
+                    image={{ src: errorSVG, styles: { width: "35%" } }}
                     message={{
-                        header: "Whoops! Lost in space?",
-                        info: "The page you're looking for isn't found.",
-                        suggest: "We suggest you back to home",
+                        header: "Some thing went wrong!",
+                        info: "Maybe you did something wrong.",
+                        suggest: "Please re-connect and try again",
                     }}
                     navigator={{ target: "/", title: "Back to home" }}
                 />
@@ -126,6 +129,10 @@ export default function Router() {
                     path: PATH.orderDetail,
                     element: <OrderDetail />,
                 },
+                {
+                    path: PATH.checkout,
+                    element: <Checkout />,
+                },
             ],
         },
         {
@@ -144,33 +151,33 @@ export default function Router() {
             ),
         },
     ]);
-    const offlineRouter = createBrowserRouter([
-        {
-            path: "*",
-            element: (
-                <Error
-                    title="No Internet"
-                    image={{ src: offlineSVG }}
-                    message={{
-                        header: "Whoops! You are offline?",
-                        info: "You are disconnected from our service.",
-                        suggest:
-                            "Please check your network connection and try again",
-                    }}
-                />
-            ),
-        },
-    ]);
+    // const offlineRouter = createBrowserRouter([
+    //     {
+    //         path: "*",
+    //         element: (
+    //             <Error
+    //                 title="No Internet"
+    //                 image={{ src: offlineSVG }}
+    //                 message={{
+    //                     header: "Whoops! You are offline?",
+    //                     info: "You are disconnected from our service.",
+    //                     suggest:
+    //                         "Please check your network connection and try again",
+    //                 }}
+    //             />
+    //         ),
+    //     },
+    // ]);
 
-    const [isOnline, setIsOnline] = useState(navigator.onLine);
-    useEffect(() => {
-        window.ononline = function () {
-            setIsOnline(true);
-        };
-        window.onoffline = function () {
-            setIsOnline(false);
-        };
-    });
+    // const [isOnline, setIsOnline] = useState(navigator.onLine);
+    // useEffect(() => {
+    //     window.ononline = function () {
+    //         setIsOnline(true);
+    //     };
+    //     window.onoffline = function () {
+    //         setIsOnline(false);
+    //     };
+    // });
     return (
         <Suspense fallback={<Loader />}>
             <RouterProvider router={router} />

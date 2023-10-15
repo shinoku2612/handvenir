@@ -10,6 +10,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .hide {
     display: none;
     opacity: 0;
@@ -25,13 +26,27 @@
     align-items: center;
     justify-content: center;
 }
+.header{
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--text-secondary);
+}
+
 .body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.625rem;
+    padding: 0.625rem 1.25rem;
 }
+
+.question {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-bottom: 0.25rem;
+}
+
 .reivewBox {
     padding: 0.625rem;
     margin: 0.625rem;
+    resize: none;
+    width: 100%;
 }

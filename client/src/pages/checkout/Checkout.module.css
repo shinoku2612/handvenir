@@ -1,0 +1,83 @@
+.checkout {
+    padding: 0.625rem;
+    margin-top: 1rem;
+    background-color: #ffffff;
+}
+
+.checkoutContainer {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.orderSummary {
+    padding: 1rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.15);
+    margin-bottom: 1.25rem;
+}
+
+.orderHeader {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.summaryInfo,
+.totalInfo, .paymentMethod {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    padding: 1rem;
+}
+
+.summaryInfo {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.summaryInfo:first-of-type {
+    padding-top: 0;
+}
+
+.summaryLabel {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.summaryValue {
+    color: var(--dark-clr);
+    font-weight: 600;
+    text-align: right;
+}
+
+.totalLabel {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.totalValue {
+    font-size: 1.25rem;
+    text-align: right;
+    font-weight: 600;
+}
+
+.paymentList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.paymentItem {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 50%;
+}
+
+.paymentImage {
+    width: 50%;
+    margin-right: 0.625rem;
+    object-fit: cover;
+    object-position: center;
+}

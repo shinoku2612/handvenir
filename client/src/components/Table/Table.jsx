@@ -6,8 +6,10 @@ import { checkType } from "../../utils/helper";
 export default function Table({
     headers,
     pagination = false,
+    serverPagination = false,
+    initPage = 1,
     rowPerPage = 5,
-    pageCount,
+    size,
     data,
     renderItem: Row,
     keyExtractor,
@@ -15,12 +17,12 @@ export default function Table({
     ...props
 }) {
     // [STATES]
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(initPage);
     const renderData = useMemo(() => {
-        if (pagination)
+        if (pagination && !serverPagination)
             return data.slice((page - 1) * rowPerPage, page * rowPerPage);
         else return data;
-    }, [page, pagination, rowPerPage, data]);
+    }, [page, pagination, serverPagination, rowPerPage, data]);
 
     // [HANDLER FUNCTIONS]
     function handleChangePage(event, value) {
@@ -28,9 +30,14 @@ export default function Table({
     }
     useEffect(() => {
         if (checkType(onPaginate) === "function") {
-            onPaginate();
+            onPaginate(page);
         }
     }, [page, onPaginate]);
+    useEffect(() => {
+        if (props.isRefetched) {
+            setPage(1);
+        }
+    }, [props.isRefetched]);
 
     // [RENDER]
     return (
@@ -68,8 +75,8 @@ export default function Table({
                                 <div className={styles.paginationContainer}>
                                     <Pagination
                                         count={
-                                            pageCount
-                                                ? pageCount
+                                            size
+                                                ? Math.ceil(size / rowPerPage)
                                                 : Math.ceil(
                                                       data.length / rowPerPage,
                                                   )

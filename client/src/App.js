@@ -5,6 +5,7 @@ import { getToast, getUserId } from "./redux/selectors";
 import Router from "./config/router.config";
 import { useQuery } from "react-query";
 import { getUserService } from "./services/user.service";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 function App() {
     // [STATES]
@@ -29,13 +30,20 @@ function App() {
 
     // [RENDER]
     return (
-        <React.Fragment>
+        <PayPalScriptProvider
+            options={{
+                clientId: process.env.REACT_APP_PAYPAL_CLIENT_ID,
+                intent: "capture",
+                currency: "USD",
+                locale: "en_VN"
+            }}
+        >
             <Router />
             <Toast
                 ref={toastRef}
                 variant="fill"
             />
-        </React.Fragment>
+        </PayPalScriptProvider>
     );
 }
 

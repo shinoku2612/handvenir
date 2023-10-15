@@ -8,13 +8,14 @@ import ExpandList from "./category/expand-list/ExpandList";
 import Sort from "./category/sort/Sort";
 import ProductsHeader from "./products-header/ProductsHeader";
 import styles from "./Products.module.css";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { SORT } from "../../config/constant.config";
 
 export default function Products() {
     // [STATES]
     const [criteria, setCriteria] = useState([]);
     const [sortCriteria, setSortCriteria] = useState(SORT[0].value);
+    const navigate = useNavigate();
     // [API QUERIES]
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get("search")?.toLowerCase();
@@ -47,6 +48,7 @@ export default function Products() {
     }
     function handleClearFilter() {
         setCriteria([]);
+        navigate(window.location.pathname);
     }
 
     // [RENDER]

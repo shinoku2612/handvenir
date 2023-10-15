@@ -192,9 +192,14 @@ button.disabled {
     color: var(--text-secondary);
 }
 
+.text-uppercase {
+    text-transform: uppercase;
+}
+
 .clickable-link {
     text-decoration: none;
 }
+
 .clickable-link:hover {
     cursor: pointer;
     text-decoration: underline currentColor;
@@ -230,4 +235,27 @@ button.disabled {
 .position-sticky {
     position: sticky;
     top: 0;
+}
+
+.btn-mui {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: 150ms ease;
+    user-select: none;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    color: var(--text-clr, #000000);
+    margin-right: 0.25rem;
+}
+
+.btn-mui.btn-mui-primary {
+    color: var(--primary-clr);
+}
+
+.btn-mui.btn-mui-danger {
+    color: var(--danger-clr);
 }

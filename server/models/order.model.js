@@ -20,7 +20,11 @@ const OrderSchema = new mongoose.Schema(
             required: true,
             ref: "User",
         },
-        method: { type: String, enum: ["cod", "bank", "momo"], default: "cod" },
+        receiver: {
+            type: String,
+            required: true,
+        },
+        method: { type: String, enum: ["cod", "paypal"], default: "cod" },
         total: { type: Number },
         status: {
             type: String,
@@ -28,9 +32,25 @@ const OrderSchema = new mongoose.Schema(
             default: "pending",
         },
         address: { type: String, required: true },
+        isCancelable: {
+            type: Boolean,
+            default: true,
+        },
     },
     { timestamps: true },
 );
+
+OrderSchema.post("find", function (orders) {
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000); // 1 day ago
+    orders.forEach((order) => {
+        if (order.status !== "pending") order.isCancelable = false;
+        if (order.createdAt <= oneDayAgo && order.isCancelable === true) {
+            order.isCancelable = false;
+        }
+        order.save();
+    });
+});
+
 OrderSchema.pre("save", async function (next) {
     try {
         const products = await ProductModel.find({

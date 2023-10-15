@@ -46,7 +46,7 @@ export default function Header() {
                                 alt=""
                                 className={styles.logoImg}
                             />
-                            <span className={styles.logoName}>ShinPay</span>
+                            <span className={styles.logoName}>{process.env.REACT_APP_SITE_TITLE}</span>
                         </NavLink>
                     </div>
                     <div className={styles.headerCenter}>

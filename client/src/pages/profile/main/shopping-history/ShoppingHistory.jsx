@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import Select from "../../../../components/Select/Select";
 import Table from "../../../../components/Table/Table";
 import styles from "./ShoppingHistory.module.css";
@@ -8,7 +7,10 @@ import { getOrderService } from "../../../../services/order.service";
 import { useSelector } from "react-redux";
 import { getUserId } from "../../../../redux/selectors";
 import Loader from "../../../../components/Loader/Loader";
-import { formatDDMMYYYY } from "../../../../utils/helper";
+import OrderRow from "./OrderRow";
+import { checkType } from "../../../../utils/helper";
+
+const NUMBER_PER_CALL = 3;
 
 export default function ShoppingHistory() {
     // [STATES]
@@ -16,6 +18,8 @@ export default function ShoppingHistory() {
     const [totalSort, setTotalSort] = useState("None");
     const [statusFilter, setStatusFilter] = useState("All");
     const [paymentMethod, setPaymentMethod] = useState("All");
+    const [isRefetched, setIsRefetched] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
 
     // [QUERIES]
     const { isLoading, data, refetch } = useQuery("order", () =>
@@ -23,11 +27,17 @@ export default function ShoppingHistory() {
             total: totalSort,
             method: paymentMethod,
             status: statusFilter,
+            limit: NUMBER_PER_CALL,
+            page: currentPage,
         }),
     );
+    function handleFilter(setState, state) {
+        setIsRefetched((prev) => prev + 1);
+        if (checkType(setState) === "function") return setState(state);
+    }
     useEffect(() => {
         refetch();
-    }, [totalSort, paymentMethod, statusFilter, refetch]);
+    }, [currentPage, totalSort, paymentMethod, statusFilter, refetch]);
 
     // [RENDER]
     if (isLoading) return <Loader variant="overlay" />;
@@ -48,8 +58,10 @@ export default function ShoppingHistory() {
                             classNames={styles.filterSelect}
                             label="Payment method"
                             defaultValue={paymentMethod}
-                            renderData={["All", "COD", "Momo", "Bank"]}
-                            onSelect={setPaymentMethod}
+                            renderData={["All", "COD", "PayPal"]}
+                            onSelect={(method) =>
+                                handleFilter(setPaymentMethod, method)
+                            }
                         />
                         <Select
                             classNames={styles.filterSelect}
@@ -62,55 +74,34 @@ export default function ShoppingHistory() {
                                 "Shipping",
                                 "Canceled",
                             ]}
-                            onSelect={setStatusFilter}
+                            onSelect={(status) =>
+                                handleFilter(setStatusFilter, status)
+                            }
                         />
                     </div>
                 </section>
                 <Table
                     headers={[
                         "Date",
+                        "Receiver",
                         "Status",
-                        "Payment",
+                        "Method",
                         "Address",
                         "Total",
-                        "",
+                        "Actions",
                     ]}
                     data={data.data}
-                    renderItem={Order}
+                    renderItem={OrderRow}
                     keyExtractor={(item) => item.date}
                     pagination
-                    pageCount={Math.ceil(data.size / 3)}
-                    rowPerPage={3}
-                    onPaginate={refetch}
+                    serverPagination
+                    size={data.size}
+                    rowPerPage={NUMBER_PER_CALL}
+                    onPaginate={setCurrentPage}
+                    onUpdate={refetch}
+                    isRefetched={isRefetched}
                 />
             </div>
         </div>
-    );
-}
-
-// [CUSTOM RENDERED ELEMENTS]
-function Order({ item }) {
-    return (
-        <tr>
-            <td>{formatDDMMYYYY(item.createdAt)}</td>
-            <td>
-                <span className={`status ${item.status}`}>{item.status}</span>
-            </td>
-            <td>
-                <strong>{item.method}</strong>
-            </td>
-            <td>{item.address}</td>
-            <td>
-                <strong>${item.total}</strong>
-            </td>
-            <td>
-                <NavLink
-                    to={`/order/${item._id}`}
-                    className="btn btn-primary btn-rounded text-small"
-                >
-                    Details
-                </NavLink>
-            </td>
-        </tr>
     );
 }

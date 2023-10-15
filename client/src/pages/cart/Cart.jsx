@@ -1,33 +1,23 @@
-import React, { lazy, useCallback, useEffect, useState, useRef } from "react";
+import React, { lazy, useCallback, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Cart.module.css";
-import { Skeleton } from "@mui/material";
-import { DeleteForever, Upload } from "@mui/icons-material";
-import QuantityGroup from "../../components/QuantityGroup/QuantityGroup";
+import { Upload } from "@mui/icons-material";
 import Table from "../../components/Table/Table";
 import {
     getCartService,
-    getCartTotalService,
     getLocalCart,
     removeFromCartService,
     syncLocalCartService,
     updateCartService,
 } from "../../services/cart.service";
-import { getProductByIdService } from "../../services/product.service";
 import Loader from "../../components/Loader/Loader";
-import {
-    getCart,
-    getCartTotal,
-    getUser,
-    getUserId,
-} from "../../redux/selectors";
-import cx from "../../utils/class-name";
+import { getCart, getUser, getUserId } from "../../redux/selectors";
 import emptyCartSVG from "../../assets/images/empty-cart.svg";
 import { NavLink } from "react-router-dom";
 import PopUp from "../../components/PopUp/PopUp";
-import { makeOrderService } from "../../services/order.service";
 import { PATH } from "../../config/constant.config";
+import CartRow from "./CartRow";
 // Error page
 const Error = lazy(() => import("../error/Error"));
 
@@ -35,9 +25,7 @@ export default function Cart() {
     // [STATES]
     const userId = useSelector(getUserId);
     const user = useSelector(getUser);
-    const [mainAddress, setMainAddress] = useState();
     const cart = useSelector(getCart);
-    const cartTotal = useSelector(getCartTotal);
     const dispatch = useDispatch();
     // [QUERIES]
     const { isLoading, data } = useQuery("cart", () =>
@@ -50,31 +38,11 @@ export default function Cart() {
     useEffect(() => {
         document.title = `Cart | ${process.env.REACT_APP_SITE_TITLE}`;
     }, []);
-    useEffect(() => {
-        if (cart) {
-            getCartTotalService(dispatch, cart.product_list);
-        }
-    }, [dispatch, cart]);
-    useEffect(() => {
-        if (user) {
-            const mainAddress = user.addresses?.find(
-                (addr) => addr.isMain === true,
-            );
-            setMainAddress(mainAddress);
-        }
-    }, [user]);
 
     // [HANDLER FUNCTIONS]
     const handleSyncCart = async () => {
         await syncLocalCartService(userId, dispatch, data.localCart);
         // window.location.replace(PATH.cart);
-    };
-    const handleCheckout = async () => {
-        const deliveryAddress = `${mainAddress.street}, ${mainAddress.town}, ${mainAddress.district}, ${mainAddress.city}, ${mainAddress.country}`;
-        await makeOrderService(userId, {
-            product_list: cart.product_list,
-            address: deliveryAddress,
-        });
     };
     const handleRemoveProduct = async (productId) => {
         try {
@@ -149,7 +117,7 @@ export default function Cart() {
                             data={cart.product_list}
                             pagination
                             rowPerPage={3}
-                            renderItem={ProductRow}
+                            renderItem={CartRow}
                             keyExtractor={(item) => item.product}
                             onRemoveProduct={handleRemoveProduct}
                             onUpdateProduct={handleUpdateCart}
@@ -163,16 +131,16 @@ export default function Cart() {
                                     Subtotal
                                 </span>
                                 <span className={styles.summaryValue}>
-                                    ${cartTotal.toFixed(2)}
+                                    ${cart.total ? cart.total.toFixed(2) : 0}
                                 </span>
                             </div>
                             {/* <div className={styles.summaryInfo}>
                                 <span className={styles.summaryLabel}>
                                     Estimated shipping
                                 </span>
-                                <span className={styles.summaryValue}>$9</span>
+                                <span className={styles.summaryValue}>$0.5</span>
                             </div> */}
-                            {mainAddress ? (
+                            {user?.mainAddress ? (
                                 <div className={styles.summaryInfo}>
                                     <span className={styles.summaryLabel}>
                                         Shipping to
@@ -182,25 +150,22 @@ export default function Cart() {
                                         title="Click to change delivery address"
                                         to={`/me/${PATH.profile.address}`}
                                     >
-                                        {mainAddress.street}, {mainAddress.town}
-                                        , {mainAddress.district},{" "}
-                                        {mainAddress.city},{" "}
-                                        {mainAddress.country}
+                                        {user.mainAddress}
                                     </NavLink>
                                 </div>
                             ) : null}
                             <div className={styles.totalInfo}>
                                 <span className={styles.totalLabel}>Total</span>
                                 <span className={styles.totalValue}>
-                                    ${cartTotal.toFixed(2)}
+                                    ${cart.total ? cart.total.toFixed(2) : 0}
                                 </span>
                             </div>
-                            <div
+                            <NavLink
                                 className="btn btn-dark width-full"
-                                onClick={handleCheckout}
+                                to={`/${PATH.checkout}`}
                             >
-                                Place order
-                            </div>
+                                Checkout
+                            </NavLink>
                         </div>
                     </div>
                 </div>
@@ -222,119 +187,3 @@ export default function Cart() {
         </div>
     );
 }
-
-// [CUSTOM RENDERED ELEMENTS]
-const ProductRow = React.memo(
-    ({ item, debouncedTimer = 500, onRemoveProduct, onUpdateProduct }) => {
-        // [QUERIES]
-        const { isLoading, data: product } = useQuery(
-            ["single-product", item.product],
-            () => getProductByIdService(item.product),
-        );
-
-        // [STATES]
-        const [quantity, setQuantity] = useState(item.quantity);
-        const isFirstRender = useRef(true);
-        const previousQuantity = useRef(quantity);
-
-        // [SIDE EFFECTS]
-        useEffect(() => {
-            setQuantity(item.quantity);
-        }, [item.quantity]);
-        useEffect(() => {
-            if (isFirstRender.current) {
-                isFirstRender.current = false;
-                return;
-            }
-            if (previousQuantity.current !== quantity) {
-                const timerId = setTimeout(() => {
-                    onUpdateProduct(item.product, quantity);
-                    previousQuantity.current = quantity;
-                }, debouncedTimer);
-
-                return () => {
-                    clearTimeout(timerId);
-                };
-            }
-        }, [quantity, debouncedTimer, onUpdateProduct, item.product]);
-
-        // [RENDER]
-        if (isLoading)
-            return (
-                <tr>
-                    <td>
-                        <div className={styles.productInfo}>
-                            <Skeleton
-                                width={100}
-                                height={80}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={200}
-                                sx={{
-                                    fontSize: "1rem",
-                                    marginLeft: "1rem",
-                                }}
-                            />
-                        </div>
-                    </td>
-                    <td>
-                        <Skeleton height={50} />
-                    </td>
-                    <td>
-                        <Skeleton
-                            variant="text"
-                            sx={{ fontSize: "1rem" }}
-                        />
-                    </td>
-                    <td>
-                        <Skeleton
-                            variant="text"
-                            sx={{ fontSize: "1rem" }}
-                        />
-                    </td>
-                    <td></td>
-                </tr>
-            );
-        return (
-            <tr>
-                <td>
-                    <NavLink
-                        to={`/product/${product.slug}`}
-                        className={styles.productInfo}
-                    >
-                        <img
-                            src={product.image}
-                            alt={product.name}
-                            className={styles.image}
-                        />
-                        <span className={styles.info}>{product.title}</span>
-                    </NavLink>
-                </td>
-                <td>
-                    <QuantityGroup
-                        quantity={quantity}
-                        onChange={setQuantity}
-                    />
-                </td>
-                <td>
-                    <span className={styles.info}>${product.price}</span>
-                </td>
-                <td>
-                    <strong className={styles.info}>
-                        ${(quantity * product.price).toFixed(2)}
-                    </strong>
-                </td>
-                <td>
-                    <DeleteForever
-                        className={cx(styles.action, styles.delete)}
-                        sx={{
-                            transition: "transform 200ms ease-in-out;",
-                        }}
-                        onClick={() => onRemoveProduct(item.product)}
-                    />
-                </td>
-            </tr>
-        );
-    },
-);
