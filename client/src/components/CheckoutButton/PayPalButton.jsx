@@ -3,11 +3,12 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useSelector } from "react-redux";
 import { getCart } from "../../redux/selectors";
 
-export default function PayPalButton({ productList }) {
+export default function PayPalButton({ productList, address, receiver }) {
     const cart = useSelector(getCart);
     console.log(productList);
     return (
         <PayPalButtons
+            style={{ layout: "horizontal", tagline: false }}
             createOrder={(data, actions) => {
                 return actions.order.create({
                     purchase_units: [

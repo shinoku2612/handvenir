@@ -139,8 +139,5 @@ class UserController {
             return res.status(500).json(error.message);
         }
     }
-    static async setCredit(req, res) {}
-    static async getShoppingHistory(req, res) {}
-    static async getShopList(req, res) {}
 }
 module.exports = UserController;

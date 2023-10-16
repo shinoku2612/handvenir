@@ -21,8 +21,8 @@ const OrderSchema = new mongoose.Schema(
             ref: "User",
         },
         receiver: {
-            type: String,
-            required: true,
+            name: { type: String, required: true },
+            phone: { type: String, required: true },
         },
         method: { type: String, enum: ["cod", "paypal"], default: "cod" },
         total: { type: Number },

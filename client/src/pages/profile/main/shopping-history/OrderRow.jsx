@@ -27,7 +27,7 @@ export default function OrderRow({ item, onUpdate }) {
     return (
         <tr>
             <td>{formatDDMMYYYY(item.createdAt)}</td>
-            <td>{item.receiver}</td>
+            <td>{item.receiver.name}</td>
             <td>
                 <span className={`status ${item.status}`}>{item.status}</span>
             </td>

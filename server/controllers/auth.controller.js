@@ -113,7 +113,6 @@ class AuthController {
             return res.status(500).json(error.message);
         }
     }
-
     static async refreshToken(req, res) {
         const { refreshToken } = req.cookies;
         if (!refreshToken) return res.status(401).json("Unauthorized 1");
@@ -169,7 +168,6 @@ class AuthController {
             return res.status(500).json(error.message);
         }
     }
-
     static async logout(req, res) {
         try {
             const { userId } = req.params;

@@ -192,6 +192,14 @@ button.disabled {
     color: var(--text-secondary);
 }
 
+.text-success {
+    color: var(--success-clr) !important;
+}
+
+.text-primary {
+    color: var(--primary-clr) !important;
+}
+
 .text-uppercase {
     text-transform: uppercase;
 }

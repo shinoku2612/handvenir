@@ -1,22 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    getCart,
-    getIsLoading,
-    getUser,
-    getUserId,
-} from "../../redux/selectors";
+import { getCart, getIsLoading, getUserId } from "../../redux/selectors";
 import { makeOrderService } from "../../services/order.service";
 import Loader from "../Loader/Loader";
 import { useNavigate } from "react-router-dom";
 
-export default function CodButton() {
-    const user = useSelector(getUser);
+export default function CodButton({ address, receiver }) {
     const userId = useSelector(getUserId);
-    const cart = useSelector(getCart);
     const isLoading = useSelector(getIsLoading);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const cart = useSelector(getCart);
 
     async function handleCheckout() {
         try {
@@ -24,8 +18,8 @@ export default function CodButton() {
                 userId,
                 {
                     product_list: cart.product_list,
-                    address: user.mainAddress,
-                    receiver: user.name,
+                    address: address,
+                    receiver: receiver,
                     method: "cod",
                 },
                 dispatch,
