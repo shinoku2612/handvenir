@@ -34,7 +34,7 @@ export default function Checkout() {
         () => getCartService(userId, dispatch),
     );
     const { isLoading: productLoading, data: productList } = useQuery(
-        "checkout-product-list",
+        ["checkout-product-list", cart],
         () =>
             Promise.all(
                 cart.product_list.map((product) =>
