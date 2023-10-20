@@ -1,11 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const CartController = require("../controllers/cart.controller");
+const MVerifier = require("../middlewares/verifier.middleware");
 
-router.get("/:userId", CartController.getCart);
-router.post("/add/:userId", CartController.addProduct);
-router.delete("/remove/:userId/:productId", CartController.removeProduct);
-router.put("/update/:userId", CartController.updateCart);
-router.put("/sync-local/:userId", CartController.syncLocalCart);
+router.get("/:userId", MVerifier.verifyAuthorization, CartController.getCart);
+router.post(
+    "/add/:userId",
+    MVerifier.verifyAuthorization,
+    CartController.addProduct,
+);
+router.delete(
+    "/remove/:userId/:productId",
+    MVerifier.verifyAuthorization,
+    CartController.removeProduct,
+);
+router.put(
+    "/update/:userId",
+    MVerifier.verifyAuthorization,
+    CartController.updateCart,
+);
+router.put(
+    "/sync-local/:userId",
+    MVerifier.verifyAuthorization,
+    CartController.syncLocalCart,
+);
 
 module.exports = router;

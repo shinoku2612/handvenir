@@ -1,11 +1,11 @@
 class Config {
     static cookie = {
         options: {
-            path: '/',
+            path: "/",
             httpOnly: true,
-            // secure: true ? process.env.NODE_ENV === 'production' : false,
+            // secure: process.env.NODE_ENV === "production" ? true : false,
             secure: true,
-            sameSite: 'none',
+            sameSite: "none",
         },
     };
 }
