@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { PATH } from "../../config/constant.config";
 import { useQuery } from "react-query";
 import { getCartService } from "../../services/cart.service";
@@ -27,6 +27,7 @@ export default function Checkout() {
         name: user.name,
         phone: user.phone,
     });
+    const [success, setSuccess] = useState(false);
 
     // [QUERIES]
     const { isLoading: cartLoading, data: cart } = useQuery(
@@ -70,227 +71,243 @@ export default function Checkout() {
     return (
         <div className={styles.checkout}>
             <div className="container">
-                <div className={styles.checkoutContainer}>
-                    <div className={styles.breadcrumbs}>
-                        <div className={styles.widget}>
-                            <h3 className={styles.widgetHeader}>
-                                Customer information
-                            </h3>
-                            <div className={styles.widgetBody}>
-                                <form className={styles.form}>
-                                    <div className={styles.inputGroup}>
-                                        <label
-                                            htmlFor="receiver-name"
-                                            className={styles.formLabel}
-                                        >
-                                            Receiver name*
-                                        </label>
-                                        <input
-                                            className={styles.formInput}
-                                            id="receiver-name"
-                                            type="text"
-                                            placeholder="Name"
-                                            name="name"
-                                            value={receiver.name}
-                                            onChange={handleChangeReceiver}
-                                        />
+                {success ? (
+                    <Outlet />
+                ) : (
+                    <div className={styles.checkoutContainer}>
+                        <div className={styles.breadcrumbs}>
+                            <div className={styles.widget}>
+                                <h3 className={styles.widgetHeader}>
+                                    Customer information
+                                </h3>
+                                <div className={styles.widgetBody}>
+                                    <form className={styles.form}>
+                                        <div className={styles.inputGroup}>
+                                            <label
+                                                htmlFor="receiver-name"
+                                                className={styles.formLabel}
+                                            >
+                                                Receiver name*
+                                            </label>
+                                            <input
+                                                className={styles.formInput}
+                                                id="receiver-name"
+                                                type="text"
+                                                placeholder="Name"
+                                                name="name"
+                                                value={receiver.name}
+                                                onChange={handleChangeReceiver}
+                                            />
+                                        </div>
+                                        <div className={styles.inputGroup}>
+                                            <label
+                                                htmlFor="receiver-number"
+                                                className={styles.formLabel}
+                                            >
+                                                Phone*
+                                            </label>
+                                            <input
+                                                className={styles.formInput}
+                                                id="receiver-number"
+                                                type="tel"
+                                                placeholder="Phone number"
+                                                name="phone"
+                                                pattern="[0-9]{10}"
+                                                value={receiver.phone}
+                                                onChange={handleChangeReceiver}
+                                            />
+                                        </div>
+                                    </form>
+                                    <div className={styles.shippingAddress}>
+                                        <div className={styles.shippingTo}>
+                                            <h4>Shipping to:</h4>
+                                            <span
+                                                className={cx(
+                                                    styles.address,
+                                                    "text-primary",
+                                                )}
+                                            >
+                                                {shippingAddress}
+                                            </span>
+                                            <button
+                                                className={styles.toggleButton}
+                                                onClick={() =>
+                                                    setShippingEditable(
+                                                        (prev) => !prev,
+                                                    )
+                                                }
+                                            >
+                                                {shippingEditable
+                                                    ? "Cancel"
+                                                    : "Edit address"}
+                                            </button>
+                                        </div>
+                                        {shippingEditable ? (
+                                            <AddressForm
+                                                onFinish={handleFinishMultistep}
+                                            />
+                                        ) : null}
                                     </div>
-                                    <div className={styles.inputGroup}>
-                                        <label
-                                            htmlFor="receiver-number"
-                                            className={styles.formLabel}
-                                        >
-                                            Phone*
-                                        </label>
-                                        <input
-                                            className={styles.formInput}
-                                            id="receiver-number"
-                                            type="tel"
-                                            placeholder="Phone number"
-                                            name="phone"
-                                            pattern="[0-9]{10}"
-                                            value={receiver.phone}
-                                            onChange={handleChangeReceiver}
-                                        />
-                                    </div>
-                                </form>
-                                <div className={styles.shippingAddress}>
-                                    <div className={styles.shippingTo}>
-                                        <h4>Shipping to:</h4>
-                                        <span
-                                            className={cx(
-                                                styles.address,
-                                                "text-primary",
-                                            )}
-                                        >
-                                            {shippingAddress}
-                                        </span>
-                                        <button
-                                            className={styles.toggleButton}
-                                            onClick={() =>
-                                                setShippingEditable(
-                                                    (prev) => !prev,
-                                                )
-                                            }
-                                        >
-                                            {shippingEditable
-                                                ? "Cancel"
-                                                : "Edit address"}
-                                        </button>
-                                    </div>
-                                    {shippingEditable ? (
-                                        <AddressForm
-                                            onFinish={handleFinishMultistep}
-                                        />
-                                    ) : null}
                                 </div>
                             </div>
-                        </div>
-                        <div className={styles.widget}>
-                            <h3 className={styles.widgetHeader}>
-                                Order details
-                            </h3>
-                            <div className={styles.widgetBody}>
-                                <div className={styles.productList}>
-                                    {productList.map((product) => (
-                                        <div
-                                            key={product._id}
-                                            className={styles.product}
-                                            title={product.title}
-                                        >
-                                            <div className={styles.productCard}>
-                                                <img
+                            <div className={styles.widget}>
+                                <h3 className={styles.widgetHeader}>
+                                    Order details
+                                </h3>
+                                <div className={styles.widgetBody}>
+                                    <div className={styles.productList}>
+                                        {productList.map((product) => (
+                                            <div
+                                                key={product._id}
+                                                className={styles.product}
+                                                title={product.title}
+                                            >
+                                                <div
                                                     className={
-                                                        styles.productImage
-                                                    }
-                                                    src={product.image}
-                                                    alt={product.title}
-                                                />
-                                                <span
-                                                    className={
-                                                        styles.productQuantity
+                                                        styles.productCard
                                                     }
                                                 >
-                                                    x
-                                                    {
-                                                        cart.product_list.find(
-                                                            (p) =>
-                                                                p.product ===
-                                                                product._id,
-                                                        ).quantity
+                                                    <img
+                                                        className={
+                                                            styles.productImage
+                                                        }
+                                                        src={product.image}
+                                                        alt={product.title}
+                                                    />
+                                                    <span
+                                                        className={
+                                                            styles.productQuantity
+                                                        }
+                                                    >
+                                                        x
+                                                        {
+                                                            cart.product_list.find(
+                                                                (p) =>
+                                                                    p.product ===
+                                                                    product._id,
+                                                            ).quantity
+                                                        }
+                                                    </span>
+                                                </div>
+                                                <span
+                                                    className={
+                                                        styles.productPrice
                                                     }
+                                                >
+                                                    ${product.price}
                                                 </span>
                                             </div>
-                                            <span
-                                                className={styles.productPrice}
-                                            >
-                                                ${product.price}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.breadcrumbs}>
-                        <div className={styles.widget}>
-                            <h3 className={styles.widgetHeader}>
-                                Order summary
-                            </h3>
-                            <div className={styles.widgetBody}>
-                                <div className={styles.orderInfo}>
-                                    <span className={styles.orderLabel}>
-                                        Sub total
-                                    </span>
-                                    <span className={styles.orderValue}>
-                                        ${cart.total.toFixed(2)}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className={styles.widgetBody}>
-                                <div className={styles.orderInfo}>
-                                    <span className={styles.orderLabel}>
-                                        Shipping cost
-                                    </span>
-                                    <span
-                                        className={cx(
-                                            "text-success",
-                                            styles.orderValue,
-                                        )}
-                                    >
-                                        Free
-                                    </span>
-                                </div>
-                            </div>
-                            <div className={styles.widgetBody}>
-                                <div className={styles.orderInfo}>
-                                    <span className={styles.totalLabel}>
-                                        Total
-                                    </span>
-                                    <span className={styles.totalValue}>
-                                        ${cart.total.toFixed(2)}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.widget}>
-                            <h3 className={styles.widgetHeader}>
-                                Payment method
-                            </h3>
-                            <div className={styles.widgetBody}>
-                                <div className={styles.orderInfo}>
-                                    <span className={styles.orderLabel}>
-                                        We accept
-                                    </span>
-                                    <div className={styles.paymentList}>
-                                        <div
-                                            className={styles.paymentItem}
-                                            onClick={() =>
-                                                setPaymentMethod("cod")
-                                            }
-                                        >
-                                            <Radio
-                                                checked={
-                                                    paymentMethod === "cod"
-                                                }
-                                                size="small"
-                                            />
-                                            <img
-                                                src={codSVG}
-                                                alt="Cash on delivery"
-                                                className={styles.paymentImage}
-                                            />
-                                        </div>
-                                        <div
-                                            className={styles.paymentItem}
-                                            onClick={() =>
-                                                setPaymentMethod("paypal")
-                                            }
-                                        >
-                                            <Radio
-                                                checked={
-                                                    paymentMethod === "paypal"
-                                                }
-                                                size="small"
-                                            />
-                                            <img
-                                                src={paypalSVG}
-                                                alt="PayPal"
-                                                className={styles.paymentImage}
-                                            />
-                                        </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
-                            <CheckoutButton
-                                method={paymentMethod}
-                                productList={productList}
-                                address={shippingAddress}
-                                receiver={receiver}
-                            />
+                        </div>
+                        <div className={styles.breadcrumbs}>
+                            <div className={styles.widget}>
+                                <h3 className={styles.widgetHeader}>
+                                    Order summary
+                                </h3>
+                                <div className={styles.widgetBody}>
+                                    <div className={styles.orderInfo}>
+                                        <span className={styles.orderLabel}>
+                                            Sub total
+                                        </span>
+                                        <span className={styles.orderValue}>
+                                            ${cart.total.toFixed(2)}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className={styles.widgetBody}>
+                                    <div className={styles.orderInfo}>
+                                        <span className={styles.orderLabel}>
+                                            Shipping cost
+                                        </span>
+                                        <span
+                                            className={cx(
+                                                "text-success",
+                                                styles.orderValue,
+                                            )}
+                                        >
+                                            Free
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className={styles.widgetBody}>
+                                    <div className={styles.orderInfo}>
+                                        <span className={styles.totalLabel}>
+                                            Total
+                                        </span>
+                                        <span className={styles.totalValue}>
+                                            ${cart.total.toFixed(2)}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.widget}>
+                                <h3 className={styles.widgetHeader}>
+                                    Payment method
+                                </h3>
+                                <div className={styles.widgetBody}>
+                                    <div className={styles.orderInfo}>
+                                        <span className={styles.orderLabel}>
+                                            We accept
+                                        </span>
+                                        <div className={styles.paymentList}>
+                                            <div
+                                                className={styles.paymentItem}
+                                                onClick={() =>
+                                                    setPaymentMethod("cod")
+                                                }
+                                            >
+                                                <Radio
+                                                    checked={
+                                                        paymentMethod === "cod"
+                                                    }
+                                                    size="small"
+                                                />
+                                                <img
+                                                    src={codSVG}
+                                                    alt="Cash on delivery"
+                                                    className={
+                                                        styles.paymentImage
+                                                    }
+                                                />
+                                            </div>
+                                            <div
+                                                className={styles.paymentItem}
+                                                onClick={() =>
+                                                    setPaymentMethod("paypal")
+                                                }
+                                            >
+                                                <Radio
+                                                    checked={
+                                                        paymentMethod ===
+                                                        "paypal"
+                                                    }
+                                                    size="small"
+                                                />
+                                                <img
+                                                    src={paypalSVG}
+                                                    alt="PayPal"
+                                                    className={
+                                                        styles.paymentImage
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <CheckoutButton
+                                    method={paymentMethod}
+                                    productList={productList}
+                                    address={shippingAddress}
+                                    receiver={receiver}
+                                    onCheckout={setSuccess}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );

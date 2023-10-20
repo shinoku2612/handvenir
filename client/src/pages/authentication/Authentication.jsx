@@ -14,6 +14,7 @@ export default function Authentication() {
     // [STATES]
     const [isSignUp, setIsSignUp] = useState(false);
     const isLoading = useSelector(getIsLoading);
+    console.log(isLoading);
 
     // [SIDE EFFECTS]
     // --Change app title when switching page--

@@ -19,7 +19,7 @@ import PopUp from "../../components/PopUp/PopUp";
 import { PATH } from "../../config/constant.config";
 import CartRow from "./CartRow";
 // Error page
-const Error = lazy(() => import("../error/Error"));
+const Info = lazy(() => import("../info/Info"));
 
 export default function Cart() {
     // [STATES]
@@ -71,7 +71,7 @@ export default function Cart() {
     if (!cart)
         return (
             <React.Fragment>
-                <Error
+                <Info
                     image={{ src: emptyCartSVG, styles: { width: "32%" } }}
                     title="Empty Cart"
                     message={{

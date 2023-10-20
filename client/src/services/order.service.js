@@ -15,6 +15,14 @@ export async function makeOrderService(userId, payload, dispatch) {
         return res.data;
     } catch (error) {
         console.log(error.message);
+        dispatch(
+            setToast({
+                show: true,
+                type: "danger",
+                message: error.message,
+            }),
+        );
+        dispatch(setLoading(false));
         return null;
     }
 }

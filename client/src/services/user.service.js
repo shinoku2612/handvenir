@@ -1,4 +1,5 @@
 import { privateRequest } from "../config/axios.config";
+import { logout } from "../redux/slice/authentication.slice";
 import { setToast } from "../redux/slice/global.slice";
 import { setUser } from "../redux/slice/user.slice";
 
@@ -8,13 +9,18 @@ export async function getUserService(userId, dispatch) {
         dispatch(setUser(res.data));
         return true;
     } catch (error) {
+        let errorMessage = "";
+        if (error.name === "AxiosError") {
+            errorMessage = error.response.data.message;
+        }
         dispatch(
             setToast({
                 show: true,
                 type: "danger",
-                message: error.message,
+                message: errorMessage,
             }),
         );
+        dispatch(logout());
         return false;
     }
 }

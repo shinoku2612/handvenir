@@ -1,4 +1,4 @@
-.errorPage {
+.infoPage {
     min-height: calc(100vh - var(--header-height));
     background-color: #ffffff;
     overflow: hidden;
@@ -9,45 +9,45 @@
     justify-content: center;
 }
 
-.errorPage.child {
+.infoPage.child {
     margin-top: 0;
 }
 
-.errorImageContainer {
+.infoImageContainer {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.errorImage {
+.infoImage {
     width: 40%;
     object-fit: cover;
     object-position: center;
 }
 
-.errorContentContainer {
+.infoContentContainer {
     padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.errorTitle,
-.errorInfo {
+.infoTitle,
+.infoMessage {
     text-align: center;
 }
 
-.errorTitle {
+.infoTitle {
     padding-top: 0.5rem;
     padding-bottom: 1rem;
     font-size: 1.5rem;
 }
 
-.errorInfo {
+.infoMessage {
     font-size: 0.875rem;
     color: var(--text-secondary);
 }
 
-.errorInfo:last-of-type {
+.infoMessage:last-of-type {
     margin-bottom: 1rem;
 }

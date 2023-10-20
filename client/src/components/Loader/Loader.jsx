@@ -5,7 +5,7 @@ import styles from "./Loader.module.css";
 import errorSVG from "../../assets/images/error.svg";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slice/authentication.slice";
-const Error = lazy(() => import("../../pages/error/Error"));
+const Info = lazy(() => import("../../pages/info/Info"));
 
 export default function Loader({ variant = "fill", timeOut, iconSrc }) {
     const [showError, setShowError] = useState(false);
@@ -24,7 +24,7 @@ export default function Loader({ variant = "fill", timeOut, iconSrc }) {
 
     if (showError) {
         return (
-            <Error
+            <Info
                 title="Some thing went wrong"
                 image={{ src: errorSVG, styles: { width: "35%" } }}
                 message={{

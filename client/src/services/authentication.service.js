@@ -25,6 +25,7 @@ export async function sendRegisterLinkService(email, dispatch) {
                 message: error.message,
             }),
         );
+        dispatch(setLoading(false));
         return false;
     }
 }

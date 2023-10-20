@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import styles from "./Error.module.css";
+import styles from "./Info.module.css";
 import Header from "../../layouts/header/Header";
 import { NavLink } from "react-router-dom";
 import cx from "../../utils/class-name";
 
-export default function Error({
+export default function Info({
     image,
     title,
     message,
@@ -23,19 +23,19 @@ export default function Error({
     return (
         <React.Fragment>
             {isChild ? null : <Header />}
-            <div className={cx(styles.errorPage, { [styles.child]: isChild })}>
-                <div className={styles.errorImageContainer}>
+            <div className={cx(styles.infoPage, { [styles.child]: isChild })}>
+                <div className={styles.infoImageContainer}>
                     <img
                         src={image.src}
                         alt={title}
-                        className={styles.errorImage}
+                        className={styles.infoImage}
                         style={image.styles}
                     />
                 </div>
-                <div className={styles.errorContentContainer}>
-                    <h3 className={styles.errorTitle}>{message.header}</h3>
-                    <p className={styles.errorInfo}>{message.info}</p>
-                    <p className={styles.errorInfo}>{message.suggest}</p>
+                <div className={styles.infoContentContainer}>
+                    <h3 className={styles.infoTitle}>{message.header}</h3>
+                    <p className={styles.infoMessage}>{message.info}</p>
+                    <p className={styles.infoMessage}>{message.suggest}</p>
                     {navigator ? (
                         <NavLink
                             to={navigator.target}

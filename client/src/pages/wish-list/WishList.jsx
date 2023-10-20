@@ -15,7 +15,7 @@ import PopUp from "../../components/PopUp/PopUp";
 import { Upload } from "@mui/icons-material";
 import WishListRow from "./WishListRow";
 // Error page
-const Error = lazy(() => import("../error/Error"));
+const Info = lazy(() => import("../info/Info"));
 
 export default function WishList() {
     // [STATES]
@@ -48,7 +48,7 @@ export default function WishList() {
     if (!data.wishList)
         return (
             <React.Fragment>
-                <Error
+                <Info
                     image={{ src: emptyWishListSVG, styles: { width: "32%" } }}
                     title="Empty List"
                     message={{

@@ -7,5 +7,8 @@ export const publicRequest = axios.create({
 
 export const privateRequest = axios.create({
     baseURL: process.env.REACT_APP_API,
+    headers: {
+        "Authorization": `Bearer `
+    },
     withCredentials: true,
 });

@@ -3,7 +3,6 @@ import PayPalButton from "./PayPalButton";
 import CodButton from "./CodButton";
 import { useDispatch, useSelector } from "react-redux";
 import { getCart, getUserId } from "../../redux/selectors";
-import { useNavigate } from "react-router-dom";
 import { makeOrderService } from "../../services/order.service";
 
 export default function CheckoutButton({
@@ -11,11 +10,11 @@ export default function CheckoutButton({
     productList,
     address,
     receiver,
+    onCheckout,
 }) {
     const userId = useSelector(getUserId);
     const cart = useSelector(getCart);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     async function handleCheckout(method) {
         try {
@@ -29,7 +28,11 @@ export default function CheckoutButton({
                 },
                 dispatch,
             );
-            if (result) navigate("/success");
+            if (result) {
+                onCheckout(true);
+            } else {
+                onCheckout(false);
+            }
         } catch (error) {
             console.log(error.message);
         }

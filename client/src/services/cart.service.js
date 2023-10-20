@@ -22,6 +22,7 @@ export async function getCartService(userId, dispatch) {
         const productList = await CartDB.getAll();
 
         if (productList) dispatch(setCart({ product_list: productList }));
+        dispatch(setLoading(false));
         return productList;
     }
 }

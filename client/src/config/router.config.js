@@ -11,10 +11,11 @@ import { getUserId } from "../redux/selectors";
 import { PATH } from "./constant.config";
 import pageNotFoundSVG from "../assets/images/page-not-found.svg";
 import errorSVG from "../assets/images/error.svg";
+import orderConfirmSVG from "../assets/images/order-confirm.svg";
 // import offlineSVG from "../assets/images/disconnect.svg";
 
-// Error page
-const Error = lazy(() => import("../pages/error/Error"));
+// Info page
+const Info = lazy(() => import("../pages/info/Info"));
 // Authentication pages
 const Authentication = lazy(() =>
     import("../pages/authentication/Authentication"),
@@ -77,7 +78,7 @@ export default function Router() {
             path: "/",
             element: <Layout />,
             errorElement: (
-                <Error
+                <Info
                     title="Some thing went wrong"
                     image={{ src: errorSVG, styles: { width: "35%" } }}
                     message={{
@@ -132,13 +133,37 @@ export default function Router() {
                 {
                     path: PATH.checkout,
                     element: <Checkout />,
+                    children: [
+                        {
+                            index: true,
+                            element: (
+                                <Info
+                                    title="Order confirmed"
+                                    image={{
+                                        src: orderConfirmSVG,
+                                    }}
+                                    message={{
+                                        header: "Successful!",
+                                        info: "Order has been created successfully.",
+                                        suggest:
+                                            "Would you like to continue shopping?",
+                                    }}
+                                    navigator={{
+                                        target: "/" + PATH.products,
+                                        title: "Continue shopping",
+                                    }}
+                                    isChild
+                                />
+                            ),
+                        },
+                    ],
                 },
             ],
         },
         {
             path: "*",
             element: (
-                <Error
+                <Info
                     title="Not found"
                     image={{ src: pageNotFoundSVG }}
                     message={{
