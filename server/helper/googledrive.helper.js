@@ -1,5 +1,5 @@
 const Config = require("../configs/config");
-const fs = require("fs");
+const stream = require("stream");
 const { google } = require("googleapis");
 const oauth2Client = new google.auth.OAuth2(
     Config.googledrive.clientId,
@@ -26,6 +26,9 @@ class HGoogledrive {
                 });
             });
 
+            const bufferStream = new stream.PassThrough();
+            bufferStream.end(file.buffer);
+
             const result = await drive.files.create({
                 requestBody: {
                     name: fileName,
@@ -33,7 +36,7 @@ class HGoogledrive {
                 },
                 media: {
                     mimeType: "image/*",
-                    body: fs.createReadStream(file.path),
+                    body: bufferStream,
                 },
                 fields: "id, name, webContentLink, webViewLink",
             });
