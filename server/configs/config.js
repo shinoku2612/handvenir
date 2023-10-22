@@ -8,5 +8,11 @@ class Config {
             sameSite: "none",
         },
     };
+    static googledrive = {
+        clientId: process.env.NODE_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.NODE_GOOGLE_CLIENT_SECRET,
+        redirectUri: "https://developers.google.com/oauthplayground",
+        refreshToken: process.env.NODE_GOOGLE_REFRESH_TOKEN,
+    };
 }
 module.exports = Config;

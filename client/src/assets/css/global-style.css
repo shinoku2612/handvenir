@@ -2,7 +2,7 @@
     /* COMPONENT SIZES */
     --header-height: 4.5rem;
 
-    --loader-index: 1000;
+    --loader-index: 10000;
     --header-index: 999;
 
     /* COLORS */
@@ -156,6 +156,9 @@ button.disabled {
 .m-inline-1 {
     margin: 0 1rem;
 }
+.m-inline-2 {
+    margin: 0 2rem;
+}
 
 .mt-1 {
     margin-top: 1rem;
@@ -186,6 +189,10 @@ button.disabled {
 
 .text-left {
     text-align: left;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .text-secondary {
@@ -266,4 +273,19 @@ button.disabled {
 
 .btn-mui.btn-mui-danger {
     color: var(--danger-clr);
+}
+
+.hide {
+    display: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    margin-top: var(--header-height);
 }

@@ -1,14 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const publicRequest = axios.create({
+const publicRequest = axios.create({
     baseURL: process.env.REACT_APP_API,
     withCredentials: true,
 });
 
-export const privateRequest = axios.create({
+const privateRequest = axios.create({
     baseURL: process.env.REACT_APP_API,
     headers: {
-        "Authorization": `Bearer `
+        Authorization: `Bearer `,
     },
     withCredentials: true,
 });
+privateRequest.interceptors.request.use(async (config) => {
+    console.log(config);
+    return config;
+});
+
+export { publicRequest, privateRequest };

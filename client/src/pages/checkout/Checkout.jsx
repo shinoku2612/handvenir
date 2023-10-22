@@ -24,8 +24,8 @@ export default function Checkout() {
     const [shippingAddress, setShippingAddress] = useState(user?.mainAddress);
     const [shippingEditable, setShippingEditable] = useState(false);
     const [receiver, setReceiver] = useState({
-        name: user.name,
-        phone: user.phone,
+        name: user?.name,
+        phone: user?.phone,
     });
     const [success, setSuccess] = useState(false);
 

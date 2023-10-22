@@ -33,6 +33,9 @@ const wishListRoute = require("./routes/wish-list.route.js");
 const locationRoute = require("./routes/location.route.js");
 
 // use middlewares - routers
+app.get("/api", (req, res) => {
+    return res.status(200).json({ status: "success", ready: true });
+});
 app.use("/api/auth", authRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/category", categoryRoute);

@@ -10,6 +10,7 @@
     justify-content: center;
     flex-direction: column;
 }
+
 .avatarContainer,
 .nameContainer {
     --p: 0.5rem;
@@ -20,17 +21,92 @@
     position: relative;
     overflow: hidden;
 }
+
 .avatarContainer {
     border-radius: 50%;
     background: inherit;
     box-shadow: 0.25rem 0.25rem 1rem #cccccc, -0.25rem -0.25rem 1rem #ffffff;
 }
+
 .avatar {
     --avatar-size: 8rem;
     width: var(--avatar-size);
     height: var(--avatar-size);
     border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
 }
+
+.avatarPicker {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30%;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity ease-in-out 200ms;
+}
+
+.avatarContainer:hover .avatarPicker {
+    visibility: visible;
+    opacity: 1;
+}
+
+.avatarPicker .icon {
+    color: #eeeeee;
+    fill: #eeeeee;
+}
+
+.imagePreview {
+    min-width: 40%;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+}
+
+.imagePreviewHeader {
+    border-bottom: 1px solid #cccccc;
+    padding: 0.625rem;
+    margin-bottom: 1rem;
+    position: relative;
+    font-size: 1.25rem;
+}
+
+.headerIcon {
+    position: absolute;
+    padding: 0.625rem;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    right: 0.4rem;
+    border-radius: 50%;
+    background-color: #eeeeee;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.imagePreviewBody {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image {
+    --size: 20rem;
+    width: var(--size);
+}
+
+.imagePreviewFooter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
 .name {
     font-family: 'Poppins';
     font-size: 1.2rem;
@@ -49,10 +125,12 @@
     justify-content: center;
     flex-direction: column;
 }
+
 .menuContainer {
     width: 100%;
     padding: 0 0.625rem;
 }
+
 .menuItem {
     padding: 0.625rem;
     width: 100%;
@@ -65,9 +143,11 @@
     color: #000;
     text-decoration: none;
 }
-.menuItem + .menuItem {
+
+.menuItem+.menuItem {
     margin-top: 0.625rem;
 }
+
 .menuItem:hover,
 .menuActive {
     /* background-color: var(--primary-clr);
@@ -76,10 +156,12 @@
     box-shadow: inset 0.25rem 0.25rem 0.4rem #d1d1d1,
         inset -0.25rem -0.25rem 0.4rem rgb(240, 240, 240);
 }
+
 .menuTitle {
     padding: 0.25rem;
     margin-left: 0.5rem;
 }
+
 .menuImage {
     --size: 2.5rem;
     width: var(--size);

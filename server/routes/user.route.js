@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 const UserController = require("../controllers/user.controller");
 const MVerifier = require("../middlewares/verifier.middleware");
 
@@ -27,6 +29,12 @@ router.put(
     "/:userId/address/default",
     MVerifier.verifyAuthorization,
     UserController.setDefaultAddress,
+);
+router.put(
+    "/:userId/avatar",
+    upload.single("file"),
+    MVerifier.verifyAuthorization,
+    UserController.uploadAvatar,
 );
 
 module.exports = router;

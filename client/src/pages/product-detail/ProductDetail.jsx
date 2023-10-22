@@ -144,7 +144,7 @@ export default function ProductDetail() {
                                     Brand
                                 </span>
                                 <strong className={styles.specificationValue}>
-                                    ShinPay
+                                    {process.env.REACT_APP_SITE_TITLE}
                                 </strong>
                             </div>
                             <div className={styles.specification}>

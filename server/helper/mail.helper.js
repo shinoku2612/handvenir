@@ -11,8 +11,8 @@ class HMail {
         });
 
         await transporter.sendMail({
-            from: `"ShinPay" <${process.env.NODE_AUTH_MAIL}>`,
-            replyTo: "noreply.account.shinpay@gmail.com",
+            from: `"${process.env.NODE_APP_NAME}" <${process.env.NODE_AUTH_MAIL}>`,
+            replyTo: "noreply.account.handvenir@gmail.com",
             to: receiver,
             subject,
             html: template(link),

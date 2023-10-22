@@ -6,6 +6,8 @@ import Router from "./config/router.config";
 import { useQuery } from "react-query";
 import { getUserService } from "./services/user.service";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { publicRequest } from "./config/axios.config";
+import Loader from "./components/Loader/Loader";
 
 function App() {
     // [STATES]
@@ -15,11 +17,16 @@ function App() {
     const dispatch = useDispatch();
 
     // [API QUERIES]
-    useQuery(["user", userId], () => {
-        if (userId) {
-            getUserService(userId, dispatch);
-        }
-    });
+    const { isLoading } = useQuery("get-ready", () => publicRequest.get("/"));
+    useQuery(
+        ["user", userId],
+        () => {
+            if (userId) {
+                getUserService(userId, dispatch);
+            }
+        },
+        { enabled: !isLoading },
+    );
 
     // [SIDE EFFECTS]
     useEffect(() => {
@@ -29,13 +36,14 @@ function App() {
     }, [toast]);
 
     // [RENDER]
+    if (isLoading) return <Loader />;
     return (
         <PayPalScriptProvider
             options={{
                 clientId: process.env.REACT_APP_PAYPAL_CLIENT_ID,
                 intent: "capture",
                 currency: "USD",
-                locale: "en_VN"
+                locale: "en_VN",
             }}
         >
             <Router />

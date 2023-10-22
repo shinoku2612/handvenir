@@ -18,7 +18,9 @@ export default function Footer() {
                 <div className={styles.topSection}>
                     <div className={styles.footerLeft}>
                         <div className={styles.leftMenu}>
-                            <h5 className={styles.menuTitle}>About ShinPay</h5>
+                            <h5 className={styles.menuTitle}>
+                                About {process.env.REACT_APP_SITE_TITLE}
+                            </h5>
                             <ul className={styles.menuContainer}>
                                 <li className={styles.menuItem}>
                                     <NavLink>About</NavLink>
@@ -87,7 +89,8 @@ export default function Footer() {
                         </div>
                         <div className={styles.rightMenu}>
                             <h5 className={styles.menuTitle}>
-                                Subscribe for ShinPay latest news
+                                Subscribe for {process.env.REACT_APP_SITE_TITLE}{" "}
+                                latest news
                             </h5>
                             <div className={styles.inputGroup}>
                                 <input
@@ -130,7 +133,8 @@ export default function Footer() {
 
                 <div className={styles.bottomSection}>
                     <div className={styles.copyright}>
-                        &#169; 2023 ShinPay. All Rights Reserved
+                        &#169; 2023 {process.env.REACT_APP_SITE_TITLE}. All
+                        Rights Reserved
                     </div>
                     <div className={styles.privacyList}>
                         <NavLink className={styles.privacyItem}>

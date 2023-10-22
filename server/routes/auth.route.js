@@ -3,7 +3,6 @@ const router = express.Router();
 const AuthController = require("../controllers/auth.controller");
 
 const MValidator = require("../middlewares/validator.middleware");
-const MVerifier = require("../middlewares/verifier.middleware");
 
 router.post("/register", MValidator.validateEmail, AuthController.register);
 router.get("/register", AuthController.registerWithLink);

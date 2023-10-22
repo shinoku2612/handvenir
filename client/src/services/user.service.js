@@ -1,6 +1,6 @@
 import { privateRequest } from "../config/axios.config";
 import { logout } from "../redux/slice/authentication.slice";
-import { setToast } from "../redux/slice/global.slice";
+import { setLoading, setToast } from "../redux/slice/global.slice";
 import { setUser } from "../redux/slice/user.slice";
 
 export async function getUserService(userId, dispatch) {
@@ -48,6 +48,32 @@ export async function updateUserService(userId, dispatch, information) {
                 message: error.message,
             }),
         );
+        return false;
+    }
+}
+export async function updateAvatarService(userId, dispatch, file) {
+    try {
+        dispatch(setLoading(true));
+        const res = await privateRequest.put(`/user/${userId}/avatar`, file);
+        dispatch(setUser(res.data));
+        dispatch(
+            setToast({
+                show: true,
+                type: "success",
+                message: "Your avatar is up-to-date",
+            }),
+        );
+        dispatch(setLoading(false));
+        return true;
+    } catch (error) {
+        dispatch(
+            setToast({
+                show: true,
+                type: "danger",
+                message: error.message,
+            }),
+        );
+        dispatch(setLoading(false));
         return false;
     }
 }

@@ -1,3 +1,4 @@
+const HGoogledrive = require("../helper/googledrive.helper");
 const UserModel = require("../models/user.model");
 
 class UserController {
@@ -137,6 +138,28 @@ class UserController {
             return res.status(200).json(user);
         } catch (error) {
             return res.status(500).json(error.message);
+        }
+    }
+    static async uploadAvatar(req, res) {
+        try {
+            const { userId } = req.params;
+            const uploadedFile = req.file;
+            if (!uploadedFile)
+                return res
+                    .status(400)
+                    .json({ status: "error", error: "No file provided" });
+            const user = await UserModel.findById(userId);
+            const file = await HGoogledrive.uploadFile(
+                `${user.name}-${user._id}`,
+                uploadedFile,
+            );
+            user.avatar = file.webContentLink;
+            await user.save();
+            return res.status(200).json(user);
+        } catch (error) {
+            return res
+                .status(500)
+                .json({ status: "error", message: error.message });
         }
     }
 }
