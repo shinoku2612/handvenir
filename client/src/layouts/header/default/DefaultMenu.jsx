@@ -48,6 +48,9 @@ function HeaderMenu({ userId }) {
                     src={user.avatar}
                     alt="User Avatar"
                     className={styles.userAvatar}
+                    onError={(e) => {
+                        e.target.src = user.avatar;
+                    }}
                 />
             ) : (
                 menu.icon

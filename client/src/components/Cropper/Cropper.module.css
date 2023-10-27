@@ -1,0 +1,31 @@
+.cropperContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cropper {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    cursor: move;
+    user-select: none;
+    max-height: 28rem;
+}
+
+.cropperCanvas {
+    position: absolute;
+    z-index: 1;
+}
+
+.image {
+    --size: 30rem;
+    width: var(--size);
+    object-fit: cover;
+    object-position: center;
+}
+
+.scaleRange {
+    margin-top: 1.25rem;
+}

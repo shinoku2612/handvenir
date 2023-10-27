@@ -95,11 +95,6 @@
     justify-content: center;
 }
 
-.image {
-    --size: 20rem;
-    width: var(--size);
-}
-
 .imagePreviewFooter {
     display: flex;
     align-items: center;

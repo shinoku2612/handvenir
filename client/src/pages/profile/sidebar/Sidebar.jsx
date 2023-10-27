@@ -8,6 +8,7 @@ import { getIsLoading, getUser, getUserId } from "../../../redux/selectors";
 import { AddAPhoto, Close } from "@mui/icons-material";
 import { updateAvatarService } from "../../../services/user.service";
 import Loader from "../../../components/Loader/Loader";
+import Cropper from "../../../components/Cropper/Cropper";
 
 export default function Sidebar() {
     // [STATES]
@@ -18,6 +19,7 @@ export default function Sidebar() {
     const avatarId = useId();
     const [imageSrc, setImageSrc] = useState("");
     const fileRef = useRef();
+    const cropperRef = useRef();
 
     useEffect(() => {
         return () => {
@@ -32,12 +34,15 @@ export default function Sidebar() {
     }
     async function handleSubmitAvatar() {
         try {
-            if (fileRef.current) {
-                const formData = new FormData();
-                formData.append("file", fileRef.current);
-                setImageSrc("");
-                await updateAvatarService(userId, dispatch, formData);
-            }
+            const croppedImageFile = await cropperRef.current.cropImage(
+                cropperRef.current.canvas,
+                cropperRef.current.context,
+                cropperRef.current.source,
+            );
+            const formData = new FormData();
+            formData.append("file", croppedImageFile);
+            setImageSrc("");
+            await updateAvatarService(userId, dispatch, formData);
         } catch (error) {
             console.log(error.message);
         }
@@ -53,6 +58,9 @@ export default function Sidebar() {
                             className={styles.avatar}
                             src={user.avatar}
                             alt="User avatar"
+                            onError={(e) => {
+                                e.target.src = user.avatar;
+                            }}
                         />
                         <label
                             htmlFor={avatarId}
@@ -69,47 +77,46 @@ export default function Sidebar() {
                             onInput={handleChangeFile}
                         />
                     </div>
-                    <div
-                        className={cx("overlay", "flex-center", {
-                            hide: !imageSrc,
-                        })}
-                    >
-                        <div className={styles.imagePreview}>
-                            <div className={styles.imagePreviewHeader}>
-                                <h3 className="text-center">Update avatar</h3>
-                                <div
-                                    className={cx(
-                                        styles.headerIcon,
-                                        "flex-center",
-                                    )}
-                                    onClick={() => setImageSrc("")}
-                                >
-                                    <Close />
+                    {imageSrc ? (
+                        <div className="overlay flex-center">
+                            <div className={styles.imagePreview}>
+                                <div className={styles.imagePreviewHeader}>
+                                    <h3 className="text-center">
+                                        Update avatar
+                                    </h3>
+                                    <div
+                                        className={cx(
+                                            styles.headerIcon,
+                                            "flex-center",
+                                        )}
+                                        onClick={() => setImageSrc("")}
+                                    >
+                                        <Close />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={styles.imagePreviewBody}>
-                                <img
-                                    src={imageSrc}
-                                    alt=""
-                                    className={styles.image}
-                                />
-                            </div>
-                            <div className={styles.imagePreviewFooter}>
-                                <div
-                                    className="btn btn-primary btn-rounded btn-outlined  m-inline-2"
-                                    onClick={() => setImageSrc("")}
-                                >
-                                    Cancel
+                                <div className={styles.imagePreviewBody}>
+                                    <Cropper
+                                        image={imageSrc}
+                                        ref={cropperRef}
+                                    />
                                 </div>
-                                <div
-                                    className="btn btn-primary btn-rounded"
-                                    onClick={handleSubmitAvatar}
-                                >
-                                    Save
+                                <div className={styles.imagePreviewFooter}>
+                                    <div
+                                        className="btn btn-primary btn-rounded btn-outlined  m-inline-2"
+                                        onClick={() => setImageSrc("")}
+                                    >
+                                        Cancel
+                                    </div>
+                                    <div
+                                        className="btn btn-primary btn-rounded"
+                                        onClick={handleSubmitAvatar}
+                                    >
+                                        Save
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    ) : null}
                     <div className={styles.nameContainer}>
                         <p className={styles.name}>{user?.name}</p>
                     </div>

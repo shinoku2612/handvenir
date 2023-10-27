@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
     RouterProvider,
@@ -12,7 +12,7 @@ import { PATH } from "./constant.config";
 import pageNotFoundSVG from "../assets/images/page-not-found.svg";
 import errorSVG from "../assets/images/error.svg";
 import orderConfirmSVG from "../assets/images/order-confirm.svg";
-// import offlineSVG from "../assets/images/disconnect.svg";
+import offlineSVG from "../assets/images/disconnect.svg";
 
 // Info page
 const Info = lazy(() => import("../pages/info/Info"));
@@ -176,37 +176,37 @@ export default function Router() {
             ),
         },
     ]);
-    // const offlineRouter = createBrowserRouter([
-    //     {
-    //         path: "*",
-    //         element: (
-    //             <Error
-    //                 title="No Internet"
-    //                 image={{ src: offlineSVG }}
-    //                 message={{
-    //                     header: "Whoops! You are offline?",
-    //                     info: "You are disconnected from our service.",
-    //                     suggest:
-    //                         "Please check your network connection and try again",
-    //                 }}
-    //             />
-    //         ),
-    //     },
-    // ]);
+    const offlineRouter = createBrowserRouter([
+        {
+            path: "*",
+            element: (
+                <Info
+                    title="No Internet"
+                    image={{ src: offlineSVG }}
+                    message={{
+                        header: "Whoops! You are offline?",
+                        info: "You are disconnected from our service.",
+                        suggest:
+                            "Please check your network connection and try again",
+                    }}
+                />
+            ),
+        },
+    ]);
 
-    // const [isOnline, setIsOnline] = useState(navigator.onLine);
-    // useEffect(() => {
-    //     window.ononline = function () {
-    //         setIsOnline(true);
-    //     };
-    //     window.onoffline = function () {
-    //         setIsOnline(false);
-    //     };
-    // });
+    const [isOnline, setIsOnline] = useState(navigator.onLine);
+    useEffect(() => {
+        window.ononline = function () {
+            setIsOnline(true);
+        };
+        window.onoffline = function () {
+            setIsOnline(false);
+        };
+    });
     return (
         <Suspense fallback={<Loader />}>
-            <RouterProvider router={router} />
-            {/* <RouterProvider router={isOnline ? router : offlineRouter} /> */}
+            {/* <RouterProvider router={router} /> */}
+            <RouterProvider router={isOnline ? router : offlineRouter} />
         </Suspense>
     );
 }

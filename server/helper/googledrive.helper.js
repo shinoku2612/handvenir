@@ -47,7 +47,6 @@ class HGoogledrive {
                     type: "anyone",
                 },
             });
-            await new Promise((resolve) => setTimeout(resolve, 1000));
             return result.data;
         } catch (error) {
             return { status: "error", message: error.message };
