@@ -150,7 +150,7 @@ class UserController {
                     .json({ status: "error", error: "No file provided" });
             const user = await UserModel.findById(userId);
             const file = await HGoogledrive.uploadFile(
-                `${user.name}-${user._id}`,
+                `${process.env.NODE_ENV}-${user.name}-${user._id}`,
                 uploadedFile,
             );
             user.avatar = file.webContentLink;
