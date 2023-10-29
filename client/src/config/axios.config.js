@@ -4,6 +4,7 @@ import { UserDB } from "../utils/indexedDB";
 
 const publicRequest = axios.create({
     baseURL: process.env.REACT_APP_API,
+    withCredentials: true,
 });
 
 const privateRequest = axios.create({
@@ -13,9 +14,7 @@ const privateRequest = axios.create({
 
 async function refreshTokenService(userId) {
     try {
-        const res = await publicRequest.get(`/auth/refresh-token/${userId}`, {
-            withCredentials: true,
-        });
+        const res = await publicRequest.get(`/auth/refresh-token/${userId}`);
         return res.data;
     } catch (error) {
         return "";

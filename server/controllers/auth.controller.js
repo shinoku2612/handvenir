@@ -184,8 +184,7 @@ class AuthController {
             const { userId } = req.params;
             await TokenModel.deleteMany({ user: userId });
             return res
-                .clearCookie("refreshToken")
-                .clearCookie("accessToken")
+                .clearCookie("refreshToken", Config.cookie.options)
                 .status(200)
                 .json("Successful");
         } catch (error) {
