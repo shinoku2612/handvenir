@@ -16,7 +16,7 @@ class AuthController {
                 const token = HGenerator.generateToken(
                     { email: email },
                     process.env.NODE_TOKEN_SECRET,
-                    "5m",
+                    process.env.NODE_TOKEN_TIME,
                 );
                 const registerLink = `${origin}/register?t=${token}`;
                 // const registerLink = `http://localhost:8080/api/auth/register?t=${token}`;
@@ -61,7 +61,7 @@ class AuthController {
                 const token = HGenerator.generateToken(
                     { id: user._id },
                     userSecret,
-                    "5m",
+                    process.env.NODE_TOKEN_TIME,
                 );
                 const loginLink = `${origin}/login?i=${user._id}&t=${token}`;
                 // const loginLink = `http://localhost:8080/api/auth/login?i=${user._id}&t=${token}`;
@@ -90,13 +90,13 @@ class AuthController {
                 {
                     userId: user._id,
                 },
-                "15m",
+                process.env.NODE_ACCESS_TOKEN_TIME,
             );
             const refreshToken = HGenerator.generateRefreshToken(
                 {
                     userId: user._id,
                 },
-                "7d",
+                process.env.NODE_REFRESH_TOKEN_TIME,
             );
             const newRefreshToken = new TokenModel({
                 user: user._id,
@@ -105,17 +105,17 @@ class AuthController {
             await newRefreshToken.save();
 
             return res
-                .cookie("accessToken", accessToken, Config.cookie.options)
                 .cookie("refreshToken", refreshToken, Config.cookie.options)
                 .status(200)
-                .json({ userId: user._id });
+                .json({ userId: user._id, accessToken });
         } catch (error) {
             return res.status(500).json(error.message);
         }
     }
     static async refreshToken(req, res) {
         const { refreshToken } = req.cookies;
-        if (!refreshToken) return res.status(401).json("Unauthorized 1");
+        if (!refreshToken)
+            return res.status(401).json("Not allowed: No refresh token!");
 
         try {
             const { userId } = req.params;
@@ -123,30 +123,41 @@ class AuthController {
             const [existToken] = await TokenModel.find({ user: userId })
                 .sort({ createdAt: -1 })
                 .limit(1);
-            if (!existToken) return res.status(401).json("Unauthorized 2");
+            if (!existToken)
+                return res
+                    .status(401)
+                    .json("Not allowed: Refresh token does not exist!");
 
             const isValidToken = await existToken.verify(refreshToken);
-            if (!isValidToken) return res.status(403).json("Forbidden");
+            if (!isValidToken)
+                return res
+                    .status(403)
+                    .json("Not allowed: Invalid refresh token!");
 
             JWT.verify(
                 refreshToken,
                 process.env.NODE_REFRESH_TOKEN_SECRET,
                 async (error, payload) => {
-                    if (error) return res.status(401).json("Failed 1");
+                    if (error)
+                        return res
+                            .status(401)
+                            .json(`Verify failed: ${error.message}!`);
                     if (payload.userId !== userId)
-                        return res.status(401).json("Failed 2");
+                        return res
+                            .status(401)
+                            .json("Verify failed: Unauthorized!");
 
                     const accessToken = HGenerator.generateAccessToken(
                         {
                             userId: payload.userId,
                         },
-                        "15m",
+                        process.env.NODE_ACCESS_TOKEN_TIME,
                     );
                     const refreshToken = HGenerator.generateRefreshToken(
                         {
                             userId: payload.userId,
                         },
-                        "7d",
+                        process.env.NODE_REFRESH_TOKEN_TIME,
                     );
 
                     existToken.refresh_token = refreshToken;

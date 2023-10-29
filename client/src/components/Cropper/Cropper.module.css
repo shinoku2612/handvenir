@@ -20,7 +20,7 @@
 }
 
 .image {
-    --size: 30rem;
+    --size: 28rem;
     width: var(--size);
     object-fit: cover;
     object-position: center;

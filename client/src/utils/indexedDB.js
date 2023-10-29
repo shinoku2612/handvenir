@@ -152,6 +152,8 @@ class IndexedDB {
 const stores = [
     { name: "cart", keyPath: "product" },
     { name: "wish_list", keyPath: "product" },
+    { name: "user", keyPath: "user" },
 ];
-export const CartDB = new IndexedDB("ShinPay", stores, "cart");
-export const WishListDB = new IndexedDB("ShinPay", stores, "wish_list");
+export const CartDB = new IndexedDB("Handveir", stores, "cart");
+export const WishListDB = new IndexedDB("Handveir", stores, "wish_list");
+export const UserDB = new IndexedDB("Handveir", stores, "user");

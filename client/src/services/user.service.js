@@ -12,6 +12,8 @@ export async function getUserService(userId, dispatch) {
         let errorMessage = "";
         if (error.name === "AxiosError") {
             errorMessage = error.response.data.message;
+        } else {
+            errorMessage = error.message;
         }
         dispatch(
             setToast({

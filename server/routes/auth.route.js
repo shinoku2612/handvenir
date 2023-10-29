@@ -9,7 +9,7 @@ router.get("/register", AuthController.registerWithLink);
 router.post("/login", MValidator.validateEmail, AuthController.login);
 router.get("/login", AuthController.loginWithLink);
 
-router.put("/refresh-token/:userId", AuthController.refreshToken);
+router.get("/refresh-token/:userId", AuthController.refreshToken);
 router.delete("/logout/:userId", AuthController.logout);
 
 module.exports = router;

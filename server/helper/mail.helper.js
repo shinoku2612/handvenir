@@ -83,7 +83,7 @@ class HMail {
                         <div class="header">
                             <h3 class="greeting">Welcome to our platform</h3>
                             <div class="header__logo">
-                                <img src="https://shin-pay.vercel.app/logo.png" alt="${process.env.NODE_APP_NAME}" />
+                                <img src="https://handvenir.vercel.app/logo.png" alt="${process.env.NODE_APP_NAME}" />
                             </div>
                         </div>
                         <div class="letter">
@@ -174,7 +174,7 @@ class HMail {
                         <div class="header">
                             <h3 class="greeting">Welcome back</h3>
                             <div class="header__logo">
-                                <img src="https://shin-pay.vercel.app/logo.png" alt="${process.env.NODE_APP_NAME}" />
+                                <img src="https://handvenir.vercel.app/logo.png" alt="${process.env.NODE_APP_NAME}" />
                             </div>
                         </div>
                         <div class="letter">

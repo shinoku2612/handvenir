@@ -1,15 +1,23 @@
 const JWT = require("jsonwebtoken");
 class MVerifier {
     static async verifyToken(req, res, next) {
-        const { accessToken } = req.cookies;
+        const { authorization: authHeader } = req.headers;
 
-        if (!accessToken)
+        if (!authHeader || !authHeader.includes("Bearer"))
+            return res.status(403).json({
+                code: "TK4034", // không có auth header
+                message: "Invalid header!",
+            });
+
+        const token = authHeader.split(" ")[1];
+
+        if (!token)
             return res.status(403).json({
                 code: "TK4030", // không có token
                 message: "You are not authenticated!",
             });
         JWT.verify(
-            accessToken,
+            token,
             process.env.NODE_ACCESS_TOKEN_SECRET,
             (error, data) => {
                 if (error) {
