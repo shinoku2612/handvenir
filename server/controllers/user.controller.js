@@ -31,7 +31,7 @@ class UserController {
     static async updateUser(req, res) {
         try {
             const { userId } = req.params;
-            const { email, ...updatedInfo } = { ...req.body };
+            const { email, status, secret, ...updatedInfo } = { ...req.body };
             const user = await UserModel.findOneAndUpdate(
                 { _id: userId },
                 {

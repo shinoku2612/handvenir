@@ -54,48 +54,42 @@ export default function Products() {
     // [RENDER]
     return (
         <div className={styles.products}>
-            <div className="container">
-                <div className="row">
-                    <div className="col-3">
-                        <div className={styles.productSidebar}>
-                            <Category label="Sorts">
-                                <Sort
-                                    sortCriteria={sortCriteria}
-                                    onSetSortCriteria={setSortCriteria}
-                                />
-                            </Category>
-                            <Category
-                                label="Filters"
-                                action="Clear all"
-                                criteria={[]}
-                                onClearFilter={handleClearFilter}
-                            >
-                                <ExpandList
-                                    title="Categories"
-                                    categories={categories}
-                                    criteria={criteria}
-                                    onSetCriteria={handleSetCriteria}
-                                />
-                            </Category>
-                        </div>
-                    </div>
-                    <div className="col-9">
-                        <ProductsHeader
-                            criteria={criteria}
-                            query={{
-                                search: searchQuery,
-                                sort: sortCriteria,
-                            }}
+            <div className={styles.productSidebar}>
+                <Category label="Sorts">
+                    <Sort
+                        sortCriteria={sortCriteria}
+                        onSetSortCriteria={setSortCriteria}
+                    />
+                </Category>
+                <Category
+                    label="Filters"
+                    action="Clear all"
+                    criteria={[]}
+                    onClearFilter={handleClearFilter}
+                >
+                    <ExpandList
+                        title="Categories"
+                        categories={categories}
+                        criteria={criteria}
+                        onSetCriteria={handleSetCriteria}
+                    />
+                </Category>
+            </div>
+            <div>
+                <ProductsHeader
+                    criteria={criteria}
+                    query={{
+                        search: searchQuery,
+                        sort: sortCriteria,
+                    }}
+                />
+                <div className={styles.productList}>
+                    {products.map((product) => (
+                        <ProductItem
+                            key={product._id}
+                            product={product}
                         />
-                        <div className={styles.productList}>
-                            {products.map((product) => (
-                                <ProductItem
-                                    key={product._id}
-                                    product={product}
-                                />
-                            ))}
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>

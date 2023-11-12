@@ -28,7 +28,6 @@ class HGoogledrive {
 
             const bufferStream = new stream.PassThrough();
             bufferStream.end(file.buffer);
-
             const result = await drive.files.create({
                 requestBody: {
                     name: fileName,
