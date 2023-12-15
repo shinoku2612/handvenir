@@ -75,7 +75,7 @@ export default function Products() {
                     />
                 </Category>
             </div>
-            <div>
+            <div style={{ marginTop: 10 }}>
                 <ProductsHeader
                     criteria={criteria}
                     query={{
